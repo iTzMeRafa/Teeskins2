@@ -1,0 +1,23 @@
+{
+  "name": "teeskins",
+  "version": "1.0.0",
+  "description": "A comprehensive Teeworlds database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iTzMeRafa/Teeskins.git"
+  },
+  "author": "Rafael Carneiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iTzMeRafa/Teeskins/issues"
+  },
+  "homepage": "https://github.com/iTzMeRafa/Teeskins#readme",
+  "dependencies": {
+    "bootstrap": "^4.1.3",
+    "react": "^16.5.2"
+  }
+}
