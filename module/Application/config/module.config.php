@@ -24,12 +24,12 @@ return [
                     ],
                 ],
             ],
-            'kontakt' => [
+            'skins' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route'    => '/kontakt',
+                    'route'    => '/skins',
                     'defaults' => [
-                        'controller' => Controller\KontaktController::class,
+                        'controller' => Controller\SkinsController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -39,7 +39,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
-            Controller\KontaktController::class => InvokableFactory::class
+            Controller\SkinsController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [

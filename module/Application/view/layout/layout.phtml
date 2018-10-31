@@ -3,54 +3,39 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?= $this->headTitle('ZF Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?= $this->headTitle('Teeskins - Comprehensive Teeworlds database')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?= $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
-
         <!-- Le styles -->
-        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico']) ?>
+
+        <!-- favicon includes -->
+        <link rel="apple-touch-icon" sizes="57x57" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="<?= $this->basePath(); ?>/img/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="<?= $this->basePath(); ?>/img/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?= $this->basePath(); ?>/img/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="<?= $this->basePath(); ?>/img/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?= $this->basePath(); ?>/img/favicons/favicon-16x16.png">
+        <link rel="manifest" href="<?= $this->basePath(); ?>/img/favicons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="<?= $this->basePath(); ?>/img/favicons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
 
         <!-- Scripts -->
         <?= $this->headScript()
-            ->prependFile('../dist/bundle.js')
+            ->prependFile($this->basePath('dist/global-styles.js'))
         ?>
     </head>
-    <body>
-
-    <!-- Navigation begin -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Teeskins</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link 2</a>
-                    </li>
-                </ul>
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </nav>
-    <!-- Navigation end -->
-
-        <div class="container">
-            <?= $this->content ?>
-            <hr>
-            <footer>
-                <p>&copy; 2018 - <?= date('Y') ?> by Rafael Carneiro. All rights reserved.</p>
-            </footer>
-        </div>
-        <?= $this->inlineScript() ?>
+    <body id="root">
+    <?= $this->content; ?>
     </body>
 </html>

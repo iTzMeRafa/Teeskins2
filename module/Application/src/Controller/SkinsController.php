@@ -10,7 +10,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class KontaktController extends AbstractActionController
+class SkinsController extends AbstractActionController
 {
     public function indexAction()
     {
