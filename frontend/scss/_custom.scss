@@ -1,0 +1,17 @@
+@import "colors";
+
+body {
+  background-image: url("../public/img/bg2.png");
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  background-color: $light-blue;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+
+section {
+  padding: 20px;
+}
+
+.bg-realWhite{
+  background-color: $real-white;
+}
