@@ -58,7 +58,6 @@ export default class MainNavbar extends React.Component {
     }
 
     isActive(naviPath) {
-        console.log("URL-PATH:" + this.getUrlPath() + "| NAVI-PATH:" + naviPath);
         if(this.getUrlPath() === naviPath) {
             return 'active';
         }

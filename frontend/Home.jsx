@@ -1,17 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import Jumbotron from './jsx/Jumbotron'
 import Carousel from './jsx/Carousel'
 import Header from './jsx/Header'
 import MainNavbar from "./jsx/MainNavbar"
 import ItemCounterBadge from "./jsx/ItemCounterBadge"
 import Footer from "./jsx/Footer";
+import Trending from "./jsx/Trending";
 import 'bootstrap'
-
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
-import Trending from "./jsx/Trending";
 
 class Home extends React.Component {
     render(){

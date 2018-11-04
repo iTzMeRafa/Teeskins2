@@ -2,6 +2,7 @@ var path = require('path');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: {
         "app-home": "./frontend/Home.jsx",
         "app-skins": "./frontend/Skins.jsx",

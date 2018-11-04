@@ -4,31 +4,41 @@ import Header from './jsx/Header'
 import MainNavbar from "./jsx/MainNavbar"
 import GridCore from "./jsx/GridCore"
 import ItemCounterBadge from "./jsx/ItemCounterBadge"
+import Sidebar from "./jsx/Sidebar";
+import Footer from "./jsx/Footer";
 import 'bootstrap'
 import Muuri from "muuri";
 
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
+
 
 class Home extends React.Component {
     render(){
         return(
             <>
-                <div className="container mb-3">
-
+                <div className="container">
                     <ItemCounterBadge style={"warning"} toRight={true}>
                         <FontAwesomeIcon icon={faArchive}/> 18.000+ Items in database
                     </ItemCounterBadge>
 
                     <Header/>
-                    <MainNavbar/>
-                    <section className="content">
+                </div>
+                <div className="container mb-3">
 
-                        <GridCore/>
-                    </section>
+                        <MainNavbar/>
+                        <section className="content">
+                            <div className="row">
+                                <div className="col-xl-2">
+                                    <Sidebar/>
+                                </div>
 
-
+                                <div className="col-xl-10">
+                                    <GridCore/>
+                                </div>
+                            </div>
+                        </section>
+                        <Footer/>
                 </div>
             </>
         );
@@ -42,23 +52,11 @@ var dragSortOptions = {
     threshold: 50
 };
 var grid = new Muuri('.grid', {
-    dragEnabled: true,
+    dragEnabled: false,
     sortData: {
         id: function (item, element) {
             return parseFloat(element.getAttribute("downloads"));
         }
-    },
-    dragStartPredicate: function (item, event) {
-        // Prevent first item from being dragged.
-        if (grid.getItems().indexOf(item) === 0) {
-            return false;
-        }
-        // For other items use the default drag start predicate.
-        return Muuri.ItemDrag.defaultStartPredicate(item, event);
-    },
-    dragSortPredicate: function (item) {
-        var result = Muuri.ItemDrag.defaultSortPredicate(item, dragSortOptions);
-        return result && result.index === 0 ? false : result;
     }
 });
 

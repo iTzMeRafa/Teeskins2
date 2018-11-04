@@ -1,12 +1,11 @@
 import React from "react";
-import SortingPanel from "./SortingPanel";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faThumbsUp} from "@fortawesome/free-solid-svg-icons";
 
 export default class GridCore extends React.Component {
     render(){
         return(
             <>
-
-            <SortingPanel/>
 
                 <div className="grid">
 
@@ -61,48 +60,84 @@ export default class GridCore extends React.Component {
                         </div>
                     </div>
                     <div className="item">
-                        <div className="item-content">
+                        <div className="item-content align-middle">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
                     <div className="item">
                         <div className="item-content">
+                            <p className="likes">
+                                <FontAwesomeIcon icon={faThumbsUp}/> 7328
+                            </p>
                             <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png" />
+                            <p className="title">Patwo</p>
                         </div>
                     </div>
 
