@@ -5,8 +5,8 @@ Teeskins is a comprehensive database for teeworlds skins.
 ## Usage & Installation
 
 [Composer](https://getcomposer.org/) and [>=PHP5.0](https://secure.php.net/) is required to run this project.  
-For the frontend part we use [React](https://reactjs.org/), [npm](https://www.npmjs.com/) and [scss](https://sass-lang.com/).  
-We run [Webpack](https://webpack.js.org/) to bundle and comple the webapplication.  
+For the frontend part I use [React](https://reactjs.org/), [npm](https://www.npmjs.com/) and [scss](https://sass-lang.com/).  
+I run [Webpack](https://webpack.js.org/) to bundle and compile the webapplication.  
 
 * Rename the __.env.example__ file to __.env__ and enter your values
 
