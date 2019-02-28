@@ -6,3 +6,6 @@ data/cache/*
 phpunit.xml
 node_modules/
 .idea/
+.env
+package-lock.json
+composer-lock.json
