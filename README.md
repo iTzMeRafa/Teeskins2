@@ -49,6 +49,8 @@ composer dumpautoload
 ## Errors / FAQ / HELP
 Error: Your requirements could not be resolved to an installable set of packages.  
 Fix: ```sudo apt-get install php-xml```
+```sudo apt-get install php7.0-gmp ```
+```sudo apt-get install php-curl```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
