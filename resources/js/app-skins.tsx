@@ -1,16 +1,47 @@
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Header from './components/Header'
+import MainNavbar from "./components/MainNavbar"
+import GridCore from "./components/GridCore"
+import ItemCounterBadge from "./components/ItemCounterBadge"
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
+import FontAwesome from "react-fontawesome";
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+declare var data: any;
 
-require('./bootstrap');
+export default class Skins extends React.Component {
+    render(){
+        return(
+            <>
+                <div className="container">
+                    <ItemCounterBadge style="warning" toRight={true} itemsCount={100}>
+                        <FontAwesome name='rocket' /> 18.000+ Items in database
+                    </ItemCounterBadge>
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+                    <Header/>
+                </div>
+                <div className="container mb-3">
 
-require('./components/Skins');
+                    <MainNavbar/>
+                    <section className="content">
+                        <div className="row">
+                            <div className="col-xl-2">
+                                <Sidebar/>
+                            </div>
+
+                            <div className="col-xl-10">
+                                <GridCore/>
+                            </div>
+                        </div>
+                    </section>
+                    <Footer/>
+                </div>
+            </>
+        );
+    }
+}
+
+if (document.getElementById('app')) {
+    ReactDOM.render(<Skins />, document.getElementById('app'));
+}

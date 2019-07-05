@@ -1,16 +1,32 @@
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Carousel from './components/Carousel'
+import Header from './components/Header'
+import MainNavbar from "./components/MainNavbar"
+import ItemCounterBadge from "./components/ItemCounterBadge"
+import Footer from "./components/Footer";
+import Trending from "./components/Trending";
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+declare var data: any;
 
-require('./bootstrap');
+export default class Home extends React.Component {
+     render() {
+        return (
+            <div className="container">
+                <ItemCounterBadge style={"warning"} toRight={true} itemsCount={data.globalData.totalItemsCount}/>
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+                <Header/>
+                <MainNavbar/>
+                <section className="content">
+                    <Carousel/>
+                    <Trending/>
+                </section>
+                <Footer/>
+            </div>
+        );
+    }
+}
 
-require('./components/Home');
+if (document.getElementById('app')) {
+    ReactDOM.render(<Home />, document.getElementById('app'));
+}

@@ -14,7 +14,7 @@ export default class ItemCounterBadge extends React.Component<IItemsCounterBadeP
         return (
             <div className={'row itemCounterBadge ' + toRight}>
                 <span className={ 'badge badge-' + this.props.style}>
-                    { this.props.itemsCount }
+                    <strong>{ this.props.itemsCount }</strong> items in database
                 </span>
             </div>
         );
