@@ -1,0 +1,32 @@
+
+.navbar {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom: 1px solid $light-grey;
+  min-height: 70px;
+
+  .nav-link {
+    color: $default;
+  }
+
+  .active > .nav-link {
+    color: $primary-red;
+    font-weight: 700;
+  }
+
+}
+
+.nav-item {
+  &::after {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 2px;
+    background: $primary-red;
+    transition: 0.2s;
+  }
+  &:hover::after {
+    width: 100%;
+  }
+
+}

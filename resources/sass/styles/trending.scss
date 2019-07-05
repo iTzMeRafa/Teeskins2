@@ -1,0 +1,32 @@
+
+.trending {
+  width: 100%;
+
+
+  .headline {
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+  }
+
+  .value {
+    text-align: right;
+    margin: 0;
+  }
+
+  .assetName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 30px;
+  }
+
+  .assetImage {
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
