@@ -8,6 +8,10 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import FontAwesome from "react-fontawesome";
 
+/*
+ * This global variable comes from the page associated controller
+ * and contains all necessary data for its view
+ */
 declare var data: any;
 
 export default class Skins extends React.Component {
