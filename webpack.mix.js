@@ -12,11 +12,11 @@ const mix = require('laravel-mix');
  */
 
 // Home
-mix.react('resources/js/app-home.js', 'public/js')
+mix.react('resources/js/app-home.tsx', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
 
 // Skins
-mix.react('resources/js/app-skins.js', 'public/js');
+mix.react('resources/js/app-skins.tsx', 'public/js');
 
 mix.webpackConfig({
     module: {

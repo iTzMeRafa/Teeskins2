@@ -8,7 +8,7 @@ import Footer from "./Footer";
 import Trending from "./Trending";
 
 export default class Home extends React.Component {
-    render() {
+    public render() {
         return (
             <div className="container">
                 <ItemCounterBadge style={"warning"} toRight={true} itemsCount={100}/>
