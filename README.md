@@ -7,7 +7,7 @@ This Project uses the PHP-framework [Laravel](https://laravel.com/) serving as t
 
 ## Usage & Installation
 
-[Composer](https://getcomposer.org/) and [>=PHP5.0](https://secure.php.net/) is required to run this project.
+[Composer](https://getcomposer.org/), [NodeJS](https://nodejs.org/en/) and [>=PHP5.0](https://secure.php.net/) is required to run this project.
 
 * Rename the __.env.example__ file to __.env__ and enter your values
 
