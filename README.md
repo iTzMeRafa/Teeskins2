@@ -21,9 +21,12 @@ php artisan cache:clear
 php artisan key:generate
 composer dumpautoload
 ```
-
+* Compile all react files
+- compiling once: ``` npm run dev ```
+- compiling and watching changes: ``` npm run watch ```
 * Update your apache2 vHost config file (if needed):
 
+* Optional if you keep getting errors, try:
 ```config
 <Directory "/var/www/example.net/public">
     Options Indexes FollowSymLinks Includes ExecCGI
