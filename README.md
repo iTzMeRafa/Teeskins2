@@ -1,9 +1,9 @@
 # Teeskins - Teeworlds Assets Database
 
 ## Technology
-This Project uses the PHP-framework Laravel serving as the backend.  
-React, Typescript and CSS for the frontend.
-Webpack to bundle all files.
+This Project uses the PHP-framework [Laravel](https://laravel.com/) serving as the backend.  
+[React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/) and CSS for the frontend.
+[Webpack](https://webpack.js.org/) to bundle all files.
 
 ## Usage & Installation
 
