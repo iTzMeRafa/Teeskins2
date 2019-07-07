@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 
 interface ISkinProps {
     id: string;
@@ -9,33 +10,43 @@ interface ISkinProps {
 
 export default class Skin extends React.Component<ISkinProps> {
 
-    public render(){
+    private readonly blockName = "skinCanvas";
+
+    public constructor(props: ISkinProps) {
+        super(props);
+        this.renderSkin = this.renderSkin.bind(this);
+    }
+
+    public render() {
         return(
             <div className="card">
                 <img id={this.props.id} className="card-img-top" src={this.props.imagePath} alt={this.props.name} />
                     <div className="card-body">
-                        <h5 className="card-title">{this.props.name}</h5>
+                        <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
                         <p className="card-text">by {this.props.author}</p>
-                        <a href="#" className="btn btn-primary">Download</a>
+                        <a href={this.props.imagePath} className="btn btn-primary" download onClick={() => this.handleDownload()}>Download</a>
                     </div>
             </div>
         );
     }
 
     public componentDidMount(): void {
-        this.renderSkin();
+        window.addEventListener('load', this.renderSkin);
     }
 
-    private renderSkin() {
+    public componentWillUnmount(): void {
+        window.removeEventListener('load', this.renderSkin)
+    }
+
+    private renderSkin(): void {
 
         const skin = document.getElementById(this.props.id) as HTMLImageElement;
-
         const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
         canvas.width = 96;
         canvas.height = 64;
-        canvas.className = "skinCanvas";
-
-        const ctx = canvas.getContext("2d");
+        canvas.className = this.blockName;
 
         ctx.drawImage(skin,192,64,64,32,10,33,60,30); //back feet shadow
         ctx.drawImage(skin,192,32,64,32,8,32,64,32); //back feet
@@ -53,5 +64,17 @@ export default class Skin extends React.Component<ISkinProps> {
 
         //replace with image
         skin.parentNode.replaceChild(canvas,skin);
+    }
+
+    private handleDownload(): void {
+        axios({
+            method: 'post',
+            url: `download/skin/${this.props.id}`,
+        })
+        .then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
     }
 }

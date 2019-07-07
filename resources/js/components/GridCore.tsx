@@ -17,7 +17,7 @@ export default class GridCore extends React.Component<IGridCoreProps> {
     private renderAssets() {
         return this.props.assets.map(asset => {
            return (
-             <div className="col-md-3" key={asset.id}>
+             <div className="col-md-3 mb-4" key={asset.id}>
                  <Skin
                      id={asset.id}
                      name={asset.name}

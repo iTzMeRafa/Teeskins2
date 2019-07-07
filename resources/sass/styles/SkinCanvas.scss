@@ -5,4 +5,10 @@ $skinWidth: 100px;
   width: $skinWidth;
   height: $skinWidth / $ratio;
   margin: 20px auto 0 auto;
+
+  &__title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
