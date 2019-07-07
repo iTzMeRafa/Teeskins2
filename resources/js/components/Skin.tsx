@@ -2,10 +2,11 @@ import * as React from 'react';
 import axios from 'axios';
 
 interface ISkinProps {
-    id: string;
+    id: number;
     name: string;
     author: string;
     imagePath: string;
+    uploadDate: string;
 }
 
 export default class Skin extends React.Component<ISkinProps> {
@@ -20,11 +21,19 @@ export default class Skin extends React.Component<ISkinProps> {
     public render() {
         return(
             <div className="card">
-                <img id={this.props.id} className="card-img-top" src={this.props.imagePath} alt={this.props.name} />
+                <img id={this.props.id.toString()} className="card-img-top" src={this.props.imagePath} alt={this.props.name} />
                     <div className="card-body">
                         <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
-                        <p className="card-text">by {this.props.author}</p>
-                        <a href={this.props.imagePath} className="btn btn-primary" download onClick={() => this.handleDownload()}>Download</a>
+                        <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
+                        <a
+                            target="_blank"
+                            href={this.props.imagePath}
+                            className="btn btn-primary"
+                            download
+                            onClick={() => this.increaseDownload()}
+                        >
+                            Download
+                        </a>
                     </div>
             </div>
         );
@@ -40,7 +49,7 @@ export default class Skin extends React.Component<ISkinProps> {
 
     private renderSkin(): void {
 
-        const skin = document.getElementById(this.props.id) as HTMLImageElement;
+        const skin = document.getElementById(this.props.id.toString()) as HTMLImageElement;
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
@@ -66,13 +75,13 @@ export default class Skin extends React.Component<ISkinProps> {
         skin.parentNode.replaceChild(canvas,skin);
     }
 
-    private handleDownload(): void {
+    private increaseDownload(): void {
         axios({
             method: 'post',
             url: `download/skin/${this.props.id}`,
         })
-        .then((response) => {
-            console.log(response);
+        .then(() => {
+            // State download could be true to trigger a visual notification
         }, (error) => {
             console.log(error);
         });

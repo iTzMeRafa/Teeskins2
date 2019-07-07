@@ -11,4 +11,10 @@ $skinWidth: 100px;
     overflow: hidden;
     white-space: nowrap;
   }
+
+  &__author {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }

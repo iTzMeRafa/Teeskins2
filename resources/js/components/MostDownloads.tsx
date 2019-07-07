@@ -1,24 +1,26 @@
 import * as React from 'react';
-import FontAwesome from "react-fontawesome";
+import Skin from "./Skin";
+import { MostDownloadedAsset } from "../interfaces/ITrendingInterface";
 
-export default class Newest extends React.Component {
+interface IMostDownloadsProps {
+    mostDownloadedAsset: MostDownloadedAsset;
+}
+
+export default class Newest extends React.Component<IMostDownloadsProps> {
     render(){
         return(
             <>
                 <h3 className="headline">most downloads</h3>
                 <p className="value">
-                    <FontAwesome name='rocket' /> 82912
+                    {this.props.mostDownloadedAsset.downloads}
                 </p>
-                <div className="card mb-5 mt-1">
-                    <div className="card-body">
-                        <p className="assetName">
-                            patwo's cat
-                        </p>
-                        <div className="assetImage">
-                            <img src="http://teeskins.net/skinrenderer.php?skin=assets/db/patwo%27s%20cat.png"/>
-                        </div>
-                    </div>
-                </div>
+                <Skin
+                    id={this.props.mostDownloadedAsset.id}
+                    name={this.props.mostDownloadedAsset.name}
+                    author={this.props.mostDownloadedAsset.author}
+                    imagePath={this.props.mostDownloadedAsset.imagePath}
+                    uploadDate={this.props.mostDownloadedAsset.uploadDate}
+                />
             </>
         );
     }

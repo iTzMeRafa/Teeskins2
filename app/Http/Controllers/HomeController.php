@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends GlobalController
 {
@@ -26,8 +27,83 @@ class HomeController extends GlobalController
         return view('pages/home')->with("data", $this->getViewData());
     }
 
+    private function getNewestAsset() {
+        return DB::table("skins")->orderByDesc("uploadDate")->first();
+    }
+
+    private function getMostDownloadedAsset() {
+        $mostDownloads =
+            DB::table("downloads")
+            ->selectRaw("count(*) as downloads, assetType, assetID")
+            ->groupBy(["assetType", "assetID"])
+            ->orderByDesc("downloads")
+            ->first();
+
+        $downloads = $mostDownloads->downloads;
+
+        switch($mostDownloads->assetType) {
+            case "skin":
+                $mostDownloads = DB::table("skins")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+            case "mapres":
+                $mostDownloads = DB::table("mapres")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+            case "gameskin":
+                $mostDownloads = DB::table("gameskin")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+            case "emoticon":
+                $mostDownloads = DB::table("emoticon")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+            case "particle":
+                $mostDownloads = DB::table("particle")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+            case "cursor":
+                $mostDownloads = DB::table("cursor")->where("id", "=", $mostDownloads->assetID)->first();
+                break;
+        }
+        $mostDownloads->downloads = $downloads;
+        return $mostDownloads;
+    }
+
+    private function getMostLikedAsset() {
+        $mostLiked =
+            DB::table("likes")
+                ->selectRaw("count(*) as likes, assetType, assetID")
+                ->groupBy(["assetType", "assetID"])
+                ->orderByDesc("likes")
+                ->first();
+
+        $likes = $mostLiked->likes;
+
+        switch($mostLiked->assetType) {
+            case "skin":
+                $mostLiked = DB::table("skins")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+            case "mapres":
+                $mostLiked = DB::table("mapres")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+            case "gameskin":
+                $mostLiked = DB::table("gameskin")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+            case "emoticon":
+                $mostLiked = DB::table("emoticon")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+            case "particle":
+                $mostLiked = DB::table("particle")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+            case "cursor":
+                $mostLiked = DB::table("cursor")->where("id", "=", $mostLiked->assetID)->first();
+                break;
+        }
+        $mostLiked->likes = $likes;
+        return $mostLiked;
+    }
+
     private function getViewData() {
         $viewData = [
+            'mostDownloadedAsset' => $this->getMostDownloadedAsset(),
+            'mostLikedAsset' => $this->getMostLikedAsset(),
+            'newestAsset' => $this->getNewestAsset(),
             'globalData' => $this->getGlobalPageData(),
         ];
 

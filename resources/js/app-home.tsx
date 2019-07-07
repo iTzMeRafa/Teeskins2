@@ -17,7 +17,11 @@ export default class Home extends React.Component {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 <Carousel/>
-                <Trending/>
+                <Trending
+                    mostDownloadedAsset={data.mostDownloadedAsset}
+                    mostLikedAsset={data.mostLikedAsset}
+                    newestAsset={data.newestAsset}
+                />
             </Wireframe>
         );
     }
