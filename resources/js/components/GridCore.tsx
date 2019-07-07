@@ -1,19 +1,31 @@
 import * as React from 'react';
+import Skin from './Skin';
 
-export default class GridCore extends React.Component {
+interface IGridCoreProps {
+    assets: any;
+}
+
+export default class GridCore extends React.Component<IGridCoreProps> {
     render(){
         return(
             <div className="row">
-                    <div className="col-md-4 card">
-                        1
-                    </div>
-                    <div className="col-md-4 card">
-                        1
-                    </div>
-                    <div className="col-md-4 card">
-                        1
-                    </div>
+                {this.renderAssets()}
             </div>
         );
+    }
+
+    private renderAssets() {
+        return this.props.assets.map(asset => {
+           return (
+             <div className="col-md-3" key={asset.id}>
+                 <Skin
+                     id={asset.id}
+                     name={asset.name}
+                     author={asset.author}
+                     imagePath={asset.imagePath}
+                 />
+             </div>
+           );
+        });
     }
 }

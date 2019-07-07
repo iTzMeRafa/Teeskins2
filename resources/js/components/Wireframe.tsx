@@ -4,12 +4,15 @@ import MainNavbar from "./MainNavbar"
 import ItemCounterBadge from "./ItemCounterBadge"
 import Footer from "./Footer";
 
-export default class Skins extends React.Component {
+interface IWireframeProps {
+    totalItemsCount: number;
+}
+export default class Skins extends React.Component<IWireframeProps> {
     render(){
         return(
             <>
                 <div className="container">
-                    <ItemCounterBadge style="warning" toRight={true} itemsCount={100} />
+                    <ItemCounterBadge style="warning" toRight={true} itemsCount={this.props.totalItemsCount} />
 
                     <Header/>
 

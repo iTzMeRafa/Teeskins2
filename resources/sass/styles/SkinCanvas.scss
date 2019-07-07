@@ -1,0 +1,8 @@
+$ratio: 1.5;
+$skinWidth: 100px;
+
+.skinCanvas {
+  width: $skinWidth;
+  height: $skinWidth / $ratio;
+  margin: 20px auto 0 auto;
+}

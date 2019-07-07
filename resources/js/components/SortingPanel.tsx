@@ -3,8 +3,13 @@ import * as React from 'react';
 export default class SortingPanel extends React.Component {
     render(){
         return(
-            <div className="row">
-                <div className="col-md-12">
+            <div className="row mb-5">
+                <div className="col-md-2"></div>
+                <div className="col-md-2"></div>
+                <div className="col-md-2"></div>
+                <div className="col-md-2"></div>
+
+                <div className="col-md-2">
                     <div className="btn-group btn-block">
                         <button type="button" className="btn btn-danger dropdown-toggle btn-block"
                                 data-toggle="dropdown"
@@ -17,7 +22,9 @@ export default class SortingPanel extends React.Component {
                             </button>
                         </div>
                     </div>
+                </div>
 
+                <div className="col-md-2">
                     <div className="btn-group btn-block">
                         <button type="button" className="btn btn-danger dropdown-toggle btn-block"
                                 data-toggle="dropdown"
@@ -32,6 +39,7 @@ export default class SortingPanel extends React.Component {
                         </div>
                     </div>
                 </div>
+
             </div>
         );
     }
