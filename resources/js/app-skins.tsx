@@ -4,9 +4,9 @@ import Header from './components/Header'
 import MainNavbar from "./components/MainNavbar"
 import GridCore from "./components/GridCore"
 import ItemCounterBadge from "./components/ItemCounterBadge"
-import Sidebar from "./components/Sidebar";
+import SortingPanel from "./components/SortingPanel";
 import Footer from "./components/Footer";
-import FontAwesome from "react-fontawesome";
+import Wireframe from "./components/Wireframe";
 
 /*
  * This global variable comes from the page associated controller
@@ -17,31 +17,10 @@ declare var data: any;
 export default class Skins extends React.Component {
     render(){
         return(
-            <>
-                <div className="container">
-                    <ItemCounterBadge style="warning" toRight={true} itemsCount={100}>
-                        <FontAwesome name='rocket' /> 18.000+ Items in database
-                    </ItemCounterBadge>
-
-                    <Header/>
-                </div>
-                <div className="container mb-3">
-
-                    <MainNavbar/>
-                    <section className="content">
-                        <div className="row">
-                            <div className="col-xl-2">
-                                <Sidebar/>
-                            </div>
-
-                            <div className="col-xl-10">
-                                <GridCore/>
-                            </div>
-                        </div>
-                    </section>
-                    <Footer/>
-                </div>
-            </>
+            <Wireframe>
+                <SortingPanel/>
+                <GridCore/>
+            </Wireframe>
         );
     }
 }
