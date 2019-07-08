@@ -61,13 +61,13 @@ export default class Skin extends React.Component<ISkinProps> {
                     href={this.props.imagePath}
                     className="btn btn-outline-primary"
                     download
-                    onClick={() => this.increaseDownload()}
+                    onClick={() => this.handleDownloadClick()}
                 >
                     <FontAwesomeIcon icon={faDownload} />
                 </a>
                 <button 
                     className={`btn ${likeButtonClasses}`}
-                    onClick={() => this.increaseLike()}
+                    onClick={() => this.handleLikeClick()}
                 >
                     <FontAwesomeIcon icon={faThumbsUp} />
                 </button>
@@ -103,7 +103,7 @@ export default class Skin extends React.Component<ISkinProps> {
         skin.parentNode.replaceChild(canvas,skin);
     }
 
-    private increaseDownload(): void {
+    private handleDownloadClick(): void {
         axios({
             method: 'post',
             url: `download/skin/${this.props.id}`,
@@ -115,7 +115,12 @@ export default class Skin extends React.Component<ISkinProps> {
         });
     }
 
-    private increaseLike(): void {
+    private handleLikeClick(): void {
+
+        if (!this.props.userInfo.isLoggedIn) {
+            // redirect to /login page
+            return;
+        }
         axios({
             method: 'post',
             url: `like/skin/${this.props.id}`,
