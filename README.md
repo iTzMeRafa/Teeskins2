@@ -2,7 +2,7 @@
 
 ## Technology
 This Project uses the PHP-framework [Laravel](https://laravel.com/) serving as the backend.  
-[React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/) and CSS for the frontend.
+[React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/) and [SCSS](https://sass-lang.com/) for the frontend.
 [Webpack](https://webpack.js.org/) to bundle all files.
 
 ## Usage & Installation
@@ -21,12 +21,15 @@ php artisan cache:clear
 php artisan key:generate
 composer dumpautoload
 ```
-* Compile all react files
+## Compiling & Building Project
 - compiling once: ``` npm run dev ```
 - compiling and watching changes: ``` npm run watch ```
 * Update your apache2 vHost config file (if needed):
 
-* Optional if you keep getting errors, try:
+## Could be useful 
+If you are still getting errors, try following:
+
+* Edit your vHost-File
 ```config
 <Directory "/var/www/example.net/public">
     Options Indexes FollowSymLinks Includes ExecCGI
