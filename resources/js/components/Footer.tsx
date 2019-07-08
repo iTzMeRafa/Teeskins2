@@ -4,7 +4,7 @@ export default class Footer extends React.Component {
     render(){
         return(
             <footer>
-                <p>&copy; 2018 - {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
+                <p>&copy; {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
                 <div className="footer-navigation">
                     <ul>
                         <li><a href="/privacy-policies"> Privacy Policies </a></li>

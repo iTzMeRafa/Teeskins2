@@ -23,7 +23,9 @@ class SkinsController extends GlobalController
 
     private function getViewData() {
         $viewData = [
-            'skins' => $this->fetchSkinsFromDatabase(),
+            'viewData' =>  [
+                'skins' => $this->fetchSkinsFromDatabase(),
+            ],
             'globalData' => $this->getGlobalPageData(),
         ];
 

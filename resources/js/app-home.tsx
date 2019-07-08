@@ -2,16 +2,16 @@ require('./bootstrap');
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Carousel from './components/Carousel'
 import Wireframe from './components/Wireframe'
 import Trending from "./components/Trending";
 import Jumbotron from "./components/Jumbotron";
+import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
  * This global variable comes from the page associated controller
- * and contains all necessary data for its view
+ * and contains all necessary data for its view and the wireframe
  */
-declare var data: any;
+declare var data: IDataInterface;
 
 export default class Home extends React.Component {
      render() {
@@ -24,9 +24,9 @@ export default class Home extends React.Component {
                     buttonURL="#"
                 />
                 <Trending
-                    mostDownloadedAsset={data.mostDownloadedAsset}
-                    mostLikedAsset={data.mostLikedAsset}
-                    newestAsset={data.newestAsset}
+                    mostDownloadedAsset={data.viewData.mostDownloadedAsset}
+                    mostLikedAsset={data.viewData.mostLikedAsset}
+                    newestAsset={data.viewData.newestAsset}
                 />
             </Wireframe>
         );

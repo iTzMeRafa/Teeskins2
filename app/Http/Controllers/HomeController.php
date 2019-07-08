@@ -101,9 +101,11 @@ class HomeController extends GlobalController
 
     private function getViewData() {
         $viewData = [
-            'mostDownloadedAsset' => $this->getMostDownloadedAsset(),
-            'mostLikedAsset' => $this->getMostLikedAsset(),
-            'newestAsset' => $this->getNewestAsset(),
+            'viewData' =>  [
+                'mostDownloadedAsset' => $this->getMostDownloadedAsset(),
+                'mostLikedAsset' => $this->getMostLikedAsset(),
+                'newestAsset' => $this->getNewestAsset(),
+            ],
             'globalData' => $this->getGlobalPageData(),
         ];
 
