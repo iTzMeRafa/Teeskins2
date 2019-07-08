@@ -27,6 +27,7 @@ export default class Home extends React.Component {
                     mostDownloadedAsset={data.viewData.mostDownloadedAsset}
                     mostLikedAsset={data.viewData.mostLikedAsset}
                     newestAsset={data.viewData.newestAsset}
+                    userInfo={data.globalData.userInfo}
                 />
             </Wireframe>
         );

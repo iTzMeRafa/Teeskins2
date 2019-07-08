@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Skin from './Skin';
 import { NewestAsset } from "../interfaces/ITrendingInterface";
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface INewestProps {
     newestAsset: NewestAsset;
+    userInfo: IUserInfoInterface;
 }
 
 export default class Newest extends React.Component<INewestProps> {
@@ -20,6 +22,7 @@ export default class Newest extends React.Component<INewestProps> {
                     author={this.props.newestAsset.author}
                     imagePath={this.props.newestAsset.imagePath}
                     uploadDate={this.props.newestAsset.uploadDate}
+                    userInfo={this.props.userInfo}
                 />
             </>
         );

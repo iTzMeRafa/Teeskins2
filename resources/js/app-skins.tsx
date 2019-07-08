@@ -18,7 +18,7 @@ export default class Skins extends React.Component {
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 <SortingPanel/>
-                <GridCore assets={data.viewData.skins}/>
+                <GridCore userInfo={data.globalData.userInfo} assets={data.viewData.skins}/>
             </Wireframe>
         );
     }

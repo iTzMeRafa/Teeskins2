@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Skin from './Skin';
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface IGridCoreProps {
     assets: any;
+    userInfo: IUserInfoInterface;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps> {
@@ -24,6 +26,7 @@ export default class GridCore extends React.Component<IGridCoreProps> {
                      author={asset.author}
                      imagePath={asset.imagePath}
                      uploadDate={asset.uploadDate}
+                     userInfo={this.props.userInfo}
                  />
              </div>
            );

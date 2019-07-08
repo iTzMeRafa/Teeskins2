@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Skin from "./Skin";
 import { MostDownloadedAsset } from "../interfaces/ITrendingInterface";
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface IMostDownloadsProps {
     mostDownloadedAsset: MostDownloadedAsset;
+    userInfo: IUserInfoInterface;
 }
 
 export default class Newest extends React.Component<IMostDownloadsProps> {
@@ -20,6 +22,7 @@ export default class Newest extends React.Component<IMostDownloadsProps> {
                     author={this.props.mostDownloadedAsset.author}
                     imagePath={this.props.mostDownloadedAsset.imagePath}
                     uploadDate={this.props.mostDownloadedAsset.uploadDate}
+                    userInfo={this.props.userInfo}
                 />
             </>
         );

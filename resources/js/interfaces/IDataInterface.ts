@@ -1,6 +1,13 @@
+import { IUserInfoInterface } from './IUserInfoInterface';
+
 export interface IDataInterface {
     viewData: IViewDataInterface;
     globalData: IGlobalDataInterface;
+}
+
+export interface IGlobalDataInterface {
+    totalItemsCount: number;
+    userInfo: IUserInfoInterface;
 }
 
 /**
@@ -9,8 +16,4 @@ export interface IDataInterface {
  */
 export interface IViewDataInterface {
     [key: string]: any;
-}
-
-export interface IGlobalDataInterface {
-    totalItemsCount: number;
 }

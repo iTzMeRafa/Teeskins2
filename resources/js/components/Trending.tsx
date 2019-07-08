@@ -3,11 +3,13 @@ import Newest from "./Newest";
 import MostLikes from "./MostLikes"
 import MostDownloads from "./MostDownloads"
 import { NewestAsset, MostDownloadedAsset, MostLikedAsset } from "../interfaces/ITrendingInterface";
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface ITrendingProps {
     mostDownloadedAsset: MostDownloadedAsset;
     mostLikedAsset: MostLikedAsset;
     newestAsset: NewestAsset;
+    userInfo: IUserInfoInterface;
 }
 
 export default class Trending extends React.Component<ITrendingProps> {
@@ -16,13 +18,13 @@ export default class Trending extends React.Component<ITrendingProps> {
             <div className="trending">
                 <div className="row">
                     <div className="col-md-4">
-                        <Newest newestAsset={this.props.newestAsset}/>
+                        <Newest userInfo={this.props.userInfo} newestAsset={this.props.newestAsset}/>
                     </div>
                     <div className="col-md-4">
-                        <MostLikes mostLikedAsset={this.props.mostLikedAsset}/>
+                        <MostLikes userInfo={this.props.userInfo} mostLikedAsset={this.props.mostLikedAsset}/>
                     </div>
                     <div className="col-md-4">
-                        <MostDownloads mostDownloadedAsset={this.props.mostDownloadedAsset}/>
+                        <MostDownloads userInfo={this.props.userInfo} mostDownloadedAsset={this.props.mostDownloadedAsset}/>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface ISkinProps {
     id: number;
@@ -9,6 +10,7 @@ interface ISkinProps {
     author: string;
     imagePath: string;
     uploadDate: string;
+    userInfo: IUserInfoInterface;
 }
 
 export default class Skin extends React.Component<ISkinProps> {
@@ -37,20 +39,7 @@ export default class Skin extends React.Component<ISkinProps> {
                         <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
                         <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
                     </div>
-                    <div className="btn-group" role="group" aria-label="controller">
-                            <a
-                                target="_blank"
-                                href={this.props.imagePath}
-                                className="btn btn-outline-primary"
-                                download
-                                onClick={() => this.increaseDownload()}
-                            >
-                                <FontAwesomeIcon icon={faDownload} />
-                            </a>
-                            <button className="btn btn-outline-success">
-                                <FontAwesomeIcon icon={faThumbsUp} />
-                            </button>
-                        </div>
+                    {this.renderBottomControls()}
             </div>
         );
     }
@@ -61,6 +50,29 @@ export default class Skin extends React.Component<ISkinProps> {
 
     public componentWillUnmount(): void {
         window.removeEventListener('load', this.renderSkin)
+    }
+
+    private renderBottomControls() {
+        const likeButtonClasses = this.props.userInfo.isLoggedIn ? "btn-outline-success" : "btn-outline-secondary";
+        return (
+            <div className="btn-group" role="group" aria-label="controller">
+                <a
+                    target="_blank"
+                    href={this.props.imagePath}
+                    className="btn btn-outline-primary"
+                    download
+                    onClick={() => this.increaseDownload()}
+                >
+                    <FontAwesomeIcon icon={faDownload} />
+                </a>
+                <button 
+                    className={`btn ${likeButtonClasses}`}
+                    onClick={() => this.increaseLike()}
+                >
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                </button>
+            </div>
+        );
     }
 
     private renderSkin(): void {
@@ -98,6 +110,18 @@ export default class Skin extends React.Component<ISkinProps> {
         })
         .then(() => {
             // State download could be true to trigger a visual notification
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    private increaseLike(): void {
+        axios({
+            method: 'post',
+            url: `like/skin/${this.props.id}`,
+        })
+        .then(() => {
+            // State like could be true to trigger a visual notification
         }, (error) => {
             console.log(error);
         });

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import Skin from "./Skin";
 import { MostLikedAsset } from "../interfaces/ITrendingInterface";
+import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 
 interface IMostLikesProps {
     mostLikedAsset: MostLikedAsset;
+    userInfo: IUserInfoInterface;
 }
 
 export default class Newest extends React.Component<IMostLikesProps> {
@@ -20,6 +22,7 @@ export default class Newest extends React.Component<IMostLikesProps> {
                     author={this.props.mostLikedAsset.author}
                     imagePath={this.props.mostLikedAsset.imagePath}
                     uploadDate={this.props.mostLikedAsset.uploadDate}
+                    userInfo={this.props.userInfo}
                 />
             </>
         );
