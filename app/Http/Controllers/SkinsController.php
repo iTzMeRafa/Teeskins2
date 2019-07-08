@@ -17,7 +17,45 @@ class SkinsController extends GlobalController
     }
 
     private function fetchSkinsFromDatabase() {
-        $skins = DB::table('skins')->get();
+        $skins = DB::table("skins")->orderBy("id")->get();
+
+        $downloads = 
+            DB::table("downloads")
+            ->selectRaw("assetID, count(*) as downloads")
+            ->where("assetType", "=", "skin")
+            ->groupBy(["assetType", "assetID"])
+            ->orderBy("assetID")
+            ->get();
+
+        $likes = 
+            DB::table("likes")
+            ->selectRaw("assetID, count(*) as likes")
+            ->where("assetType", "=", "skin")
+            ->groupBy(["assetType", "assetID"])
+            ->orderBy("assetID")
+            ->get();
+        
+        
+        foreach ($skins as $key => $skin) {
+            $skin->downloads = 0;
+            $skin->likes = 0;
+            
+            // Find and assert downloads to skin
+            foreach ($downloads as $download) {
+               if ($skin->id === $download->assetID) {
+                   $skin->downloads = $download->downloads;
+                   break;
+               }
+            }
+
+            // Find and assert likes to skin
+            foreach ($likes as $like) {
+                if ($skin->id === $like->assetID) {
+                    $skin->likes = $like->likes;
+                    break;
+                }
+            }
+        }
         return $skins;
     }
 
