@@ -1,5 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 interface ISkinProps {
     id: number;
@@ -21,20 +23,34 @@ export default class Skin extends React.Component<ISkinProps> {
     public render() {
         return(
             <div className="card">
+                <div className={`${this.blockName}__headControl`}>
+                    <div className="float-left">
+                    
+                    </div>
+                    <div className="float-right">
+                        <FontAwesomeIcon icon={faInfoCircle} />
+                    </div>
+                    <div className="clearfix"></div>
+                </div>
                 <img id={this.props.id.toString()} className="card-img-top" src={this.props.imagePath} alt={this.props.name} />
                     <div className="card-body">
                         <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
                         <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
-                        <a
-                            target="_blank"
-                            href={this.props.imagePath}
-                            className="btn btn-primary"
-                            download
-                            onClick={() => this.increaseDownload()}
-                        >
-                            Download
-                        </a>
                     </div>
+                    <div className="btn-group" role="group" aria-label="controller">
+                            <a
+                                target="_blank"
+                                href={this.props.imagePath}
+                                className="btn btn-outline-primary"
+                                download
+                                onClick={() => this.increaseDownload()}
+                            >
+                                <FontAwesomeIcon icon={faDownload} />
+                            </a>
+                            <button className="btn btn-outline-success">
+                                <FontAwesomeIcon icon={faThumbsUp} />
+                            </button>
+                        </div>
             </div>
         );
     }
