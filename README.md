@@ -24,7 +24,6 @@ composer dumpautoload
 ## Compiling & Building Project
 - compiling once: ``` npm run dev ```
 - compiling and watching changes: ``` npm run watch ```
-* Update your apache2 vHost config file (if needed):
 
 ## Could be useful 
 If you are still getting errors, try following:
