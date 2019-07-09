@@ -32,8 +32,9 @@ class GlobalController extends Controller
     }
 
     private function getUserSkinLikes() {
+        $likes = [];
         if (!Auth::check()) {
-            return;
+            return $likes;
         }
 
         $skinLikes =  
@@ -46,7 +47,7 @@ class GlobalController extends Controller
             ->distinct()
             ->get();
         
-        $likes = [];
+        
         foreach ($skinLikes as $key => $skinLike) {
             $likes[$key] = $skinLike->assetID;
         }

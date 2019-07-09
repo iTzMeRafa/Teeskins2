@@ -17,3 +17,4 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/skins', 'SkinsController@index')->name('skins');
 Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
 Route::post('/like/{assetType}/{assetID}', 'LikeController@index')->name('like');
+Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('unlike');

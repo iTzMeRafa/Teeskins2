@@ -34,7 +34,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         this.urlService = new UrlService();
 
         this.state = {
-            liked: false,
+            liked: this.props.userInfo.assetLikes.skins.includes(this.props.id),
         }
     }
 
@@ -76,8 +76,10 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
 
     private renderBottomControls() {
 
+        console.log(this.state.liked);
+
         const likeButtonClasses = this.props.userInfo.isLoggedIn 
-            ? this.state.liked || this.props.userInfo.assetLikes.skins.includes(this.props.id)
+            ? this.state.liked
                 ? "btn-success"
                 : "btn-outline-success" 
             : "btn-outline-secondary";
@@ -149,13 +151,31 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             this.urlService.redirectToPageURL(URLS.Login);
             return;
         }
-        
+
+        this.state.liked
+            ? this.unlike()
+            : this.like();
+    }
+
+    private like(): void {
         axios({
             method: 'post',
             url: `like/skin/${this.props.id}`,
         })
         .then(() => {
-          
+            this.setState({ liked: true });
+        }, (error) => {
+            console.log(error);
+        });
+    }
+
+    private unlike(): void {
+        axios({
+            method: 'post',
+            url: `unlike/skin/${this.props.id}`,
+        })
+        .then(() => {
+          this.setState({ liked: false });
         }, (error) => {
             console.log(error);
         });
