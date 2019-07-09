@@ -4,6 +4,8 @@ export interface NewestAsset {
     imagePath: string;
     name: string;
     uploadDate: string;
+    downloads: number;
+    likes: number;
 }
 
 export interface MostDownloadedAsset{
@@ -13,6 +15,7 @@ export interface MostDownloadedAsset{
     name: string;
     uploadDate: string;
     downloads: number;
+    likes: number;
 }
 
 export interface MostLikedAsset{
@@ -21,6 +24,7 @@ export interface MostLikedAsset{
     imagePath: string;
     name: string;
     uploadDate: string;
+    downloads: number;
     likes: number;
 }
 

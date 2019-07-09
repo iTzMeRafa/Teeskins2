@@ -1,5 +1,6 @@
 .userPanel {
-    background-color: $real-white;
+    background-color: rgba($real-white, .7);
     margin-bottom: 40px;
     border-radius: 0 !important;
+    border-bottom: none !important;
 }

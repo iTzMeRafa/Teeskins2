@@ -23,6 +23,8 @@ export default class Newest extends React.Component<IMostLikesProps> {
                     imagePath={this.props.mostLikedAsset.imagePath}
                     uploadDate={this.props.mostLikedAsset.uploadDate}
                     userInfo={this.props.userInfo}
+                    downloads={this.props.mostLikedAsset.downloads}
+                    likes={this.props.mostLikedAsset.likes}
                 />
             </>
         );

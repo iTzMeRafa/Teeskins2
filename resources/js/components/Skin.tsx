@@ -1,6 +1,8 @@
 // Packages
 import * as React from 'react';
 import axios from 'axios';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -16,6 +18,8 @@ interface ISkinProps {
     author: string;
     imagePath: string;
     uploadDate: string;
+    downloads: number;
+    likes: number;
     userInfo: IUserInfoInterface;
 }
 
@@ -61,13 +65,23 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     }
 
     private renderHeadControl() {
+        const tooltipContent = (
+            <span>
+                Downloads: <strong>{this.props.downloads}</strong> <br />
+                Likes: <strong>{this.props.likes}</strong> <br />
+                Upload Date: <strong>{this.props.uploadDate}</strong>
+            </span>
+        );
+
         return (
             <div className={`${this.blockName}__headControl`}>
                 <div className="float-left">
                 
                 </div>
                 <div className="float-right">
+                <Tooltip placement="top" trigger={['hover']} overlay={tooltipContent}>
                     <FontAwesomeIcon icon={faInfoCircle} />
+                </Tooltip>
                 </div>
                 <div className="clearfix"></div>
             </div>
@@ -148,7 +162,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private handleLikeClick(): void {
 
         if (!this.props.userInfo.isLoggedIn) {
-            this.urlService.redirectToPageURL(URLS.Login);
+            this.urlService.redirectToPagZeURL(URLS.Login);
             return;
         }
 

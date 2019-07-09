@@ -23,6 +23,8 @@ export default class Newest extends React.Component<INewestProps> {
                     imagePath={this.props.newestAsset.imagePath}
                     uploadDate={this.props.newestAsset.uploadDate}
                     userInfo={this.props.userInfo}
+                    downloads={this.props.newestAsset.downloads}
+                    likes={this.props.newestAsset.likes}
                 />
             </>
         );

@@ -28,7 +28,14 @@ class HomeController extends GlobalController
     }
 
     private function getNewestAsset() {
-        return DB::table("skins")->orderByDesc("uploadDate")->first();
+        $newestSkin = DB::table("skins")->orderByDesc("uploadDate")->first();
+        $likes = DB::table("likes")->selectRaw("count(*) as likes")->where('assetID', '=', $newestSkin->id)->first();
+        $downloads = DB::table("downloads")->selectRaw("count(*) as downloads")->where('assetID', '=', $newestSkin->id)->first();
+
+        $newestSkin->downloads = $downloads->downloads;
+        $newestSkin->likes = $likes->likes;
+
+        return $newestSkin;
     }
 
     private function getMostDownloadedAsset() {
@@ -40,6 +47,7 @@ class HomeController extends GlobalController
             ->first();
 
         $downloads = $mostDownloads->downloads;
+        $likes = DB::table("likes")->selectRaw("count(*) as likes")->where('assetID', '=', $mostDownloads->assetID)->first();
 
         switch($mostDownloads->assetType) {
             case "skin":
@@ -62,6 +70,7 @@ class HomeController extends GlobalController
                 break;
         }
         $mostDownloads->downloads = $downloads;
+        $mostDownloads->likes = $likes->likes;
         return $mostDownloads;
     }
 
@@ -74,6 +83,7 @@ class HomeController extends GlobalController
                 ->first();
 
         $likes = $mostLiked->likes;
+        $downloads = DB::table("downloads")->selectRaw("count(*) as downloads")->where('assetID', '=', $mostLiked->assetID)->first();
 
         switch($mostLiked->assetType) {
             case "skin":
@@ -96,6 +106,7 @@ class HomeController extends GlobalController
                 break;
         }
         $mostLiked->likes = $likes;
+        $mostLiked->downloads = $downloads->downloads;
         return $mostLiked;
     }
 
