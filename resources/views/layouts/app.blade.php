@@ -17,6 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @include('templates.userPanel')
     <div id="app"></div>
     @yield('content')
 </body>

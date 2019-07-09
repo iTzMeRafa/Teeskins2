@@ -11,13 +11,9 @@ export enum URLS {
 }
 
 export class UrlService {
-
-    private baseDomain;
-
-
-
+    
     public redirectToPageURL(url: URLS) {
-        window.location.replace(url);
+        window.location.href =url;
     }
 
     public redirectToAbsoluteURL(url: string) {

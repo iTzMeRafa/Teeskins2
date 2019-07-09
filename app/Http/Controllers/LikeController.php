@@ -14,7 +14,7 @@ class LikeController extends Controller
 
     public function index($assetType, $assetID) {
         DB::table('likes')->insert(
-            ['assetType' => $assetType, 'assetID' => $assetID, 'date' => NOW()]
+            ['assetType' => $assetType, 'assetID' => $assetID, 'userID' => Auth::id(), 'date' => NOW()]
         );
     }
 }

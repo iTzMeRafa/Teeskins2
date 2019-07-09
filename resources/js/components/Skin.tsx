@@ -19,7 +19,11 @@ interface ISkinProps {
     userInfo: IUserInfoInterface;
 }
 
-export default class Skin extends React.Component<ISkinProps> {
+interface ISkinState {
+    liked: boolean;
+}
+
+export default class Skin extends React.Component<ISkinProps, ISkinState> {
 
     private readonly blockName = "skinCanvas";
     private urlService;
@@ -28,26 +32,22 @@ export default class Skin extends React.Component<ISkinProps> {
         super(props);
         this.renderSkin = this.renderSkin.bind(this);
         this.urlService = new UrlService();
+
+        this.state = {
+            liked: false,
+        }
     }
 
     public render() {
         return(
             <div className="card">
-                <div className={`${this.blockName}__headControl`}>
-                    <div className="float-left">
-                    
-                    </div>
-                    <div className="float-right">
-                        <FontAwesomeIcon icon={faInfoCircle} />
-                    </div>
-                    <div className="clearfix"></div>
-                </div>
+                {this.renderHeadControl()}
                 <img id={this.props.id.toString()} className="card-img-top" src={this.props.imagePath} alt={this.props.name} />
-                    <div className="card-body">
-                        <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
-                        <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
-                    </div>
-                    {this.renderBottomControls()}
+                <div className="card-body">
+                    <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
+                    <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
+                </div>
+                {this.renderBottomControls()}
             </div>
         );
     }
@@ -60,8 +60,28 @@ export default class Skin extends React.Component<ISkinProps> {
         window.removeEventListener('load', this.renderSkin)
     }
 
+    private renderHeadControl() {
+        return (
+            <div className={`${this.blockName}__headControl`}>
+                <div className="float-left">
+                
+                </div>
+                <div className="float-right">
+                    <FontAwesomeIcon icon={faInfoCircle} />
+                </div>
+                <div className="clearfix"></div>
+            </div>
+        );
+    }
+
     private renderBottomControls() {
-        const likeButtonClasses = this.props.userInfo.isLoggedIn ? "btn-outline-success" : "btn-outline-secondary";
+
+        const likeButtonClasses = this.props.userInfo.isLoggedIn 
+            ? this.state.liked || this.props.userInfo.assetLikes.skins.includes(this.props.id)
+                ? "btn-success"
+                : "btn-outline-success" 
+            : "btn-outline-secondary";
+
         return (
             <div className="btn-group" role="group" aria-label="controller">
                 <a
@@ -135,7 +155,7 @@ export default class Skin extends React.Component<ISkinProps> {
             url: `like/skin/${this.props.id}`,
         })
         .then(() => {
-            // State like could be true to trigger a visual notification
+          
         }, (error) => {
             console.log(error);
         });
