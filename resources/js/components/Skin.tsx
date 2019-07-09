@@ -1,8 +1,14 @@
+// Packages
 import * as React from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
+// Interfaces
 import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
+
+// Services
+import { UrlService, URLS } from './../Services/UrlService';
 
 interface ISkinProps {
     id: number;
@@ -16,10 +22,12 @@ interface ISkinProps {
 export default class Skin extends React.Component<ISkinProps> {
 
     private readonly blockName = "skinCanvas";
+    private urlService;
 
     public constructor(props: ISkinProps) {
         super(props);
         this.renderSkin = this.renderSkin.bind(this);
+        this.urlService = new UrlService();
     }
 
     public render() {
@@ -118,9 +126,10 @@ export default class Skin extends React.Component<ISkinProps> {
     private handleLikeClick(): void {
 
         if (!this.props.userInfo.isLoggedIn) {
-            // redirect to /login page
+            this.urlService.redirectToPageURL(URLS.Login);
             return;
         }
+        
         axios({
             method: 'post',
             url: `like/skin/${this.props.id}`,
