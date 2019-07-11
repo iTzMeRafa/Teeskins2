@@ -21,6 +21,9 @@ mix.react('resources/js/app-skins.tsx', 'public/js');
 // Privacy Policies
 mix.react('resources/js/app-privacyPolicies.tsx', 'public/js');
 
+// Terms Of Use
+mix.react('resources/js/app-termsOfUse.tsx', 'public/js');
+
 mix.webpackConfig({
     module: {
         rules: [

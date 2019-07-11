@@ -79,7 +79,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
                 
                 </div>
                 <div className="float-right">
-                <Tooltip placement="top" trigger={['hover']} overlay={tooltipContent}>
+                <Tooltip placement="topg" trigger={['hover']} overlay={tooltipContent}>
                     <FontAwesomeIcon icon={faInfoCircle} />
                 </Tooltip>
                 </div>
@@ -153,7 +153,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             url: `download/skin/${this.props.id}`,
         })
         .then(() => {
-            // State download could be true to trigger a visual notification
+            this.setState({ liked: true });
         }, (error) => {
             console.log(error);
         });
@@ -162,7 +162,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private handleLikeClick(): void {
 
         if (!this.props.userInfo.isLoggedIn) {
-            this.urlService.redirectToPagZeURL(URLS.Login);
+            this.urlService.redirectToPageURL(URLS.Login);
             return;
         }
 

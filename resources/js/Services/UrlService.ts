@@ -8,6 +8,8 @@ export enum URLS {
     Emoticons = "/emoticons",
     Particles = "/particles",
     Cursors = "/cursors",
+    PrivacyPolicies = "/privacy-policies",
+    TermsOfUse = "/terms-of-use",
 }
 
 export class UrlService {

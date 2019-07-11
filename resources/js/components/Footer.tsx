@@ -1,15 +1,24 @@
 import * as React from 'react';
 
+// Services
+import { URLS } from './../Services/UrlService';
+
 export default class Footer extends React.Component {
-    render(){
+
+    private urlService;
+
+    public constructor(props: {}) {
+        super(props);
+    }
+
+    public render() {
         return(
             <footer>
                 <p>&copy; {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
                 <div className="footer-navigation">
                     <ul>
-                        <li><a href="/privacy-policies"> Privacy Policies </a></li>
-                        <li><a href="/terms-of-use"> Terms of use </a></li>
-                        <li><a href="/faq"> FAQ </a></li>
+                        <li><a href={URLS.PrivacyPolicies}> Privacy Policies </a></li>
+                        <li><a href={URLS.TermsOfUse}> Terms of use </a></li>
                     </ul>
                 </div>
             </footer>
