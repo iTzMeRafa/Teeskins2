@@ -3,7 +3,12 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from "./components/Wireframe";
+
+// Interfaces
 import { IDataInterface } from "./interfaces/IDataInterface";
+
+// Services
+import { TYPES } from './Services/AssetService';
 
 /*
  * This global variable comes from the page associated controller
@@ -15,7 +20,7 @@ export default class Upload extends React.Component {
 
     private readonly blockName = "upload";
 
-    render(){
+    public render(){
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 {this.renderHeadline()}
@@ -65,22 +70,42 @@ export default class Upload extends React.Component {
         return (
             <>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Author</label>
+                    <label className="col-sm-2 col-form-label">Author*</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" id="inputAuthor" placeholder="Whis" />
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Name</label>
+                    <label className="col-sm-2 col-form-label">Name*</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" id="inputName" placeholder="PepeSkin" />
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label className="col-sm-2 col-form-label">Type*</label>
+                    <div className="col-sm-10">
+                        {this.renderAssetTypesSelect()}
                     </div>
                 </div>
             </>
         );
     }
+
+    private renderAssetTypesSelect() {
+        const assetTypeSelect = [];
+        for (let type in TYPES) {
+            assetTypeSelect.push(<option value={type}>{type}</option>);
+        }
+
+        return (
+            <select name="assetType" className="form-control" id="assetType">
+                {assetTypeSelect}
+            </select>
+        );
+
+    }
 }
 
 if (document.getElementById('app')) {
     ReactDOM.render(<Upload />, document.getElementById('app'));
-}
+} 

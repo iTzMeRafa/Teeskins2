@@ -5,8 +5,6 @@ import { URLS } from './../Services/UrlService';
 
 export default class Footer extends React.Component {
 
-    private urlService;
-
     public constructor(props: {}) {
         super(props);
     }
