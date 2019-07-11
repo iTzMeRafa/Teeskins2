@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-md userPanel">
     <div class="container">
-        <a href="{{ url('/') }}">
-            <div class="logo logo--small"></div>
-        </a>
+        @guest
+            <a href="/login" class="btn btn-secondary">Upload</a>
+        @else
+            <a href="/upload" class="btn btn-primary">Upload</a>
+        @endguest
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,8 +35,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
 
