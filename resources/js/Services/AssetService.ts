@@ -7,6 +7,12 @@ export enum TYPES {
     Cursor = "cursors",
 }
 
+export enum EXTENSIONS {
+    PNG = "png",
+    JPG = "JPG",
+    JPEG = "JPEG"
+}
+
 export class AssetService {
 
 }

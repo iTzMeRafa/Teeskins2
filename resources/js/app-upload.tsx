@@ -8,7 +8,7 @@ import Wireframe from "./components/Wireframe";
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 // Services
-import { TYPES } from './Services/AssetService';
+import { TYPES, EXTENSIONS } from './Services/AssetService';
 
 /*
  * This global variable comes from the page associated controller
@@ -16,9 +16,20 @@ import { TYPES } from './Services/AssetService';
  */
 declare var data: IDataInterface;
 
-export default class Upload extends React.Component {
+interface IAppUploadStates {
+    fileExtensionState: "invalid" | "undefined" | "valid";
+}
+
+export default class Upload extends React.Component<{}, IAppUploadStates> {
 
     private readonly blockName = "upload";
+
+    public constructor(props: {}) {
+        super(props);
+        this.state = {
+            fileExtensionState: "undefined",
+        }
+    }
 
     public render(){
         return(
@@ -49,14 +60,23 @@ export default class Upload extends React.Component {
     }
 
     private renderAssetUploadInput() {
+
+        const inputClassName = this.state.fileExtensionState === "valid" 
+            ? "custom-file-input is-valid" 
+            : this.state.fileExtensionState === "invalid" 
+                ? "custom-file-input is-invalid"
+                : "custom-file-input";
+
         return (
             <>
                 <div className="input-group mb-4">
                     <div className="custom-file">
-                        <input type="file" className="custom-file-input" id="assetUpload" />
+                        <input type="file" className={inputClassName} id="assetUpload" onChange={() => this.handleFileInput(event)}/>
                         <label className="custom-file-label">Choose Asset</label>
                     </div>
+                    <div className="invalid-feedback" style={this.state.fileExtensionState === "invalid" ? { display: "block" } : { display: "none" }}>Please select a valid file.</div>
                 </div>
+                    
                 <div className={`${this.blockName}__preview`}>
                     <div className={`${this.blockName}__preview__display`}>
                         Preview
@@ -94,7 +114,7 @@ export default class Upload extends React.Component {
     private renderAssetTypesSelect() {
         const assetTypeSelect = [];
         for (let type in TYPES) {
-            assetTypeSelect.push(<option value={type}>{type}</option>);
+            assetTypeSelect.push(<option key={type} value={type}>{type}</option>);
         }
 
         return (
@@ -102,7 +122,34 @@ export default class Upload extends React.Component {
                 {assetTypeSelect}
             </select>
         );
+    }
 
+    private handleFileInput(event) {
+        if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
+            return;
+          }
+        
+          const name = event.target.files[0].name;
+          const lastDot = name.lastIndexOf('.');
+          const fileName = name.substring(0, lastDot);
+          const ext = name.substring(lastDot + 1);
+        
+          if (!Object.values(EXTENSIONS).includes(ext)) {
+              console.log("wrong");
+              this.setState({ fileExtensionState: "invalid" });
+              return;
+          } 
+
+          this.setState({ fileExtensionState: "valid" });
+            console.log("good");
+
+
+          //outputfile.value = fileName;
+          //extension.value = ext;
+    }
+
+    private renderPreview() {
+        console.log("datei inportet");
     }
 }
 
