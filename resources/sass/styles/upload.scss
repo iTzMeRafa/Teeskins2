@@ -1,0 +1,16 @@
+.upload {
+
+    &__preview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        border: 1px dashed $light-grey;
+
+        &__display {
+            text-align: center;
+            margin: 0 auto;
+            font-weight: 700;
+        }
+    }
+}

@@ -15,6 +15,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/skins', 'SkinsController@index')->name('skins');
+Route::get('/upload', 'UploadController@index')->name('upload');
 Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
 Route::get('/privacy-policies', 'PrivacyPoliciesController@index')->name('privacy-policies');
 Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');

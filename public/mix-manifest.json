@@ -3,5 +3,6 @@
     "/css/app.css": "/css/app.css",
     "/js/app-privacyPolicies.js": "/js/app-privacyPolicies.js",
     "/js/app-skins.js": "/js/app-skins.js",
-    "/js/app-termsOfUse.js": "/js/app-termsOfUse.js"
+    "/js/app-termsOfUse.js": "/js/app-termsOfUse.js",
+    "/js/app-upload.js": "/js/app-upload.js"
 }

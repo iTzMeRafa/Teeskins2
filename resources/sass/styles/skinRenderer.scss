@@ -1,0 +1,21 @@
+$ratio: 1.5;
+$skinWidthSmall: 50px;
+$skinWidthDefault: 100px;
+$skinWidthLarge: 200px;
+
+.skinRenderer {
+    margin: 0 auto;
+
+    &--small {
+        width: $skinWidthSmall;
+        height: $skinWidthSmall / $ratio;
+    }
+    &--default {
+        width: $skinWidthDefault;
+        height: $skinWidthDefault / $ratio;
+    }
+    &--large {
+        width: $skinWidthLarge;
+        height: $skinWidthLarge / $ratio;
+    }
+}
