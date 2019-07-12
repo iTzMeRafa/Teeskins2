@@ -23,6 +23,9 @@ interface IAppUploadStates {
     file: string;
     isSkinTypeSelected: boolean;
     isValidFileSize: boolean;
+    inputAuthorState: "invalid" | "undefined" | "valid";
+    inputNameState: "invalid" | "undefined" | "valid";
+    isValidForSubmit: boolean;
 }
 
 export default class Upload extends React.Component<{}, IAppUploadStates> {
@@ -33,15 +36,19 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         super(props);
         this.state = {
             fileExtensionState: "undefined",
+            inputAuthorState: "undefined",
+            inputNameState: "undefined",
             file: null,
             isSkinTypeSelected: false,
             isValidFileSize: true,
+            isValidForSubmit: false,
         }
 
         this.handleFileInput = this.handleFileInput.bind(this);
     }
 
     public render(){
+
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 {this.renderHeadline()}
@@ -65,10 +72,10 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             allowedExtensions.push(EXTENSIONS[key]);
         });
         return (
-            <div className="alert alert-info" role="alert">
+            <div className="alert alert-info mb-5" role="alert">
                 Here you can contribute and upload assets to Teeskins yourself. <br />
                 Once uploaded, the asset wont be visible right away. We first have to review and accept it to prevent scam and unreasonable uploads. <br />
-                Keep in mind that only <strong>.{allowedExtensions.join(', ')}</strong> files are permissible with a max. file-size of <strong>{maxFilesizeInMB} MB</strong>.          
+                Keep in mind that only <strong>.{allowedExtensions.join(', .')}</strong> files are permissible with a max. file-size of <strong>{maxFilesizeInMB} MB</strong>.          
             </div>
         );
     }
@@ -85,7 +92,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             <>
                 <div className="input-group mb-4">
                     <div className="custom-file">
-                        <input type="file" className={inputClassName} id="assetUpload" onChange={() => this.handleFileInput(event)}/>
+                        <input type="file" className={inputClassName} id="assetUpload" required={true} onChange={() => this.handleFileInput(event)}/>
                         <label className="custom-file-label">Choose Asset</label>
                     </div>
                     <div className="invalid-feedback" style={this.state.fileExtensionState === "invalid" ? { display: "block" } : { display: "none" }}>
@@ -116,21 +123,22 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Author*</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="inputAuthor" placeholder="e.g nameless tee" />
+                        <input type="text" className="form-control" required={true} id="inputAuthor" onChange={() => this.handleInputAuthorChange()} placeholder="e.g nameless tee" />
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Name*</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="inputName" placeholder="e.g cammo" />
+                        <input type="text" className="form-control" required={true} id="inputName" onChange={() => this.handleInputNameChange()} placeholder="e.g cammo" />
                     </div>
                 </div>
-                <div className="form-group row">
+                <div className="form-group row mb-5">
                     <label className="col-sm-2 col-form-label">Type*</label>
                     <div className="col-sm-10">
                         {this.renderAssetTypesSelect()}
                     </div>
                 </div>
+                {this.renderSubmitButton()}
             </>
         );
     }
@@ -142,10 +150,85 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         });
 
         return (
-            <select name="assetType" className="form-control" id="assetType">
+            <select required={true} name="assetType" className="form-control" id="assetType">
                 {assetTypeSelect}
             </select>
         );
+    }
+
+    private renderSubmitButton() {
+        
+
+        const submitButtonClassName = this.state.isValidForSubmit
+            ? "btn-success"
+            : "btn-secondary";
+
+        return (
+            <div className="row">
+                <div className="col-md-10 offset-md-2">
+                    <button type="button" className={`btn ${submitButtonClassName} btn-block btn-lg float-right`} onClick={() => this.handleSubmitButtonClick()}>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    private consoleLogDataStates() {
+        console.table({ 
+            File : this.state.isValidFileSize && this.state.fileExtensionState === "valid" && this.state.file !== null, 
+            Author : this.state.inputAuthorState,
+            Name : this.state.inputNameState, 
+        });
+    }
+
+    private validateSubmissionState() {
+        this.setState({
+            isValidForSubmit: 
+                this.state.file !== null 
+                && this.state.isValidFileSize 
+                && this.state.fileExtensionState === "valid" 
+                && this.state.inputAuthorState === "valid"
+                && this.state.inputNameState === "valid"
+        });
+    }   
+                                                                                                                                                                          
+    private handleSubmitButtonClick() {
+        this.state.isValidForSubmit ? alert("yes upload!") : alert("NOT VALID DATA");
+    }
+
+    private handleInputNameChange() {
+        const inputAuthorValue = (document.getElementById("inputName") as HTMLInputElement).value;
+        if (inputAuthorValue.length > 0) {
+            this.setState({ inputNameState: "valid" }, () => {
+                this.validateSubmissionState();
+                this.consoleLogDataStates();
+            });
+            return;
+        }
+
+        this.setState({ inputNameState: "invalid" }, () => {
+            this.validateSubmissionState();
+            this.consoleLogDataStates();
+        });
+        return;
+    }
+
+    private handleInputAuthorChange() {
+        const inputAuthorValue = (document.getElementById("inputAuthor") as HTMLInputElement).value;
+        if (inputAuthorValue.length > 0) {
+            this.setState({ inputAuthorState: "valid" }, () => {
+                this.validateSubmissionState();
+                this.consoleLogDataStates();
+            });
+            return;
+        }
+
+        this.setState({ inputAuthorState: "invalid" }, () => {
+            this.validateSubmissionState();
+            this.consoleLogDataStates();
+        });
+        return;
     }
 
     private handleFileInput(event) {
@@ -163,11 +246,16 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
           // Validation
           if (!Object.values(EXTENSIONS).includes(ext)) {
               this.setState({ fileExtensionState: "invalid" });
+              this.validateSubmissionState();
+              this.consoleLogDataStates();
               return;
           } 
 
           if (fileSizeInMB > maxFilesizeInMB) {
-            this.setState({ isValidFileSize: false });
+            this.setState({ isValidFileSize: false }, () => {
+                this.validateSubmissionState();
+                this.consoleLogDataStates();
+            });
             return;
           }
 
@@ -176,7 +264,11 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
           this.setState({ 
               fileExtensionState: "valid", 
               isValidFileSize: true,
+              inputNameState: "valid",
               file: URL.createObjectURL(event.target.files[0]),
+            }, () => {
+                this.validateSubmissionState();
+                this.consoleLogDataStates();
             });
     }
 
@@ -186,7 +278,10 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             || this.state.file === null
         ) {
             if (this.state.isSkinTypeSelected) {
-                this.setState({ isSkinTypeSelected: false });
+                this.setState({ isSkinTypeSelected: false }, () => {
+                    this.validateSubmissionState();
+                    this.consoleLogDataStates();
+                });
             }
             return "Preview";
         }
@@ -194,11 +289,20 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         const selectedAssetType =  (document.getElementById("assetType") as HTMLSelectElement).value;
 
         if (selectedAssetType === TYPES.Skin && !this.state.isSkinTypeSelected) {
-            this.setState({ isSkinTypeSelected: true });
+            // return Skinrenderer here - not working properly yet
+            if (!this.state.isSkinTypeSelected) {
+                this.setState({ isSkinTypeSelected: true }, () => {
+                    this.validateSubmissionState();
+                    this.consoleLogDataStates();
+                });
+            }
         } 
 
         if (selectedAssetType !== TYPES.Skin && this.state.isSkinTypeSelected) {
-            this.setState({ isSkinTypeSelected: false });
+            this.setState({ isSkinTypeSelected: false }, () => {
+                this.validateSubmissionState();
+                this.consoleLogDataStates();
+            });
         }
     
         return (
