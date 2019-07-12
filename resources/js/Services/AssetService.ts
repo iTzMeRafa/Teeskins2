@@ -1,17 +1,19 @@
 export enum TYPES {
-    Skin = "skins",
+    Skin = "skin",
     Mapres = "mapres",
-    Gameskin = "gameskins",
-    Emoticon = "emoticons",
-    Particle = "particles",
-    Cursor = "cursors",
+    Gameskin = "gameskin",
+    Emoticon = "emoticon",
+    Particle = "particle",
+    Cursor = "cursor",
 }
 
 export enum EXTENSIONS {
     PNG = "png",
-    JPG = "JPG",
-    JPEG = "JPEG"
+    JPG = "jpg",
+    JPEG = "jpeg"
 }
+
+export const maxFilesizeInMB = 10;
 
 export class AssetService {
 

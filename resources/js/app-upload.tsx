@@ -3,13 +3,14 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from "./components/Wireframe";
-import SkinRenderer from "./components/SkinRenderer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 // Interfaces
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 // Services
-import { TYPES, EXTENSIONS } from './Services/AssetService';
+import { TYPES, EXTENSIONS, maxFilesizeInMB } from './Services/AssetService';
 
 /*
  * This global variable comes from the page associated controller
@@ -19,6 +20,9 @@ declare var data: IDataInterface;
 
 interface IAppUploadStates {
     fileExtensionState: "invalid" | "undefined" | "valid";
+    file: string;
+    isSkinTypeSelected: boolean;
+    isValidFileSize: boolean;
 }
 
 export default class Upload extends React.Component<{}, IAppUploadStates> {
@@ -29,7 +33,12 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         super(props);
         this.state = {
             fileExtensionState: "undefined",
+            file: null,
+            isSkinTypeSelected: false,
+            isValidFileSize: true,
         }
+
+        this.handleFileInput = this.handleFileInput.bind(this);
     }
 
     public render(){
@@ -51,18 +60,22 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     }
 
     private renderHeadline() {
+        const allowedExtensions = [];
+        Object.keys(EXTENSIONS).map(key => {
+            allowedExtensions.push(EXTENSIONS[key]);
+        });
         return (
             <div className="alert alert-info" role="alert">
                 Here you can contribute and upload assets to Teeskins yourself. <br />
                 Once uploaded, the asset wont be visible right away. We first have to review and accept it to prevent scam and unreasonable uploads. <br />
-                Keep in mind that only <strong>.png</strong> files are permissible with a max. file-size of <strong>10mb</strong>.          
+                Keep in mind that only <strong>.{allowedExtensions.join(', ')}</strong> files are permissible with a max. file-size of <strong>{maxFilesizeInMB} MB</strong>.          
             </div>
         );
     }
 
     private renderAssetUploadInput() {
 
-        const inputClassName = this.state.fileExtensionState === "valid" 
+        const inputClassName = this.state.fileExtensionState === "valid" && this.state.isValidFileSize
             ? "custom-file-input is-valid" 
             : this.state.fileExtensionState === "invalid" 
                 ? "custom-file-input is-invalid"
@@ -75,14 +88,24 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                         <input type="file" className={inputClassName} id="assetUpload" onChange={() => this.handleFileInput(event)}/>
                         <label className="custom-file-label">Choose Asset</label>
                     </div>
-                    <div className="invalid-feedback" style={this.state.fileExtensionState === "invalid" ? { display: "block" } : { display: "none" }}>Please select a valid file.</div>
-                </div>
-                    
-                <div className={`${this.blockName}__preview`}>
-                    <div className={`${this.blockName}__preview__display`}>
-                       {this.renderPreview(event)}
+                    <div className="invalid-feedback" style={this.state.fileExtensionState === "invalid" ? { display: "block" } : { display: "none" }}>
+                        Please select a valid file.
+                    </div>
+                    <div className="invalid-feedback" style={!this.state.isValidFileSize ? { display: "block" } : { display: "none" }}>
+                        The max. allowed filesize is {maxFilesizeInMB} MB. 
                     </div>
                 </div>
+                    
+                <div className={`${this.blockName}__preview mb-3`}>
+                    <div className={`${this.blockName}__preview__display`}>
+                       {this.renderPreview()}
+                       
+                    </div>
+                </div>
+                <div style={this.state.isSkinTypeSelected ? { display: "block" } : { display: "none" }}>
+                    <FontAwesomeIcon icon={faInfoCircle} /> Skinrenderer is currently not available in the preview.
+                </div>
+                
             </>
         );
     }
@@ -93,13 +116,13 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Author*</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="inputAuthor" placeholder="Whis" />
+                        <input type="text" className="form-control" id="inputAuthor" placeholder="e.g nameless tee" />
                     </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-sm-2 col-form-label">Name*</label>
                     <div className="col-sm-10">
-                        <input type="text" className="form-control" id="inputName" placeholder="PepeSkin" />
+                        <input type="text" className="form-control" id="inputName" placeholder="e.g cammo" />
                     </div>
                 </div>
                 <div className="form-group row">
@@ -114,9 +137,9 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
 
     private renderAssetTypesSelect() {
         const assetTypeSelect = [];
-        for (let type in TYPES) {
-            assetTypeSelect.push(<option key={type} value={type}>{type}</option>);
-        }
+        Object.keys(TYPES).map(key => {
+            assetTypeSelect.push(<option key={TYPES[key]} value={TYPES[key]}>{key}</option>);
+        });
 
         return (
             <select name="assetType" className="form-control" id="assetType">
@@ -130,46 +153,57 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             return;
           }
         
-          const name = event.target.files[0].name;
+          const file = event.target.files[0];
+          const fileSizeInMB = file.size/1024/1024;
+          const name = file.name;
           const lastDot = name.lastIndexOf('.');
           const fileName = name.substring(0, lastDot);
           const ext = name.substring(lastDot + 1);
         
+          // Validation
           if (!Object.values(EXTENSIONS).includes(ext)) {
               this.setState({ fileExtensionState: "invalid" });
               return;
           } 
 
+          if (fileSizeInMB > maxFilesizeInMB) {
+            this.setState({ isValidFileSize: false });
+            return;
+          }
+
           (document.getElementById("inputName") as HTMLInputElement).value = fileName;
-          this.setState({ fileExtensionState: "valid" });
+          
+          this.setState({ 
+              fileExtensionState: "valid", 
+              isValidFileSize: true,
+              file: URL.createObjectURL(event.target.files[0]),
+            });
     }
 
-    private renderPreview(event) {
-        if (this.state.fileExtensionState === "invalid" || this.state.fileExtensionState === "undefined") {
+    private renderPreview() {
+        if (this.state.fileExtensionState === "invalid" 
+            || this.state.fileExtensionState === "undefined"
+            || this.state.file === null
+        ) {
+            if (this.state.isSkinTypeSelected) {
+                this.setState({ isSkinTypeSelected: false });
+            }
             return "Preview";
         }
-        
-        const fileReader: FileReader = new FileReader();
-        
-        // TODO: THIS IS NOT WORKING YET - FILEREADER.ONLOAD NEVER FIRES
-        fileReader.onload = function(event: any) {
-            console.log("loaded");
-            const selectedAssetType =  (document.getElementById("assetType") as HTMLSelectElement).value;
 
-            if (selectedAssetType === "Skin") {
-                return (
-                    <SkinRenderer
-                        imagePath={event.target.result}
-                        id={"previewSkin"}
-                        size="large"
-                    />
-                );
-            }
+        const selectedAssetType =  (document.getElementById("assetType") as HTMLSelectElement).value;
 
-            return (
-                <img src={event.target.result} id="previewSkin" />
-            );
+        if (selectedAssetType === TYPES.Skin && !this.state.isSkinTypeSelected) {
+            this.setState({ isSkinTypeSelected: true });
+        } 
+
+        if (selectedAssetType !== TYPES.Skin && this.state.isSkinTypeSelected) {
+            this.setState({ isSkinTypeSelected: false });
         }
+    
+        return (
+            <img src={this.state.file} className="card-img-top" id="previewSkin" />
+        );
     }
 }
 

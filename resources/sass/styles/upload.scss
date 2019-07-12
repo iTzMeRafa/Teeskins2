@@ -6,11 +6,17 @@
         align-items: center;
         height: 300px;
         border: 1px dashed $light-grey;
+        overflow: hidden;
 
         &__display {
             text-align: center;
             margin: 0 auto;
             font-weight: 700;
+        }
+
+        img {
+            max-height: 250px;
+            width: auto;
         }
     }
 }
