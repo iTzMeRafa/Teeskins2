@@ -51,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-5">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
@@ -62,6 +62,12 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-8 offset-md-4">
+                            <a class="text-right" href="{{ route('register') }}">
+                                {{ __('Dont have a accout yet? Sign up now.')}}
                             </div>
                         </div>
                     </form>
