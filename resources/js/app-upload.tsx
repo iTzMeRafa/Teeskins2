@@ -3,6 +3,7 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from "./components/Wireframe";
+import SkinRenderer from "./components/SkinRenderer";
 
 // Interfaces
 import { IDataInterface } from "./interfaces/IDataInterface";
@@ -79,7 +80,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                     
                 <div className={`${this.blockName}__preview`}>
                     <div className={`${this.blockName}__preview__display`}>
-                        Preview
+                       {this.renderPreview(event)}
                     </div>
                 </div>
             </>
@@ -135,21 +136,40 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
           const ext = name.substring(lastDot + 1);
         
           if (!Object.values(EXTENSIONS).includes(ext)) {
-              console.log("wrong");
               this.setState({ fileExtensionState: "invalid" });
               return;
           } 
 
+          (document.getElementById("inputName") as HTMLInputElement).value = fileName;
           this.setState({ fileExtensionState: "valid" });
-            console.log("good");
-
-
-          //outputfile.value = fileName;
-          //extension.value = ext;
     }
 
-    private renderPreview() {
-        console.log("datei inportet");
+    private renderPreview(event) {
+        if (this.state.fileExtensionState === "invalid" || this.state.fileExtensionState === "undefined") {
+            return "Preview";
+        }
+        
+        const fileReader: FileReader = new FileReader();
+        
+        // TODO: THIS IS NOT WORKING YET - FILEREADER.ONLOAD NEVER FIRES
+        fileReader.onload = function(event: any) {
+            console.log("loaded");
+            const selectedAssetType =  (document.getElementById("assetType") as HTMLSelectElement).value;
+
+            if (selectedAssetType === "Skin") {
+                return (
+                    <SkinRenderer
+                        imagePath={event.target.result}
+                        id={"previewSkin"}
+                        size="large"
+                    />
+                );
+            }
+
+            return (
+                <img src={event.target.result} id="previewSkin" />
+            );
+        }
     }
 }
 
