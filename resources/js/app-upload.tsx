@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 import * as React from 'react';
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import Wireframe from "./components/Wireframe";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,8 +20,12 @@ import { TYPES, EXTENSIONS, maxFilesizeInMB } from './Services/AssetService';
 declare var data: IDataInterface;
 
 interface IAppUploadStates {
+    file: FormData | null;
+    inputName: string | null,
+    inputAuthor: string | null,
+    assetType: string | null,
     fileExtensionState: "invalid" | "undefined" | "valid";
-    file: string;
+    tempFile: string;
     isSkinTypeSelected: boolean;
     isValidFileSize: boolean;
     inputAuthorState: "invalid" | "undefined" | "valid";
@@ -35,10 +40,14 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     public constructor(props: {}) {
         super(props);
         this.state = {
+            file: null,
+            inputName: null,
+            inputAuthor: null,
+            assetType: "skin",
             fileExtensionState: "undefined",
             inputAuthorState: "undefined",
             inputNameState: "undefined",
-            file: null,
+            tempFile: null,
             isSkinTypeSelected: false,
             isValidFileSize: true,
             isValidForSubmit: false,
@@ -48,7 +57,6 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     }
 
     public render(){
-
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 {this.renderHeadline()}
@@ -146,11 +154,22 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     private renderAssetTypesSelect() {
         const assetTypeSelect = [];
         Object.keys(TYPES).map(key => {
-            assetTypeSelect.push(<option key={TYPES[key]} value={TYPES[key]}>{key}</option>);
+            assetTypeSelect.push(
+                <option key={TYPES[key]} value={TYPES[key]}>
+                    {key}
+                </option>
+            );
         });
 
         return (
-            <select required={true} name="assetType" className="form-control" id="assetType">
+            <select 
+                value={this.state.assetType}
+                required={true} 
+                name="assetType" 
+                className="form-control" 
+                id="assetType" 
+                onChange={() => this.handleAssetTypeChange()}
+            >
                 {assetTypeSelect}
             </select>
         );
@@ -174,18 +193,10 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         );
     }
 
-    private consoleLogDataStates() {
-        console.table({ 
-            File : this.state.isValidFileSize && this.state.fileExtensionState === "valid" && this.state.file !== null, 
-            Author : this.state.inputAuthorState,
-            Name : this.state.inputNameState, 
-        });
-    }
-
     private validateSubmissionState() {
         this.setState({
             isValidForSubmit: 
-                this.state.file !== null 
+                this.state.tempFile !== null 
                 && this.state.isValidFileSize 
                 && this.state.fileExtensionState === "valid" 
                 && this.state.inputAuthorState === "valid"
@@ -194,93 +205,126 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     }   
                                                                                                                                                                           
     private handleSubmitButtonClick() {
-        this.state.isValidForSubmit ? alert("yes upload!") : alert("NOT VALID DATA");
+        if (!this.state.isValidForSubmit) {
+            return;
+        }
+
+        const postData = {
+            file: this.state.file,
+            name: this.state.inputName,
+            author: this.state.inputAuthor,
+            assetType: this.state.assetType,
+        };
+
+        console.log(postData);
+
+        // Axios Upload here
+        axios({
+            method: 'post',
+            url: 'upload',
+            data: postData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });
     }
 
     private handleInputNameChange() {
-        const inputAuthorValue = (document.getElementById("inputName") as HTMLInputElement).value;
-        if (inputAuthorValue.length > 0) {
+        const inputNameValue = (document.getElementById("inputName") as HTMLInputElement).value;
+
+        if (inputNameValue.length > 0) {
             this.setState({ inputNameState: "valid" }, () => {
+                this.setState({ inputName: inputNameValue });
                 this.validateSubmissionState();
-                this.consoleLogDataStates();
             });
             return;
         }
 
         this.setState({ inputNameState: "invalid" }, () => {
             this.validateSubmissionState();
-            this.consoleLogDataStates();
         });
         return;
     }
 
     private handleInputAuthorChange() {
         const inputAuthorValue = (document.getElementById("inputAuthor") as HTMLInputElement).value;
+
         if (inputAuthorValue.length > 0) {
             this.setState({ inputAuthorState: "valid" }, () => {
+                this.setState({ inputAuthor: inputAuthorValue });
                 this.validateSubmissionState();
-                this.consoleLogDataStates();
             });
             return;
         }
 
         this.setState({ inputAuthorState: "invalid" }, () => {
             this.validateSubmissionState();
-            this.consoleLogDataStates();
         });
         return;
+    }
+
+    private handleAssetTypeChange() {
+        const selectedAssetType =  (document.getElementById("assetType") as HTMLSelectElement).value;
+        this.setState({ assetType: selectedAssetType });
     }
 
     private handleFileInput(event) {
         if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
             return;
-          }
-        
-          const file = event.target.files[0];
-          const fileSizeInMB = file.size/1024/1024;
-          const name = file.name;
-          const lastDot = name.lastIndexOf('.');
-          const fileName = name.substring(0, lastDot);
-          const ext = name.substring(lastDot + 1);
-        
-          // Validation
-          if (!Object.values(EXTENSIONS).includes(ext)) {
-              this.setState({ fileExtensionState: "invalid" });
-              this.validateSubmissionState();
-              this.consoleLogDataStates();
-              return;
-          } 
+        }
 
-          if (fileSizeInMB > maxFilesizeInMB) {
-            this.setState({ isValidFileSize: false }, () => {
-                this.validateSubmissionState();
-                this.consoleLogDataStates();
-            });
+        // Fetch and save input data for upload
+        const formData = new FormData();
+        const fileInputEl = document.getElementById("assetUpload") as HTMLInputElement;
+        formData.append("image", fileInputEl.files[0]);
+        const file = event.target.files[0];
+        const fileSizeInMB = file.size/1024/1024;
+        const name = file.name;
+        const lastDot = name.lastIndexOf('.');
+        const fileName = name.substring(0, lastDot);
+        const ext = name.substring(lastDot + 1);
+    
+        // Validation
+        if (!Object.values(EXTENSIONS).includes(ext)) {
+            this.setState({ fileExtensionState: "invalid" });
+            this.validateSubmissionState();
             return;
-          }
+        } 
 
-          (document.getElementById("inputName") as HTMLInputElement).value = fileName;
-          
-          this.setState({ 
-              fileExtensionState: "valid", 
-              isValidFileSize: true,
-              inputNameState: "valid",
-              file: URL.createObjectURL(event.target.files[0]),
-            }, () => {
-                this.validateSubmissionState();
-                this.consoleLogDataStates();
-            });
+        if (fileSizeInMB > maxFilesizeInMB) {
+        this.setState({ isValidFileSize: false }, () => {
+            this.validateSubmissionState();
+        });
+        return;
+        }
+
+        (document.getElementById("inputName") as HTMLInputElement).value = fileName;
+        
+        this.setState({ 
+            file: formData,
+            inputName: fileName,
+            fileExtensionState: "valid", 
+            isValidFileSize: true,
+            inputNameState: "valid",
+            tempFile: URL.createObjectURL(event.target.files[0]),
+        }, () => {
+            this.validateSubmissionState();
+        });
     }
 
     private renderPreview() {
         if (this.state.fileExtensionState === "invalid" 
             || this.state.fileExtensionState === "undefined"
-            || this.state.file === null
+            || this.state.tempFile === null
         ) {
             if (this.state.isSkinTypeSelected) {
                 this.setState({ isSkinTypeSelected: false }, () => {
                     this.validateSubmissionState();
-                    this.consoleLogDataStates();
                 });
             }
             return "Preview";
@@ -293,7 +337,6 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             if (!this.state.isSkinTypeSelected) {
                 this.setState({ isSkinTypeSelected: true }, () => {
                     this.validateSubmissionState();
-                    this.consoleLogDataStates();
                 });
             }
         } 
@@ -301,12 +344,11 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         if (selectedAssetType !== TYPES.Skin && this.state.isSkinTypeSelected) {
             this.setState({ isSkinTypeSelected: false }, () => {
                 this.validateSubmissionState();
-                this.consoleLogDataStates();
             });
         }
     
         return (
-            <img src={this.state.file} className="card-img-top" id="previewSkin" />
+            <img src={this.state.tempFile} className="card-img-top" id="previewSkin" />
         );
     }
 }
