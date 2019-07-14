@@ -18,7 +18,7 @@ class UploadController extends GlobalController
     }
 
     public function uploadAsset(Request $request) {
-        return $request->name;
+        print_r($request->all());
     }
 
     private function getViewData() {

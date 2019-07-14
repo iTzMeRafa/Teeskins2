@@ -31,7 +31,7 @@ interface ISkinState {
 export default class Skin extends React.Component<ISkinProps, ISkinState> {
 
     private readonly blockName = "skinCanvas";
-    private urlService;
+    private urlService: UrlService;
 
     public constructor(props: ISkinProps) {
         super(props);

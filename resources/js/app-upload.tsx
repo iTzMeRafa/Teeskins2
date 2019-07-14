@@ -12,6 +12,7 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 
 // Services
 import { TYPES, EXTENSIONS, maxFilesizeInMB } from './Services/AssetService';
+import { UtilsService } from './Services/UtilsService';
 
 /*
  * This global variable comes from the page associated controller
@@ -36,6 +37,7 @@ interface IAppUploadStates {
 export default class Upload extends React.Component<{}, IAppUploadStates> {
 
     private readonly blockName = "upload";
+    private utilsService: UtilsService;
 
     public constructor(props: {}) {
         super(props);
@@ -54,13 +56,14 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         }
 
         this.handleFileInput = this.handleFileInput.bind(this);
+        this.utilsService = new UtilsService();
     }
 
     public render(){
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
                 {this.renderHeadline()}
-                <form className={this.blockName}>
+                <form method="POST" action="/upload" encType="multipart/form-data" className={this.blockName}>
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             {this.renderAssetUploadInput()}
@@ -185,7 +188,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         return (
             <div className="row">
                 <div className="col-md-10 offset-md-2">
-                    <button type="button" className={`btn ${submitButtonClassName} btn-block btn-lg float-right`} onClick={() => this.handleSubmitButtonClick()}>
+                    <button type="submit" className={`btn ${submitButtonClassName} btn-block btn-lg float-right`} onClick={() => this.handleSubmitButtonClick(event)}>
                         Submit
                     </button>
                 </div>
@@ -204,7 +207,8 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         });
     }   
                                                                                                                                                                           
-    private handleSubmitButtonClick() {
+    private handleSubmitButtonClick(event) {
+        event.preventDefault();
         if (!this.state.isValidForSubmit) {
             return;
         }
@@ -224,7 +228,8 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             url: 'upload',
             data: postData,
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'X-CSRF-TOKEN': this.utilsService.getMetaTagValue('csrf-token'),
             }
         })
         .then((response) => {
