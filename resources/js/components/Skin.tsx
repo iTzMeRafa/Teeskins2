@@ -26,6 +26,9 @@ interface ISkinProps {
 
 interface ISkinState {
     liked: boolean;
+    downloaded: boolean;
+    likes: number;
+    downloads: number;
 }
 
 export default class Skin extends React.Component<ISkinProps, ISkinState> {
@@ -39,6 +42,9 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
 
         this.state = {
             liked: this.props.userInfo.assetLikes.skins.includes(this.props.id),
+            downloaded: false,
+            likes: 0,
+            downloads: 0,
         }
     }
 
@@ -63,8 +69,9 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private renderHeadControl() {
         const tooltipContent = (
             <span>
-                Downloads: <strong>{this.props.downloads}</strong> <br />
-                Likes: <strong>{this.props.likes}</strong> <br />
+                Downloads: 
+                <strong>{this.props.downloads + this.state.downloads}</strong> <br />
+                Likes: <strong>{this.props.likes + this.state.likes}</strong> <br />
                 Upload Date: <strong>{this.props.uploadDate}</strong>
             </span>
         );
@@ -121,7 +128,10 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             url: `download/skin/${this.props.id}`,
         })
         .then(() => {
-            this.setState({ liked: true });
+            this.setState({ 
+                downloaded: true,
+                downloads: this.state.downloads + 1, 
+            });
         }, (error) => {
             console.log(error);
         });
@@ -145,7 +155,10 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             url: `like/skin/${this.props.id}`,
         })
         .then(() => {
-            this.setState({ liked: true });
+            this.setState({ 
+                liked: true,
+                likes: this.state.likes + 1,
+            });
         }, (error) => {
             console.log(error);
         });
@@ -157,7 +170,10 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             url: `unlike/skin/${this.props.id}`,
         })
         .then(() => {
-          this.setState({ liked: false });
+            this.setState({ 
+                liked: false,
+                likes: this.state.likes - 1, 
+            });
         }, (error) => {
             console.log(error);
         });
