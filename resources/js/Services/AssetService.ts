@@ -9,8 +9,6 @@ export enum TYPES {
 
 export enum EXTENSIONS {
     PNG = "png",
-    JPG = "jpg",
-    JPEG = "jpeg",
 }
 
 export const maxFilesizeInMB = 10;

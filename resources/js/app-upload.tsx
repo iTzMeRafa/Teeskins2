@@ -21,7 +21,8 @@ import { UtilsService } from './Services/UtilsService';
 declare var data: IDataInterface;
 
 interface IAppUploadStates {
-    file: FormData | null;
+    postData: FormData | null;
+    file: File;
     inputName: string | null,
     inputAuthor: string | null,
     assetType: string | null,
@@ -32,6 +33,7 @@ interface IAppUploadStates {
     inputAuthorState: "invalid" | "undefined" | "valid";
     inputNameState: "invalid" | "undefined" | "valid";
     isValidForSubmit: boolean;
+    uploadStatus: "failed" | "undefined" | "success";
 }
 
 export default class Upload extends React.Component<{}, IAppUploadStates> {
@@ -42,6 +44,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     public constructor(props: {}) {
         super(props);
         this.state = {
+            postData: null,
             file: null,
             inputName: null,
             inputAuthor: null,
@@ -53,6 +56,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             isSkinTypeSelected: false,
             isValidFileSize: true,
             isValidForSubmit: false,
+            uploadStatus: "undefined",
         }
 
         this.handleFileInput = this.handleFileInput.bind(this);
@@ -62,8 +66,9 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     public render(){
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
+                {this.renderUploadStatusAlert()}
                 {this.renderHeadline()}
-                <form method="POST" action="/upload" encType="multipart/form-data" className={this.blockName}>
+                <form method="POST" encType="multipart/form-data" className={this.blockName}>
                     <div className="row">
                         <div className="col-md-6 mb-3">
                             {this.renderAssetUploadInput()}
@@ -75,6 +80,25 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                 </form>
             </Wireframe>
         );
+    }
+
+    private renderUploadStatusAlert() {
+        if (this.state.uploadStatus === "success") {
+            return (
+                <div className="alert alert-success" role="alert">
+                    <h4 className="alert-heading">Congratz!</h4>
+                    <p>You successfully uploaded an asset to Teeskins. After reviewing and accepting your upload, it will be public for everyone.</p>
+                </div>
+            );
+        } 
+        else if (this.state.uploadStatus === "failed") {
+            return (
+                <div className="alert alert-danger" role="alert">
+                    <h4 className="alert-heading">Ooops!</h4>
+                    <p>Something went wrong. Please check your input data and try to upload again. </p>
+                </div>
+            );
+        }
     }
 
     private renderHeadline() {
@@ -104,7 +128,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                 <div className="input-group mb-4">
                     <div className="custom-file">
                         <input type="file" className={inputClassName} id="assetUpload" required={true} onChange={() => this.handleFileInput(event)}/>
-                        <label className="custom-file-label">Choose Asset</label>
+                        <label className="custom-file-label" id="assetInputLabel">Choose Asset...</label>
                     </div>
                     <div className="invalid-feedback" style={this.state.fileExtensionState === "invalid" ? { display: "block" } : { display: "none" }}>
                         Please select a valid file.
@@ -178,6 +202,17 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         );
     }
 
+    private renderFileFakePath(fileFakePath: string) {
+        const filePathLabelEl = document.getElementById("assetInputLabel") as HTMLLabelElement;
+        const textNode = document.createTextNode(fileFakePath);
+
+        while (filePathLabelEl.firstChild) {
+            filePathLabelEl.removeChild(filePathLabelEl.firstChild);
+        }
+        
+        filePathLabelEl.appendChild(textNode);
+    }
+
     private renderSubmitButton() {
         
 
@@ -207,36 +242,31 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         });
     }   
                                                                                                                                                                           
-    private handleSubmitButtonClick(event) {
+    private handleSubmitButtonClick(event: Event) {
         event.preventDefault();
         if (!this.state.isValidForSubmit) {
             return;
         }
 
-        const postData = {
-            file: this.state.file,
-            name: this.state.inputName,
-            author: this.state.inputAuthor,
-            assetType: this.state.assetType,
-        };
+        const postData = new FormData();
+        postData.append('file', this.state.file);
+        postData.append('name', this.state.inputName);
+        postData.append('author', this.state.inputAuthor);
+        postData.append('assetType', this.state.assetType);
 
+        const settings = { headers: { 'content-type': 'multipart/form-data' } };
         console.log(postData);
 
         // Axios Upload here
-        axios({
-            method: 'post',
-            url: 'upload',
-            data: postData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'X-CSRF-TOKEN': this.utilsService.getMetaTagValue('csrf-token'),
-            }
+        axios.post('/upload', postData, settings)
+        .then(response => {
+            this.setState({ uploadStatus: response.data }, () => {
+                console.log("Upload Status: " + this.state.uploadStatus);
+            })
         })
-        .then((response) => {
-            console.log(response);
-        }, (error) => {
+        .then(error => {
             console.log(error);
-        });
+        })
     }
 
     private handleInputNameChange() {
@@ -284,16 +314,18 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         }
 
         // Fetch and save input data for upload
-        const formData = new FormData();
         const fileInputEl = document.getElementById("assetUpload") as HTMLInputElement;
-        formData.append("image", fileInputEl.files[0]);
+        const fileReal = fileInputEl.files[0];
         const file = event.target.files[0];
+        const fileFakePath = fileInputEl.value;
         const fileSizeInMB = file.size/1024/1024;
         const name = file.name;
         const lastDot = name.lastIndexOf('.');
         const fileName = name.substring(0, lastDot);
         const ext = name.substring(lastDot + 1);
     
+        this.renderFileFakePath(fileFakePath);
+
         // Validation
         if (!Object.values(EXTENSIONS).includes(ext)) {
             this.setState({ fileExtensionState: "invalid" });
@@ -311,7 +343,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         (document.getElementById("inputName") as HTMLInputElement).value = fileName;
         
         this.setState({ 
-            file: formData,
+            file: fileReal,
             inputName: fileName,
             fileExtensionState: "valid", 
             isValidFileSize: true,
