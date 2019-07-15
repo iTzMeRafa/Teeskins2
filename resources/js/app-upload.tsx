@@ -87,7 +87,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             return (
                 <div className="alert alert-success" role="alert">
                     <h4 className="alert-heading">Congratz!</h4>
-                    <p>You successfully uploaded an asset to Teeskins. After reviewing and accepting your upload, it will be public for everyone.</p>
+                    <p>You successfully uploaded an asset to Teeskins.</p>
                 </div>
             );
         } 
@@ -182,7 +182,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         const assetTypeSelect = [];
         Object.keys(TYPES).map(key => {
             assetTypeSelect.push(
-                <option key={TYPES[key]} value={TYPES[key]}>
+                <option key={TYPES[key]} disabled={TYPES[key] === "skin" ? false : true} value={TYPES[key]}>
                     {key}
                 </option>
             );

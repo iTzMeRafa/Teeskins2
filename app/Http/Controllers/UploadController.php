@@ -44,10 +44,12 @@ class UploadController extends GlobalController
                 case "skin":
                     if(Storage::disk('skins')->put($fileName, file_get_contents($file))) {
                         DB::table('skins')->insert(
-                            ['name' => $name, 'author' => $author, 'imagePath' => '/database/skins/' . $fileName ,'userID' => Auth::id(), 'uploadDate' => NOW()]
+                            ['name' => $name, 'author' => $author, 'imagePath' => '/database/skins/' . $fileName ,'userID' => Auth::id(), 'isPublic' => 0, 'uploadDate' => NOW()]
                         );
                     }
                     break;
+                default:
+                    return "failed";
             }
 
             return "success";

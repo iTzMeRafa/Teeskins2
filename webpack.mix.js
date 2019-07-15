@@ -27,6 +27,12 @@ mix.react('resources/js/app-privacyPolicies.tsx', 'public/js');
 // Terms Of Use
 mix.react('resources/js/app-termsOfUse.tsx', 'public/js');
 
+// Admin Home
+mix.react('resources/js/app-adminHome.tsx', 'public/js');
+
+// Admin Skins Upload
+mix.react('resources/js/app-adminSkinsUpload.tsx', 'public/js');
+
 mix.webpackConfig({
     module: {
         rules: [

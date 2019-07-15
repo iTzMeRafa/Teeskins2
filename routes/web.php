@@ -25,3 +25,7 @@ Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
 Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
 Route::post('/like/{assetType}/{assetID}', 'LikeController@index')->name('like');
 Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('unlike');
+
+// Admin
+Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
+Route::get('/adminpanel/uploads/skins', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins'); //All uploads not public yet to review and accept them

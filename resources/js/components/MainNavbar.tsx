@@ -18,7 +18,7 @@ export default class MainNavbar extends React.Component {
                 <div className="container">
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                             aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                        <FontAwesomeIcon icon={faBars} size={"10x"}/>
+                        <FontAwesomeIcon icon={faBars} size={"2x"}/>
                     </button>
 
                     <div className="collapse navbar-collapse" id="navbarColor01">

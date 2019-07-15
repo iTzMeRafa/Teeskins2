@@ -17,7 +17,7 @@ class SkinsController extends GlobalController
     }
 
     private function fetchSkinsFromDatabase() {
-        $skins = DB::table("skins")->orderBy("id")->get();
+        $skins = DB::table("skins")->where("isPublic", "=", 1)->orderBy("id")->get();
 
         $downloads = 
             DB::table("downloads")

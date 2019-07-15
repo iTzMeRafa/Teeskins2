@@ -2,9 +2,9 @@ require('./bootstrap');
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import GridCore from "./components/GridCore"
-import SortingPanel from "./components/SortingPanel";
-import Wireframe from "./components/Wireframe";
+import Wireframe from './components/Wireframe'
+import Trending from "./components/Trending";
+import Jumbotron from "./components/Jumbotron";
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -13,17 +13,16 @@ import { IDataInterface } from "./interfaces/IDataInterface";
  */
 declare var data: IDataInterface;
 
-export default class Skins extends React.Component {
-    render(){
-        return(
+export default class AdminHome extends React.Component {
+     render() {
+        return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                {/*<SortingPanel/>*/}
-                <GridCore userInfo={data.globalData.userInfo} assets={data.viewData.skins}/>
+               Admin Home
             </Wireframe>
         );
     }
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<Skins />, document.getElementById('app'));
+    ReactDOM.render(<AdminHome />, document.getElementById('app'));
 }

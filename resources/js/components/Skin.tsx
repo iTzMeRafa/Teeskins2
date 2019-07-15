@@ -92,9 +92,6 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     }
 
     private renderBottomControls() {
-
-        console.log(this.state.liked);
-
         const likeButtonClasses = this.props.userInfo.isLoggedIn 
             ? this.state.liked
                 ? "btn-success"

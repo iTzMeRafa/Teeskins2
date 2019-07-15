@@ -55,7 +55,7 @@ class GlobalController extends Controller
     }
 
     private function getTotalItemsCount() {
-        $skinsCount = DB::table('skins')->count();
+        $skinsCount = DB::table('skins')->where('isPublic', '=', 1)->count();
 
         return $skinsCount;
     }
