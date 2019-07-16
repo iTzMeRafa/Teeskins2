@@ -5,7 +5,7 @@ import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 // Interfaces
 import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
@@ -21,6 +21,7 @@ interface ISkinProps {
     uploadDate: string;
     downloads: number;
     likes: number;
+    isPublic: number;
     userInfo: IUserInfoInterface;
 }
 
@@ -79,7 +80,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         return (
             <div className={`${this.blockName}__headControl`}>
                 <div className="float-left">
-                
+                    {this.renderSettingControls()}
                 </div>
                 <div className="float-right">
                 <Tooltip placement="top" trigger={['hover']} overlay={tooltipContent}>
@@ -116,6 +117,22 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
                     <FontAwesomeIcon icon={faThumbsUp} />
                 </button>
             </div>
+        );
+    }
+
+    private renderSettingControls() {
+        return (
+            <div className="dropdown">
+                <button className={`${this.blockName}__settingController`} type="button" id="settingControls" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                </button>
+                <div className="dropdown-menu" aria-labelledby="settingControls">
+                    <a className="dropdown-item" href="#">Action</a>
+                    <a className="dropdown-item" href="#">Another action</a>
+                    <a className="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+            
         );
     }
 

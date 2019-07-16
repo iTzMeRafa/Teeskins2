@@ -3,8 +3,8 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe'
-import Trending from "./components/Trending";
-import Jumbotron from "./components/Jumbotron";
+import GridCore from "./components/GridCore"
+import AdminPanelSideBar from './components/AdminPanelSideBar';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -17,7 +17,14 @@ export default class AdminSkinsUpload extends React.Component {
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-               Admin Skins Upload
+               <div className="row">
+                    <div className="col-md-3">
+                        <AdminPanelSideBar />
+                    </div>
+                    <div className="col-md-9">
+                        <GridCore userInfo={data.globalData.userInfo} assets={data.viewData.skins}/>
+                    </div>
+                </div>
             </Wireframe>
         );
     }

@@ -5,7 +5,7 @@ import { TYPES } from './../Services/AssetService';
 
 export default class AdminPanelSideBar extends React.Component {
 
-    private readonly blockName = "adminPanelSideBar";
+    private readonly blockName = "AdminPanelSideBar";
 
     public render() {
         return(

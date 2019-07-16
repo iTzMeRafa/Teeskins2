@@ -29,6 +29,7 @@ export default class GridCore extends React.Component<IGridCoreProps> {
                      userInfo={this.props.userInfo}
                      downloads={asset.downloads}
                      likes={asset.likes}
+                     isPublic={asset.isPublic}
                  />
              </div>
            );

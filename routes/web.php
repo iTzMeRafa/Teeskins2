@@ -28,4 +28,6 @@ Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('un
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
+
+/* AssetType must be singular */
 Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins'); //All uploads not public yet to review and accept them

@@ -6,6 +6,7 @@ export interface NewestAsset {
     uploadDate: string;
     downloads: number;
     likes: number;
+    isPublic: number;
 }
 
 export interface MostDownloadedAsset{
@@ -16,6 +17,7 @@ export interface MostDownloadedAsset{
     uploadDate: string;
     downloads: number;
     likes: number;
+    isPublic: number;
 }
 
 export interface MostLikedAsset{
@@ -26,6 +28,7 @@ export interface MostLikedAsset{
     uploadDate: string;
     downloads: number;
     likes: number;
+    isPublic: number;
 }
 
 

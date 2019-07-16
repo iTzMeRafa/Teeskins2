@@ -3,7 +3,7 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe'
-import AdminPanelSideBar from './components/adminPanelSidebar';
+import AdminPanelSideBar from './components/AdminPanelSideBar';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
