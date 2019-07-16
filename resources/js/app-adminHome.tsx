@@ -16,11 +16,13 @@ export default class AdminHome extends React.Component {
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                <div className="col-md-3">
-                    <AdminPanelSideBar />
-                </div>
-                <div className="col-md-9">
-                    Content hier
+                <div className="row">
+                    <div className="col-md-3">
+                        <AdminPanelSideBar />
+                    </div>
+                    <div className="col-md-9">
+                        Content hier
+                    </div>
                 </div>
             </Wireframe>
         );

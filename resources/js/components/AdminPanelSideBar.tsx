@@ -1,56 +1,51 @@
 import * as React from 'react';
 
+// Services
+import { TYPES } from './../Services/AssetService';
+
 export default class AdminPanelSideBar extends React.Component {
 
     private readonly blockName = "adminPanelSideBar";
 
     public render() {
         return(
-            <div className="page-sidebar">
-                <aside>
-                    <div className="inner-box">
-                        <div className="user-panel-sidebar">
+            <aside className={this.blockName}>
 
-                            <div className="collapse-box">
-                                <h5 className="collapse-title no-border"> Products
-                                    <a className="pull-right" aria-expanded="true" data-toggle="collapse" href="#MyAds">
-                                        <i className="fa fa-angle-down"></i>
-                                    </a>
-                                </h5>
+                <h5 className={`${this.blockName}__title`}> Users </h5>
+                <div>
+                    <ul className={`navbar ${this.blockName}__navbar`}>
+                        <li className="nav-item">
+                            <a className="nav-link" href="">
+                                Userlist
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-                                <div id="MyAds" className="panel-collapse collapse show">
-                                    <ul className="acc-list">
-                                        <li className="">
-                                            <a href="https://liquidscout.com/user/saves">
-                                                <i className="icon-star-circled"></i> Saved Products
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                <h5 className={`${this.blockName}__title`}> Uploads </h5>
+                <div>
+                    <ul className={`navbar ${this.blockName}__navbar`}>
+                        {this.renderUploads()}
+                    </ul>
+                </div>
 
-                            <div className="collapse-box">
-                                <h5 className="collapse-title"> Account
-                                    <a className="pull-right" aria-expanded="true" data-toggle="collapse" href="#TerminateAccount">
-                                        <i className="fa fa-angle-down"></i>
-                                    </a>
-                                </h5>
-
-                                <div id="TerminateAccount" className="panel-collapse collapse show">
-                                    <ul className="acc-list">
-                                        <li className="active">
-                                            <a href="https://liquidscout.com/user/settings">
-                                                <i className="icon-cancel-circled "></i> Account Settings
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </aside>
-            </div>
+            </aside>
         );
+    }
+
+    private renderUploads() {
+        const uploadsList= [];
+
+        Object.keys(TYPES).map(key => {
+            uploadsList.push(
+                <li className="nav-item">
+                    <a className="nav-link" href={`adminpanel/uploads/${TYPES[key]}`}>
+                        {key}
+                    </a>
+                </li>
+            );
+        });
+
+        return uploadsList;
     }
 }

@@ -1,5 +1,18 @@
-$componentClass: 'adminPanelSideBar';
+    .adminPanelSideBar {
+        padding: 20px 15px;
 
-    .#{$componentClass} {
+        ul, li {
+            list-style: none;
+        }
 
+        &__title {
+            border-bottom: 1px solid $light-grey;
+            padding-bottom: 10px;
+        }
+
+        &__navbar {
+            border-bottom: none !important;
+            padding-top: 0 !important;
+            display: block !important;
+        }
     }
