@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class AdminpanelUploadSkinsController extends GlobalController
 {
+    public function __construct()
+    {
+        $this->middleware('adminAuth');
+    }
+    
     public function index() {
         return view('pages/admin/skinsUpload')->with('data', $this->getViewData());
     }
