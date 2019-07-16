@@ -3,8 +3,7 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe'
-import Trending from "./components/Trending";
-import Jumbotron from "./components/Jumbotron";
+import AdminPanelSideBar from './components/adminPanelSidebar';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -17,7 +16,12 @@ export default class AdminHome extends React.Component {
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-               Admin Home
+                <div className="col-md-3">
+                    <AdminPanelSideBar />
+                </div>
+                <div className="col-md-9">
+                    Content hier
+                </div>
             </Wireframe>
         );
     }
