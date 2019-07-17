@@ -1,4 +1,5 @@
 # Teeskins - Teeworlds Assets Database
+![Teeskins Page Overview](http://109.73.52.223/teeskins.png)
 
 ## Technology
 This Project uses the PHP-framework [Laravel](https://laravel.com/) serving as the backend.  
