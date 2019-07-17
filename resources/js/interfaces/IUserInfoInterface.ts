@@ -5,5 +5,7 @@ export interface IUserInfoInterface {
     email: string | null;
     id: number | null;
     username: string | null;
+    role: string | null;
     assetLikes: IAssetLikesInterface;
+    triggerParentVisibility: () => void;
 }

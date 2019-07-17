@@ -5,7 +5,7 @@ import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash  } from '@fortawesome/free-solid-svg-icons'
 
 // Interfaces
 import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
@@ -22,7 +22,10 @@ interface ISkinProps {
     downloads: number;
     likes: number;
     isPublic: number;
+    handleVisibilityChange?: () => void;
     userInfo: IUserInfoInterface;
+    updateDownloads: boolean;
+    updateLikes: boolean;
 }
 
 interface ISkinState {
@@ -30,6 +33,9 @@ interface ISkinState {
     downloaded: boolean;
     likes: number;
     downloads: number;
+    accepted: boolean;
+    hid: boolean;
+    deleted: boolean;
 }
 
 export default class Skin extends React.Component<ISkinProps, ISkinState> {
@@ -46,10 +52,15 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
             downloaded: false,
             likes: 0,
             downloads: 0,
+            accepted: false,
+            hid: false,
+            deleted: false,
         }
     }
 
     public render() {
+        console.log(this.getVisibility());
+
         return(
             <div className="card">
                 {this.renderHeadControl()}
@@ -121,25 +132,51 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     }
 
     private renderSettingControls() {
+        if (this.props.userInfo.role !== 'admin') {
+            return;
+        }
+
         return (
             <div className="dropdown">
                 <button className={`${this.blockName}__settingController`} type="button" id="settingControls" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <FontAwesomeIcon icon={faEllipsisV} />
                 </button>
                 <div className="dropdown-menu" aria-labelledby="settingControls">
-                    <a className="dropdown-item" href="#">Action</a>
-                    <a className="dropdown-item" href="#">Another action</a>
-                    <a className="dropdown-item" href="#">Something else here</a>
+
+                    {this.props.isPublic === 0 && (
+                        <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handleAcceptOnClick()}> 
+                            <FontAwesomeIcon icon={faCheck} /> Accept
+                        </a>
+                    )}
+                    
+                    {this.props.isPublic === 1 && (
+                        <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handlePutPrivateOnClick()}>
+                            <FontAwesomeIcon icon={faLock} /> Put Private
+                        </a>
+                    )}
+
+                    <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handleDeleteOnClick()}>
+                        <FontAwesomeIcon icon={faTrash} /> Delete
+                    </a>
+
                 </div>
             </div>
             
         );
     }
 
+    private getVisibility() {
+        return !(this.state.hid || this.state.deleted || this.state.accepted);
+    }
+
     private handleDownloadClick(): void {
+        if (!this.props.updateDownloads) {
+            return;
+        }
+        
         axios({
             method: 'post',
-            url: `download/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}download/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 
@@ -151,22 +188,73 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         });
     }
 
-    private handleLikeClick(): void {
+    private handleAcceptOnClick() {
+        if (confirm('Are you sure to accept this asset?')) {
+            axios({
+                method: 'post',
+                url: `${this.urlService.getBaseURL()}accept/skin/${this.props.id}`,
+            })
+            .then(() => {
+                if (this.props.handleVisibilityChange) {
+                    this.props.handleVisibilityChange();
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    }
 
+    private handlePutPrivateOnClick() {
+        if (confirm('Are you sure to put this asset private?')) {
+            axios({
+                method: 'post',
+                url: `${this.urlService.getBaseURL()}hide/skin/${this.props.id}`,
+            })
+            .then(() => {
+                if (this.props.handleVisibilityChange) {
+                    this.props.handleVisibilityChange();
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    }
+
+    private handleDeleteOnClick() {
+        if (confirm('Are you sure to delete this asset?')) {
+            axios({
+                method: 'post',
+                url: `${this.urlService.getBaseURL()}delete/skin/${this.props.id}`,
+            })
+            .then(() => {
+                if (this.props.handleVisibilityChange) {
+                    this.props.handleVisibilityChange();
+                }
+            }, (error) => {
+                console.log(error);
+            });
+        }
+    }
+
+    private handleLikeClick(): void {
+    
         if (!this.props.userInfo.isLoggedIn) {
             this.urlService.redirectToPageURL(URLS.Login);
             return;
         }
 
-        this.state.liked
-            ? this.unlike()
-            : this.like();
+        if (!this.props.updateLikes) {
+            return;
+        }
+            this.state.liked
+                ? this.unlike()
+                : this.like();
     }
 
     private like(): void {
         axios({
             method: 'post',
-            url: `like/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}like/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 
@@ -181,7 +269,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private unlike(): void {
         axios({
             method: 'post',
-            url: `unlike/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}unlike/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 

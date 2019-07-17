@@ -28,7 +28,7 @@ class HomeController extends GlobalController
     }
 
     private function getNewestAsset() {
-        $newestSkin = DB::table("skins")->orderByDesc("uploadDate")->first();
+        $newestSkin = DB::table("skins")->where("isPublic", "=", 1)->orderByDesc("uploadDate")->first();
         $likes = DB::table("likes")->selectRaw("count(*) as likes")->where('assetID', '=', $newestSkin->id)->first();
         $downloads = DB::table("downloads")->selectRaw("count(*) as downloads")->where('assetID', '=', $newestSkin->id)->first();
 

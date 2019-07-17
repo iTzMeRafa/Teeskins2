@@ -25,6 +25,9 @@ Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
 Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
 Route::post('/like/{assetType}/{assetID}', 'LikeController@index')->name('like');
 Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('unlike');
+Route::post('/accept/{assetType}/{assetID}', 'VisibilityAssetController@setAssetVisible')->name('setAssetVisible');
+Route::post('/hide/{assetType}/{assetID}', 'VisibilityAssetController@setAssetHide')->name('setAssetHide');
+Route::post('/delete/{assetType}/{assetID}', 'DeleteAssetController@deleteAsset')->name('deleteAsset');
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...

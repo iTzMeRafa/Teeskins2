@@ -26,6 +26,8 @@ export default class Newest extends React.Component<INewestProps> {
                     downloads={this.props.newestAsset.downloads}
                     likes={this.props.newestAsset.likes}
                     isPublic={this.props.newestAsset.isPublic}
+                    updateDownloads={true}
+                    updateLikes={true}
                 />
             </>
         );

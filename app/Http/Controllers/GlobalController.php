@@ -21,6 +21,7 @@ class GlobalController extends Controller
             'id' => Auth::id(),
             'email' => Auth::check() ? Auth::user()->email : null,
             'username' => Auth::check() ? Auth::user()->name : null,
+            'role' => Auth::check() ? Auth::user()->role : null,
             'assetLikes' => $this->getUserAssetLikes(),
         ];
     }

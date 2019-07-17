@@ -6,10 +6,16 @@ interface IGridCoreProps {
     assets: any;
     userInfo: IUserInfoInterface;
     numPerRow: 1 | 2 | 3 | 4;
+    updateDownloads: boolean;
+    updateLikes: boolean;
 }
 
-export default class GridCore extends React.Component<IGridCoreProps> {
-    render(){
+interface IGridCoreState {
+    hideForAssetIDs: number[];
+}
+
+export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
+    public render() {
         return(
             <div className="row">
                 {this.renderAssets()}
@@ -17,22 +23,44 @@ export default class GridCore extends React.Component<IGridCoreProps> {
         );
     }
 
+    public constructor(props: IGridCoreProps) {
+        super(props);
+        this.state = {
+            hideForAssetIDs: [0],
+        };
+    }
+
+    
+    private setAssetVisibility(assetID) {
+        console.log("parent method called");
+        this.setState({
+            hideForAssetIDs: [...this.state.hideForAssetIDs, assetID],
+          });
+    }
+
     private renderAssets() {
         return this.props.assets.map(asset => {
            return (
-             <div className={`${this.getClassName()} mb-4`} key={asset.id}>
-                 <Skin
-                     id={asset.id}
-                     name={asset.name}
-                     author={asset.author}
-                     imagePath={asset.imagePath}
-                     uploadDate={asset.uploadDate}
-                     userInfo={this.props.userInfo}
-                     downloads={asset.downloads}
-                     likes={asset.likes}
-                     isPublic={asset.isPublic}
-                 />
-             </div>
+                <div 
+                className={`${this.getClassName()} mb-4`} 
+                key={asset.id} 
+                style={this.state.hideForAssetIDs.includes(asset.id) ? { display: "none" } : { display: "block" }}
+                >
+                    <Skin
+                        id={asset.id}
+                        name={asset.name}
+                        author={asset.author}
+                        imagePath={asset.imagePath}
+                        uploadDate={asset.uploadDate}
+                        userInfo={this.props.userInfo}
+                        downloads={asset.downloads}
+                        likes={asset.likes}
+                        isPublic={asset.isPublic}
+                        handleVisibilityChange={() => this.setAssetVisibility(asset.id)}
+                        updateDownloads={this.props.updateDownloads}
+                        updateLikes={this.props.updateLikes}
+                    />
+                </div>
            );
         });
     }

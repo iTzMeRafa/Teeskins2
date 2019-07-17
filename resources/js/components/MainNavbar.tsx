@@ -2,6 +2,9 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
 
+// Services
+import { UrlService } from './../Services/UrlService';
+
 const skinsPath      = "/skins";
 const mapresPath     = "/mapres";
 const gameskinsPath  = "/gameskins";
@@ -10,6 +13,13 @@ const particlesPath  = "/particles";
 const cursorsPath    = "/cursors";
 
 export default class MainNavbar extends React.Component {
+
+    private readonly urlService;
+
+    public constructor(props: {}) {
+        super(props);
+        this.urlService = new UrlService();
+    }
 
     render(){
         return(
@@ -59,7 +69,7 @@ export default class MainNavbar extends React.Component {
     }
 
     private isActive(naviPath) {
-        if(this.getUrlPath() === naviPath) {
+        if(this.urlService.getUrlPath() === naviPath) {
             return 'active';
         }
         return '';

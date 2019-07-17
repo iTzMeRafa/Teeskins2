@@ -26,6 +26,8 @@ export default class Newest extends React.Component<IMostDownloadsProps> {
                     downloads={this.props.mostDownloadedAsset.downloads}
                     likes={this.props.mostDownloadedAsset.likes}
                     isPublic={this.props.mostDownloadedAsset.isPublic}
+                    updateDownloads={true}
+                    updateLikes={true}
                 />
             </>
         );
