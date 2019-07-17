@@ -22,7 +22,7 @@ export default class AdminSkinsUpload extends React.Component {
                         <AdminPanelSideBar />
                     </div>
                     <div className="col-md-9">
-                        <GridCore userInfo={data.globalData.userInfo} assets={data.viewData.skins}/>
+                        <GridCore userInfo={data.globalData.userInfo} assets={data.viewData.skins} numPerRow={3}/>
                     </div>
                 </div>
             </Wireframe>
