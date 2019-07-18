@@ -25,6 +25,10 @@ export class UrlService {
         return url.substr(startChar, url.length);
     }
 
+    public mergeBaseWithPathURL(path) {
+        return this.getBaseURL() + path;
+    } 
+
     public redirectToPageURL(url: URLS) {
         window.location.href = this.getBaseURL() + url;
     }

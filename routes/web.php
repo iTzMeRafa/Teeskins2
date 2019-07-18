@@ -21,6 +21,9 @@ Route::get('/upload', 'UploadController@index')->name('upload');
 Route::get('/privacy-policies', 'PrivacyPoliciesController@index')->name('privacy-policies');
 Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
 
+// Error Pages
+Route::get('/error/404', 'ErrorController@error404')->name('error404');
+
 // Actions
 Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
 Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
