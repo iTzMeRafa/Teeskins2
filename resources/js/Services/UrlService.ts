@@ -2,14 +2,27 @@ export enum URLS {
     Home = "/",
     Login = "/login",
     Register = "/register",
+
     Skins = "/skins",
     Mapres = "/mapres",
     Gameskins = "/gameskins",
     Emoticons = "/emoticons",
     Particles = "/particles",
     Cursors = "/cursors",
+
     PrivacyPolicies = "/privacy-policies",
     TermsOfUse = "/terms-of-use",
+
+    Dashboard = "/userpanel/dashboard",
+    Settings = "/userpanel/settings",
+    
+    UserList = "/adminpanel/userlist",
+    SkinUploads = "/adminpanel/uploads/skin",
+    MapresUploads = "/adminpanel/uploads/mapres",
+    GameskinUploads = "/adminpanel/uploads/gameskin",
+    EmoticonUploads = "/adminpanel/uploads/emoticon",
+    ParticleUploads = "/adminpanel/uploads/particle",
+    CursorUploads = "/adminpanel/uploads/cursor",
 }
 
 export class UrlService {

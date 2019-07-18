@@ -38,6 +38,10 @@
                                 </a>
                             @endadmin
 
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
+                                {{ __('Dashboard') }}
+                            </a>
+
                             <a class="dropdown-item" href="{{ route('settings') }}">
                                 {{ __('settings') }}
                             </a>
