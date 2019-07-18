@@ -66,6 +66,6 @@ export default class MainNavbar extends React.Component {
         event.preventDefault();
         
         const query = (document.getElementById("searchinput") as HTMLInputElement).value;
-        this.urlService.redirectToPageURL('search/' + query);
+        this.urlService.redirectToPageURL('/search/' + query);
     }
 }
