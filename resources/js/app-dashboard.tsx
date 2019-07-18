@@ -12,7 +12,7 @@ import { IDataInterface } from "./interfaces/IDataInterface";
  */
 declare var data: IDataInterface;
 
-export default class Settings extends React.Component {
+export default class DashBoard extends React.Component {
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -30,5 +30,5 @@ export default class Settings extends React.Component {
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<Settings />, document.getElementById('app'));
+    ReactDOM.render(<DashBoard />, document.getElementById('app'));
 }

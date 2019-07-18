@@ -18,9 +18,12 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/skins', 'SkinsController@index')->name('skins');
 Route::get('/search/{query}', 'SearchController@index')->name('search');
 Route::get('/upload', 'UploadController@index')->name('upload');
-Route::get('/settings', 'SettingsController@index')->name('settings');
 Route::get('/privacy-policies', 'PrivacyPoliciesController@index')->name('privacy-policies');
 Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
+
+// Userpanels
+Route::get('/userpanel/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/userpanel/settings', 'SettingsController@index')->name('settings');
 
 // Error Pages
 Route::get('/error/404', 'ErrorController@error404')->name('error404');
@@ -39,4 +42,4 @@ Route::post('/delete/{assetType}/{assetID}', 'DeleteAssetController@deleteAsset'
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
 
 /* AssetType must be singular */
-Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins'); //All uploads not public yet to review and accept them
+Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');

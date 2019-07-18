@@ -24,6 +24,9 @@ mix.react('resources/js/app-upload.tsx', 'public/js');
 // Settings
 mix.react('resources/js/app-settings.tsx', 'public/js');
 
+// Dashboard
+mix.react('resources/js/app-dashboard.tsx', 'public/js');
+
 // Search
 mix.react('resources/js/app-search.tsx', 'public/js');
 
