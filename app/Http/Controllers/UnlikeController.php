@@ -13,8 +13,35 @@ class UnlikeController extends Controller
     }
 
     public function index($assetType, $assetID) {
-        DB::table('likes')->where(
-            ['assetType' => $assetType, 'assetID' => $assetID, 'userID' => Auth::id()]
-        )->delete();;
+        if (DB::table('likes')->where(['assetType' => $assetType, 'assetID' => $assetID, 'userID' => Auth::id()])->delete()) {
+
+            switch ($assetType) {
+
+                case "skin":
+                    DB::table('skins')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "mapres":
+                    DB::table('mapres')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "gameskin":
+                    DB::table('gameskins')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "emoticon":
+                    DB::table('emoticons')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "particle":
+                    DB::table('particles')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "cursor":
+                    DB::table('cursors')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+            }
+
+        }
     }
 }
