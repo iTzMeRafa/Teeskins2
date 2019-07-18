@@ -50,6 +50,9 @@ class Handler extends ExceptionHandler
             if ($exception->getStatusCode() == 404) {
                 return redirect()->route('error404');
             }
+            if ($exception->getStatusCode() == 500) {
+                return redirect()->route('error500');
+            }
         }
      
         return parent::render($request, $exception);

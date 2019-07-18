@@ -36,8 +36,11 @@ mix.react('resources/js/app-adminHome.tsx', 'public/js');
 // Admin Skins Upload
 mix.react('resources/js/app-adminSkinsUpload.tsx', 'public/js');
 
-// 404 Error Pages
+// 404 Error Page
 mix.react('resources/js/app-404.tsx', 'public/js');
+
+// 500 Error Page
+mix.react('resources/js/app-500.tsx', 'public/js');
 
 mix.webpackConfig({
     module: {

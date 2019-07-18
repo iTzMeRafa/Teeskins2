@@ -10,6 +10,10 @@ class ErrorController extends GlobalController
         return view('pages/errors/404')->with('data', $this->getViewData());
     }
 
+    public function error500() {
+        return view('pages/errors/500')->with('data', $this->getViewData());
+    }
+
     private function getViewData() {
         $viewData = [
             'globalData' => $this->getGlobalPageData(),

@@ -23,6 +23,7 @@ Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
 
 // Error Pages
 Route::get('/error/404', 'ErrorController@error404')->name('error404');
+Route::get('/error/500', 'ErrorController@error500')->name('error500');
 
 // Actions
 Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
