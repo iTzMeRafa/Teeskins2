@@ -3,14 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock, faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
 
 // Services
-import { UrlService } from './../Services/UrlService';
-
-const skinsPath      = "/skins";
-const mapresPath     = "/mapres";
-const gameskinsPath  = "/gameskins";
-const emoticonsPath  = "/emoticons";
-const particlesPath  = "/particles";
-const cursorsPath    = "/cursors";
+import { URLS, UrlService } from './../Services/UrlService';
 
 export default class MainNavbar extends React.Component {
 
@@ -33,40 +26,40 @@ export default class MainNavbar extends React.Component {
 
                     <div className="collapse navbar-collapse" id="navbarColor01">
                         <ul className="navbar-nav mr-auto">
-                            <li className={'nav-item ' + this.isActive(skinsPath)}>
-                                <a className="nav-link" href={skinsPath}>Skins <span className="sr-only">(current)</span></a>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Skins)}>
+                                <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>Skins <span className="sr-only">(current)</span></a>
                             </li>
-                            <li className={'nav-item ' + this.isActive(mapresPath)}>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Mapres)}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Mapres</a>
                             </li>
-                            <li className={'nav-item ' + this.isActive(gameskinsPath)}>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Gameskins)}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Gameskins</a>
                             </li>
-                            <li className={'nav-item ' + this.isActive(emoticonsPath)}>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Emoticons)}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Emoticons</a>
                             </li>
-                            <li className={'nav-item ' + this.isActive(particlesPath)}>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Particles)}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Particles</a>
                             </li>
-                            <li className={'nav-item ' + this.isActive(cursorsPath)}>
+                            <li className={'nav-item ' + this.urlService.navIsActive(URLS.Cursors)}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Cursors</a>
                             </li>
                         </ul>
                         <form method="GET" className="form-inline" onSubmit={() => this.handleSearchSubmit(event)}>
-                            <input id="searchinput" required={true} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <FontAwesomeIcon icon={faSearch} />
+                            <input 
+                                id="searchinput" 
+                                required={true} 
+                                className="form-control mr-sm-2 searchInput" 
+                                type="search" 
+                                placeholder="Search Name or Author..."
+                                aria-label="Search" 
+                            />
+                            
                         </form>
                     </div>
                 </div>
             </nav>
         );
-    }
-
-    private isActive(naviPath) {
-        if(this.urlService.getUrlPath() === naviPath) {
-            return 'active';
-        }
-        return '';
     }
 
     private handleSearchSubmit(event) {

@@ -16,13 +16,20 @@ export class UrlService {
     
     public getBaseURL() {
         const url = window.location;
-        return url.protocol + "//" + url.host + "/";
+        return url.protocol + "//" + url.host;
     }
 
     public getUrlPath() {
         const url = window.location.href;
         const startChar = url.indexOf('/', 8);
         return url.substr(startChar, url.length);
+    }
+
+    private navIsActive(naviPath) {
+        if(this.getUrlPath() === naviPath) {
+            return 'active';
+        }
+        return '';
     }
 
     public mergeBaseWithPathURL(path) {

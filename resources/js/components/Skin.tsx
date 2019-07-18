@@ -192,7 +192,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         if (confirm('Are you sure to accept this asset?')) {
             axios({
                 method: 'post',
-                url: `${this.urlService.getBaseURL()}accept/skin/${this.props.id}`,
+                url: `${this.urlService.getBaseURL()}/accept/skin/${this.props.id}`,
             })
             .then(() => {
                 if (this.props.handleVisibilityChange) {
@@ -208,7 +208,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         if (confirm('Are you sure to put this asset private?')) {
             axios({
                 method: 'post',
-                url: `${this.urlService.getBaseURL()}hide/skin/${this.props.id}`,
+                url: `${this.urlService.getBaseURL()}/hide/skin/${this.props.id}`,
             })
             .then(() => {
                 if (this.props.handleVisibilityChange) {
@@ -224,7 +224,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         if (confirm('Are you sure to delete this asset?')) {
             axios({
                 method: 'post',
-                url: `${this.urlService.getBaseURL()}delete/skin/${this.props.id}`,
+                url: `${this.urlService.getBaseURL()}/delete/skin/${this.props.id}`,
             })
             .then(() => {
                 if (this.props.handleVisibilityChange) {
@@ -254,7 +254,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private like(): void {
         axios({
             method: 'post',
-            url: `${this.urlService.getBaseURL()}like/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}/like/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 
@@ -269,7 +269,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private unlike(): void {
         axios({
             method: 'post',
-            url: `${this.urlService.getBaseURL()}unlike/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}/unlike/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 
