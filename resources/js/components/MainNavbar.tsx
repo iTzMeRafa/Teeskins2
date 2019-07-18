@@ -21,7 +21,7 @@ export default class MainNavbar extends React.Component {
         this.urlService = new UrlService();
     }
 
-    render(){
+    public render() {
         return(
 
             <nav className="navbar navbar-expand-lg bg-realWhite">
@@ -52,9 +52,9 @@ export default class MainNavbar extends React.Component {
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Cursors</a>
                             </li>
                         </ul>
-                        <form className="form-inline">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-info" type="submit"><FontAwesomeIcon icon={faSearch} /></button>
+                        <form method="GET" className="form-inline" onSubmit={() => this.handleSearchSubmit(event)}>
+                            <input id="searchinput" required={true} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                            <FontAwesomeIcon icon={faSearch} />
                         </form>
                     </div>
                 </div>
@@ -62,16 +62,17 @@ export default class MainNavbar extends React.Component {
         );
     }
 
-    private getUrlPath() {
-        const url = window.location.href;
-        const startChar = url.indexOf('/', 8);
-        return url.substr(startChar, url.length);
-    }
-
     private isActive(naviPath) {
         if(this.urlService.getUrlPath() === naviPath) {
             return 'active';
         }
         return '';
+    }
+
+    private handleSearchSubmit(event) {
+        event.preventDefault();
+        
+        const query = (document.getElementById("searchinput") as HTMLInputElement).value;
+        this.urlService.redirectToPageURL('search/' + query);
     }
 }

@@ -13,9 +13,6 @@ export default class Newest extends React.Component<IMostDownloadsProps> {
         return(
             <>
                 <h3 className="headline">most downloads</h3>
-                <p className="value">
-                    {this.props.mostDownloadedAsset.downloads}
-                </p>
                 <Skin
                     id={this.props.mostDownloadedAsset.id}
                     name={this.props.mostDownloadedAsset.name}

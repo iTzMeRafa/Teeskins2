@@ -13,9 +13,6 @@ export default class Newest extends React.Component<IMostLikesProps> {
         return(
             <>
                 <h3 className="headline">most likes</h3>
-                <p className="value">
-                    {this.props.mostLikedAsset.likes}
-                </p>
                 <Skin
                     id={this.props.mostLikedAsset.id}
                     name={this.props.mostLikedAsset.name}

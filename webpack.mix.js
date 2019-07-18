@@ -21,6 +21,9 @@ mix.react('resources/js/app-skins.tsx', 'public/js');
 // Upload
 mix.react('resources/js/app-upload.tsx', 'public/js');
 
+// Search
+mix.react('resources/js/app-search.tsx', 'public/js');
+
 // Privacy Policies
 mix.react('resources/js/app-privacyPolicies.tsx', 'public/js');
 

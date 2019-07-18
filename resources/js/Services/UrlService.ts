@@ -26,7 +26,7 @@ export class UrlService {
     }
 
     public redirectToPageURL(url: URLS) {
-        window.location.href =url;
+        window.location.href = this.getBaseURL() + url;
     }
 
     public redirectToAbsoluteURL(url: string) {

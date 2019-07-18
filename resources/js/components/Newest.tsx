@@ -13,9 +13,6 @@ export default class Newest extends React.Component<INewestProps> {
         return(
             <>
                 <h3 className="headline">newest</h3>
-                <p className="value">
-                    {this.props.newestAsset.uploadDate}
-                </p>
                 <Skin
                     id={this.props.newestAsset.id}
                     name={this.props.newestAsset.name}

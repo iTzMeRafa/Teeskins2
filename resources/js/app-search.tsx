@@ -2,9 +2,9 @@ require('./bootstrap');
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import GridCore from "./components/GridCore";
-import SortingPanel from "./components/SortingPanel";
-import Wireframe from "./components/Wireframe";
+import Wireframe from './components/Wireframe';
+import SearchHeadline from './components/SearchHeadline';
+import GridCore from './components/GridCore';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -13,12 +13,11 @@ import { IDataInterface } from "./interfaces/IDataInterface";
  */
 declare var data: IDataInterface;
 
-export default class Skins extends React.Component {
-    render(){
-        return(
+export default class Search extends React.Component {
+     render() {
+        return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                {/*<SortingPanel/>*/}
-                <h3></h3>
+                <SearchHeadline countResults={data.viewData.skins.length} query={data.viewData.query} />
                 <GridCore 
                     userInfo={data.globalData.userInfo} 
                     assets={data.viewData.skins} numPerRow={4}
@@ -31,5 +30,5 @@ export default class Skins extends React.Component {
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<Skins />, document.getElementById('app'));
+    ReactDOM.render(<Search />, document.getElementById('app'));
 }
