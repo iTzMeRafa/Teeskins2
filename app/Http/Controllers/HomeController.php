@@ -28,15 +28,30 @@ class HomeController extends GlobalController
     }
 
     private function getNewestAsset() {
-        return DB::table("skins")->where("isPublic", "=", 1)->orderByDesc("uploadDate")->first();
+        return DB::table("skins")
+            ->join('users', 'users.id', '=', 'skins.userID')
+            ->where("isPublic", "=", 1)
+            ->orderByDesc("uploadDate")
+            ->selectRaw('skins.*, users.name as username')
+            ->first();
     }
 
     private function getMostDownloadedAsset() {
-        return DB::table("skins")->where("isPublic", "=", 1)->orderByDesc("downloads")->first();
+        return DB::table("skins")
+            ->join('users', 'users.id', '=', 'skins.userID')
+            ->where("isPublic", "=", 1)
+            ->orderByDesc("downloads")
+            ->selectRaw('skins.*, users.name as username')
+            ->first();
     }
 
     private function getMostLikedAsset() {
-        return DB::table("skins")->where("isPublic", "=", 1)->orderByDesc("likes")->first();
+        return DB::table("skins")
+            ->join('users', 'users.id', '=', 'skins.userID')
+            ->where("isPublic", "=", 1)
+            ->orderByDesc("likes")
+            ->selectRaw('skins.*, users.name as username')
+            ->first();
     }
 
     private function getViewData() {

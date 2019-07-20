@@ -18,6 +18,7 @@ interface ISkinProps {
     name: string;
     author: string;
     imagePath: string;
+    username: string;
     uploadDate: string;
     downloads: number;
     likes: number;
@@ -84,7 +85,8 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
                 Downloads: 
                 <strong>{this.props.downloads + this.state.downloads}</strong> <br />
                 Likes: <strong>{this.props.likes + this.state.likes}</strong> <br />
-                Upload Date: <strong>{this.props.uploadDate}</strong>
+                Upload Date: <strong>{this.props.uploadDate}</strong> <br />
+                Uploaded By: <strong>{this.props.username}</strong>
             </span>
         );
 

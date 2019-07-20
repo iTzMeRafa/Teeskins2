@@ -18,7 +18,12 @@ class DashboardController extends GlobalController
     }
 
     private function getUserUploads() {
-        return DB::table("skins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->get();
+        return DB::table("skins")
+            ->join('users', 'users.id', '=', 'skins.userID')
+            ->where("userID", "=", Auth::user()->id)
+            ->orderBy("uploadDate")
+            ->selectRaw('skins.*, users.name as username')
+            ->get();
     }
 
     private function getUserStatistics() {

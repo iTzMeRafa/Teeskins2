@@ -17,7 +17,12 @@ class AdminpanelUploadSkinsController extends GlobalController
     }
 
     private function getUnverifiedSkins() {
-        return DB::table("skins")->where("isPublic", "=", 0)->orderBy("id")->get();
+        return DB::table("skins")
+            ->join('users', 'users.id', '=', 'skins.userID')
+            ->where("isPublic", "=", 0)
+            ->orderBy("id")
+            ->selectRaw('skins.*, users.name as username')
+            ->get();
     }
 
     private function getViewData() {
