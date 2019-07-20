@@ -1,5 +1,6 @@
 // Packages
 import * as React from 'react';
+import LazyLoad from 'react-lazy-load';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
@@ -60,22 +61,23 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     }
 
     public render() {
-        console.log(this.getVisibility());
 
         return(
-            <div className="card">
-                {this.renderHeadControl()}
-                <SkinRenderer
-                    imagePath={this.props.imagePath}
-                    size="default"
-                    id={this.props.id.toString()}
-                />
-                <div className="card-body">
-                    <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
-                    <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
+            <LazyLoad height={280}>
+                <div className="card">
+                    {this.renderHeadControl()}
+                    <SkinRenderer
+                        imagePath={this.props.imagePath}
+                        size="default"
+                        id={this.props.id.toString()}
+                    />
+                    <div className="card-body">
+                        <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
+                        <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
+                    </div>
+                    {this.renderBottomControls()}
                 </div>
-                {this.renderBottomControls()}
-            </div>
+            </LazyLoad>
         );
     }
 
