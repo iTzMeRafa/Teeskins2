@@ -19,7 +19,13 @@ class SearchController extends GlobalController
     }
 
     private function fetchSkinsFromDatabase() {
-        return DB::table('skins')->where('name', 'like', '%' . $this->query . '%')->orWhere('author', 'like', '%' . $this->query . '%')->orderBy('id')->get();
+        return DB::table('skins')->where([
+            ['name', 'like', '%' . $this->query . '%'],
+            ['isPublic', '=', 1]
+        ])->orWhere([
+            ['author', 'like', '%' . $this->query . '%'],
+            ['isPublic', '=', 1]
+        ])->orderBy('id')->get();
     }
 
     private function getViewData() {
