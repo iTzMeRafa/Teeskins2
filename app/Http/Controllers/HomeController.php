@@ -31,7 +31,7 @@ class HomeController extends GlobalController
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
             ->where("isPublic", "=", 1)
-            ->orderByDesc("uploadDate")
+            ->orderBy("uploadDate")
             ->selectRaw('skins.*, users.name as username')
             ->first();
     }
