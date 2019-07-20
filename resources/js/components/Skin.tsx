@@ -176,7 +176,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         
         axios({
             method: 'post',
-            url: `${this.urlService.getBaseURL()}download/skin/${this.props.id}`,
+            url: `${this.urlService.getBaseURL()}/download/skin/${this.props.id}`,
         })
         .then(() => {
             this.setState({ 
