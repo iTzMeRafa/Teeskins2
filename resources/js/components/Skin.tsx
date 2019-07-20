@@ -1,6 +1,6 @@
 // Packages
 import * as React from 'react';
-import LazyLoad from 'react-lazy-load';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
@@ -63,7 +63,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     public render() {
 
         return(
-            <LazyLoad height={280}>
+            <LazyLoadComponent>
                 <div className="card">
                     {this.renderHeadControl()}
                     <SkinRenderer
@@ -77,7 +77,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
                     </div>
                     {this.renderBottomControls()}
                 </div>
-            </LazyLoad>
+            </LazyLoadComponent>
         );
     }
 

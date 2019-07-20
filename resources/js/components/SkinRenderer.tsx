@@ -23,6 +23,7 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps> {
     }
 
     public componentDidMount(): void {
+        console.log("DID MOUNT");
         window.addEventListener('load', this.renderSkin);
     }
 
