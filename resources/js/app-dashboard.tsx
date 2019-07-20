@@ -4,6 +4,8 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
 import UserPanelSideBar from './components/UserPanelSideBar';
+import UserUploads from './components/UserUploads';
+import UserStatistics from './components/UserStatistics';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -21,7 +23,8 @@ export default class DashBoard extends React.Component {
                         <UserPanelSideBar />
                     </div>
                     <div className="col-md-9">
-                        Content hier
+                        <UserStatistics userInfo={data.globalData.userInfo} statistics={data.viewData.statistics} />
+                        <UserUploads userInfo={data.globalData.userInfo} assets={data.viewData.assets} />
                     </div>
                 </div>
             </Wireframe>

@@ -37,6 +37,10 @@ Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('un
 Route::post('/accept/{assetType}/{assetID}', 'VisibilityAssetController@setAssetVisible')->name('setAssetVisible');
 Route::post('/hide/{assetType}/{assetID}', 'VisibilityAssetController@setAssetHide')->name('setAssetHide');
 Route::post('/delete/{assetType}/{assetID}', 'DeleteAssetController@deleteAsset')->name('deleteAsset');
+Route::post('/check/username/{username}', 'CheckController@username')->name('checkUsername');
+Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail');
+Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
+Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...

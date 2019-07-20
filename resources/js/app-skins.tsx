@@ -21,7 +21,8 @@ export default class Skins extends React.Component {
                 <h3></h3>
                 <GridCore 
                     userInfo={data.globalData.userInfo} 
-                    assets={data.viewData.skins} numPerRow={4}
+                    assets={data.viewData.skins} 
+                    numPerRow={4}
                     updateDownloads={true}
                     updateLikes={true}
                 />

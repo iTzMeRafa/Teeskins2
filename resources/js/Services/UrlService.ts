@@ -15,7 +15,7 @@ export enum URLS {
 
     Dashboard = "/userpanel/dashboard",
     Settings = "/userpanel/settings",
-    
+
     UserList = "/adminpanel/userlist",
     SkinUploads = "/adminpanel/uploads/skin",
     MapresUploads = "/adminpanel/uploads/mapres",
@@ -38,7 +38,7 @@ export class UrlService {
         return url.substr(startChar, url.length);
     }
 
-    private navIsActive(naviPath) {
+    public navIsActive(naviPath) {
         if(this.getUrlPath() === naviPath) {
             return 'active';
         }

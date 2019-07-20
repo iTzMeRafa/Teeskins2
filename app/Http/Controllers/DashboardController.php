@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends GlobalController
 {
@@ -15,8 +17,28 @@ class DashboardController extends GlobalController
         return view('pages/dashboard')->with('data', $this->getViewData());
     }
 
+    private function getUserUploads() {
+        return DB::table("skins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->get();
+    }
+
+    private function getUserStatistics() {
+        $uploadCount = DB::table("skins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $totalLikes = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalDownloads = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('downloads');
+
+        return [
+            'uploadCount' => $uploadCount,
+            'totalLikes' => $totalLikes,
+            'totalDownloads' => $totalDownloads,
+        ];
+    }
+
     private function getViewData() {
         $viewData = [
+            'viewData' => [
+                'assets' => $this->getUserUploads(),
+                'statistics' => $this->getUserStatistics(),
+            ],
             'globalData' => $this->getGlobalPageData(),
         ];
 

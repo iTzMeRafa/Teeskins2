@@ -4,6 +4,8 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
 import UserPanelSideBar from './components/UserPanelSideBar';
+import UpdateNameForm from './components/UpdateNameForm';
+import UpdateEmailForm from './components/UpdateEmailForm';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
 /*
@@ -21,7 +23,15 @@ export default class Settings extends React.Component {
                         <UserPanelSideBar />
                     </div>
                     <div className="col-md-9">
-                        Content hier
+                        <div className="row">
+                            <div className="col-md-6">
+                                <UpdateNameForm userInfo={data.globalData.userInfo} />
+                                <UpdateEmailForm userInfo={data.globalData.userInfo} />
+                            </div>
+                            <div className="col-md-6">
+                                Right
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Wireframe>

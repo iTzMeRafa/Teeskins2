@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, faSearch, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faLock, faBars } from '@fortawesome/free-solid-svg-icons'
 
 // Services
 import { URLS, UrlService } from './../Services/UrlService';
