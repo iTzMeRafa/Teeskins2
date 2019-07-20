@@ -23,14 +23,15 @@ export default class Settings extends React.Component {
                         <UserPanelSideBar />
                     </div>
                     <div className="col-md-9">
+                        <h3 className="mb-4">Update User Informations</h3>
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-12">
                                 <UpdateNameForm userInfo={data.globalData.userInfo} />
                                 <UpdateEmailForm userInfo={data.globalData.userInfo} />
                             </div>
-                            <div className="col-md-6">
+                            {/*<div className="col-md-6">
                                 Right
-                            </div>
+                            </div>*/}
                         </div>
                     </div>
                 </div>
