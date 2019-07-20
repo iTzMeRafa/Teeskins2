@@ -1,6 +1,5 @@
 // Packages
 import * as React from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
@@ -63,21 +62,19 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     public render() {
 
         return(
-            <LazyLoadComponent>
-                <div className="card">
-                    {this.renderHeadControl()}
-                    <SkinRenderer
-                        imagePath={this.props.imagePath}
-                        size="default"
-                        id={this.props.id.toString()}
-                    />
-                    <div className="card-body">
-                        <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
-                        <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
-                    </div>
-                    {this.renderBottomControls()}
+            <div className="card">
+                {this.renderHeadControl()}
+                <SkinRenderer
+                    imagePath={this.props.imagePath}
+                    size="default"
+                    id={this.props.id.toString()}
+                />
+                <div className="card-body">
+                    <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
+                    <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
                 </div>
-            </LazyLoadComponent>
+                {this.renderBottomControls()}
+            </div>
         );
     }
 
