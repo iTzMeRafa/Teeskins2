@@ -3,6 +3,7 @@ export interface NewestAsset {
     id: number;
     imagePath: string;
     name: string;
+    username: string;
     uploadDate: string;
     downloads: number;
     likes: number;
@@ -14,6 +15,7 @@ export interface MostDownloadedAsset{
     id: number;
     imagePath: string;
     name: string;
+    username: string;
     uploadDate: string;
     downloads: number;
     likes: number;
@@ -25,6 +27,7 @@ export interface MostLikedAsset{
     id: number;
     imagePath: string;
     name: string;
+    username: string;
     uploadDate: string;
     downloads: number;
     likes: number;
