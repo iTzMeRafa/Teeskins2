@@ -38,6 +38,8 @@ export default class TermsOfUse extends React.Component {
 					<dt>Telefon</dt>
 			        <dd>01724280326</dd>
                 </dl>
+                <br />
+                <p>Special thanks to <strong>Whis</strong> for designing Teeskins' logo</p>
             </div>
         );
     }
