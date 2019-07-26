@@ -22,12 +22,12 @@ class UploadController extends GlobalController
 
         $validation     = $this->validate($request,
         [
-          'name' => 'required|max:255',
+          'name' => 'required|max:255|unique:skins,name',
           'assetType' => 'required',
           'author' => 'required',
           'file' => 'required|image|mimes:png|max:10240',
         ],[
-          'name.unique' => 'This Category already exists.'
+          'name.unique' => 'This Asset already exists.'
         ]);
 
         if ($validation && $request->hasFile('file') && $request->file('file')->isValid()) {

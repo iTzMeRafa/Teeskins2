@@ -18,6 +18,17 @@ class CheckController extends Controller
         }
     }
 
+    public function assetName($assetName) {
+        $countAssetName = DB::table('skins')->where('name', '=', $assetName)->count();
+
+        if ($countAssetName == 0) {
+            return "valid";
+        }
+        else {
+            return "invalid";
+        }
+    }
+
     public function email($email) {
         $countEmail = DB::table('users')->where('email', '=', $email)->count();
 

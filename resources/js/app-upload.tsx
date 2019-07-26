@@ -13,6 +13,7 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 // Services
 import { TYPES, EXTENSIONS, maxFilesizeInMB } from './Services/AssetService';
 import { UtilsService } from './Services/UtilsService';
+import { UrlService } from './Services/UrlService';
 
 /*
  * This global variable comes from the page associated controller
@@ -34,12 +35,14 @@ interface IAppUploadStates {
     inputNameState: "invalid" | "undefined" | "valid";
     isValidForSubmit: boolean;
     uploadStatus: "failed" | "undefined" | "success";
+    assetNameState: "invalid" | "undefined" | "valid";
 }
 
 export default class Upload extends React.Component<{}, IAppUploadStates> {
 
     private readonly blockName = "upload";
     private utilsService: UtilsService;
+    private urlService: UrlService;
 
     public constructor(props: {}) {
         super(props);
@@ -57,10 +60,12 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
             isValidFileSize: true,
             isValidForSubmit: false,
             uploadStatus: "undefined",
+            assetNameState: "undefined",
         }
 
         this.handleFileInput = this.handleFileInput.bind(this);
         this.utilsService = new UtilsService();
+        this.urlService = new UrlService();
     }
 
     public render(){
@@ -165,6 +170,9 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                     <label className="col-sm-2 col-form-label">Name*</label>
                     <div className="col-sm-10">
                         <input type="text" className="form-control" required={true} id="inputName" onChange={() => this.handleInputNameChange()} placeholder="e.g cammo" />
+                        <div className="invalid-feedback" style={this.state.assetNameState === "invalid" ? { display: "block" } : { display: "none" }}>
+                            An asset with this name is already in our database, please avoid duplicates.
+                        </div>
                     </div>
                 </div>
                 <div className="form-group row mb-5">
@@ -239,6 +247,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
                 && this.state.fileExtensionState === "valid" 
                 && this.state.inputAuthorState === "valid"
                 && this.state.inputNameState === "valid"
+                && this.state.assetNameState === "valid"
         });
     }   
                                                                                                                                                                           
@@ -273,9 +282,22 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         const inputNameValue = (document.getElementById("inputName") as HTMLInputElement).value;
 
         if (inputNameValue.length > 0) {
+
+            // Asset Name Duplicate Validation
+            axios({
+                method: 'post',
+                url: `${this.urlService.getBaseURL()}/check/assetName/${inputNameValue}`,
+            })
+            .then(response => {
+                this.setState({ 
+                    assetNameState: response.data
+                }, () => this.validateSubmissionState());
+            }, error => {
+                console.log(error);
+            });
+
             this.setState({ inputNameState: "valid" }, () => {
-                this.setState({ inputName: inputNameValue });
-                this.validateSubmissionState();
+                this.setState({ inputName: inputNameValue }, () => this.validateSubmissionState() );
             });
             return;
         }
@@ -341,6 +363,19 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         }
 
         (document.getElementById("inputName") as HTMLInputElement).value = fileName;
+
+        // Asset Name Duplicate Validation
+        axios({
+            method: 'post',
+            url: `${this.urlService.getBaseURL()}/check/assetName/${fileName}`,
+        })
+        .then(response => {
+            this.setState({ 
+                assetNameState: response.data
+            }, () => this.validateSubmissionState());
+        }, error => {
+            console.log(error);
+        });
         
         this.setState({ 
             file: fileReal,
