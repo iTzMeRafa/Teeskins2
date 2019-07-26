@@ -39,6 +39,9 @@ mix.react('resources/js/app-termsOfUse.tsx', 'public/js');
 // Admin Home
 mix.react('resources/js/app-adminHome.tsx', 'public/js');
 
+// Admin Userlist
+mix.react('resources/js/app-adminUserlist.tsx', 'public/js');
+
 // Admin Skins Upload
 mix.react('resources/js/app-adminSkinsUpload.tsx', 'public/js');
 

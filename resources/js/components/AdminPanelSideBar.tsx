@@ -22,7 +22,7 @@ export default class AdminPanelSideBar extends React.Component {
                 <div>
                     <ul className={`navbar ${this.blockName}__navbar`}>
                         <li className="nav-item">
-                            <a className={`nav-link ${this.urlService.navIsActive(URLS.UserList)}`} href="">
+                            <a className={`nav-link ${this.urlService.navIsActive(URLS.UserList)}`} href={this.urlService.mergeBaseWithPathURL(URLS.UserList)}>
                                 Userlist
                             </a>
                         </li>
@@ -46,7 +46,7 @@ export default class AdminPanelSideBar extends React.Component {
         Object.keys(TYPES).map(key => {
             const href = this.urlService.mergeBaseWithPathURL("/adminpanel/uploads/" + TYPES[key]);
             uploadsList.push(
-                <li className={`nav-item ${this.urlService.navIsActive("/adminpanel/uploads/" + TYPES[key])}`}> 
+                <li key={key} className={`nav-item ${this.urlService.navIsActive("/adminpanel/uploads/" + TYPES[key])}`}> 
                     <a 
                         className="nav-link"
                         href={href}
