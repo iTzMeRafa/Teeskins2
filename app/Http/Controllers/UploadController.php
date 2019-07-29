@@ -31,14 +31,13 @@ class UploadController extends GlobalController
         ]);
 
         if ($validation && $request->hasFile('file') && $request->file('file')->isValid()) {
-
-            $uniqueID = DB::table('skins')->max('id') + 1;
+            
             $name = $request->name;
             $assetType = $request->assetType;
             $author = $request->author;
             $file = $request->file;
             $fileExtension = $file->extension();
-            $fileName = $uniqueID . '_' . $name . '.' . $fileExtension;
+            $fileName = $name . '.' . $fileExtension;
 
             switch ($assetType) {
                 case "skin":
