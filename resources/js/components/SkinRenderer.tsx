@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { placeholderImage, AssetService } from '../Services/AssetService';
 
 interface ISkinRendererProps {
     imagePath: string;
@@ -6,24 +7,38 @@ interface ISkinRendererProps {
     size: "small" | "default" | "large";
 }
 
-export default class SkinRenderer extends React.Component<ISkinRendererProps> {
+interface ISkinRendererState {
+    isLoaded: boolean;
+}
+
+export default class SkinRenderer extends React.Component<ISkinRendererProps, ISkinRendererState> {
 
     private readonly blockName = "skinRenderer";
+    private readonly assetService: AssetService;
 
     public constructor(props: ISkinRendererProps) {
         super(props);
         this.renderSkin = this.renderSkin.bind(this);
 
+        this.assetService = new AssetService();
+        this.assetService.lazyLoadImages();
+
+        this.state = {
+            isLoaded: false, 
+        }
     }
 
     public render() {
         return (
-            <img id={this.props.id} className="card-img-top" src={this.props.imagePath} />
+            <img 
+                id={this.props.id} 
+                className="card-img-top" 
+                src={this.props.imagePath} 
+            />
         );
     }
 
     public componentDidMount(): void {
-        console.log("DID MOUNT");
         window.addEventListener('load', this.renderSkin);
     }
 
@@ -36,7 +51,8 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps> {
         const skin = document.getElementById(this.props.id) as HTMLImageElement;
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
-
+        
+        canvas.id = this.props.id;
         canvas.width = 96;
         canvas.height = 64;
         canvas.className = `${this.blockName} ${this.blockName}--${this.props.size}`;
@@ -57,5 +73,16 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps> {
 
         //replace with image
         skin.parentNode.replaceChild(canvas,skin);
+
+        // Convert Canvas to Image to be able to lazyload
+        const renderedCanvas = document.getElementById(this.props.id) as HTMLCanvasElement;
+        const img = new Image();
+
+        img.src = renderedCanvas.toDataURL();
+        img.height = 64;
+        img.width = 96;
+        img.className = `lazy ${this.blockName} ${this.blockName}--${this.props.size}`;
+
+        renderedCanvas.parentNode.replaceChild(img, renderedCanvas);
     }
 }
