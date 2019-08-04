@@ -34,7 +34,11 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     }
 
     public componentDidMount(): void {
-        window.addEventListener('load', this.renderSkin);
+        // TODO: Without EventListener https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+        window.onload = () => {
+            console.log("onload");
+        };
+        //window.addEventListener('load', this.renderSkin);
     }
 
     public componentDidUpdate() {
