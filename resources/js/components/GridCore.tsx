@@ -1,6 +1,12 @@
 import * as React from 'react';
 import Skin from './Skin';
+import axios from 'axios';
+
+// Interfaces
 import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
+
+// Services
+import { UrlService } from './../Services/UrlService';
 
 interface IGridCoreProps {
     assets: any;
@@ -12,14 +18,32 @@ interface IGridCoreProps {
 
 interface IGridCoreState {
     hideForAssetIDs: number[];
+    maxAssetID: number;
+    assets: any;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
+
+    private readonly urlService;
+
     public render() {
-        return(
-            <div className="row">
-                {this.renderAssets()}
-            </div>
+        return (
+            <>
+                <div className="row mb-5">
+                    {this.renderAssets()}
+                </div>
+                <div className="row mb-3">
+                    <div className="col-md-6 offset-md-3 text-center">
+                        <button 
+                            type="button" 
+                            className="btn-lg btn btn-outline-primary"
+                            onClick={() => this.loadMoreAssets()}
+                        >
+                                Load More
+                        </button>
+                    </div>
+                </div>
+            </>
         );
     }
 
@@ -27,24 +51,26 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         super(props);
         this.state = {
             hideForAssetIDs: [0],
+            assets: this.props.assets,
+            maxAssetID: Math.max.apply(Math, this.props.assets.map(function(asset) { return asset.id; })),
         };
-    }
 
+        this.urlService = new UrlService();
+    }
     
     private setAssetVisibility(assetID) {
-        console.log("parent method called");
         this.setState({
             hideForAssetIDs: [...this.state.hideForAssetIDs, assetID],
-          });
+        });
     }
 
     private renderAssets() {
-        return this.props.assets.map(asset => {
-           return (
+        return this.state.assets.map(asset => {
+            return (
                 <div 
-                className={`${this.getClassName()} mb-4`} 
-                key={asset.id} 
-                style={this.state.hideForAssetIDs.includes(asset.id) ? { display: "none" } : { display: "block" }}
+                    className={`${this.getClassName()} mb-4`} 
+                    key={asset.id} 
+                    style={this.state.hideForAssetIDs.includes(asset.id) ? { display: "none" } : { display: "block" }}
                 >
                     <Skin
                         id={asset.id}
@@ -62,7 +88,28 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                         updateLikes={this.props.updateLikes}
                     />
                 </div>
-           );
+            );
+        });
+    }
+
+    private loadMoreAssets() {
+
+        // Fetch Next Assets
+        axios({
+            method: 'post',
+            url: `${this.urlService.getBaseURL()}/fetch/skins/${this.state.maxAssetID}`,
+        })
+        .then(response => {
+
+            response.data.map(asset => {
+                this.setState({
+                    assets: [...this.state.assets, asset],
+                    maxAssetID: Math.max.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
+               });
+            });
+
+        }, error => {
+            console.log(error);
         });
     }
 

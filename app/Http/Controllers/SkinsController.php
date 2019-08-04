@@ -16,12 +16,14 @@ class SkinsController extends GlobalController
         return view('pages/skins')->with("data", $this->getViewData());
     }
 
-    private function fetchSkinsFromDatabase() {
+    public function fetchSkinsFromDatabase($offset = 0) {
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
             ->where("isPublic", "=", 1)
             ->orderBy("id")
             ->selectRaw('skins.*, users.name as username')
+            ->offset($offset)
+            ->take($this->numberPerLoadage)
             ->get();
     }
 

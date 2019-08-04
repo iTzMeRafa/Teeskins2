@@ -2,7 +2,7 @@
 import * as React from 'react';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
-const SkinRenderer = React.lazy(() => import('./SkinRenderer'));
+import SkinRenderer from './SkinRenderer';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash  } from '@fortawesome/free-solid-svg-icons'
@@ -64,13 +64,11 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         return(
             <div className="card">
                 {this.renderHeadControl()}
-                <React.Suspense fallback={<div>Loading...</div>}>
                     <SkinRenderer
                         imagePath={this.props.imagePath}
                         size="default"
                         id={this.props.id.toString()}
                     />
-                </React.Suspense>
                 
                 <div className="card-body">
                     <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>

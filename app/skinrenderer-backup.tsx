@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { placeholderImage, AssetService } from '../Services/AssetService';
 
 interface ISkinRendererProps {
     imagePath: string;
@@ -13,10 +14,14 @@ interface ISkinRendererState {
 export default class SkinRenderer extends React.Component<ISkinRendererProps, ISkinRendererState> {
 
     private readonly blockName = "skinRenderer";
+    private readonly assetService: AssetService;
 
     public constructor(props: ISkinRendererProps) {
         super(props);
         this.renderSkin = this.renderSkin.bind(this);
+
+        this.assetService = new AssetService();
+        this.assetService.lazyLoadImages();
 
         this.state = {
             isLoaded: false, 
@@ -37,16 +42,12 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
         window.addEventListener('load', this.renderSkin);
     }
 
-    public componentDidUpdate() {
-        window.addEventListener('keydown', this.renderSkin);
-    }
-
     public componentWillUnmount(): void {
-        window.removeEventListener('load', this.renderSkin);
+        window.removeEventListener('load', this.renderSkin)
     }
 
     private renderSkin(): void {
-        
+
         const skin = document.getElementById(this.props.id) as HTMLImageElement;
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
@@ -72,5 +73,7 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
 
         //replace with image
         skin.parentNode.replaceChild(canvas,skin);
+
+    
     }
 }

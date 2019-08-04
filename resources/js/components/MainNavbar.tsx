@@ -24,16 +24,17 @@ export default class MainNavbar extends React.Component {
                         <FontAwesomeIcon icon={faBars} size={"2x"}/>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="navbarColor01">
+                    <div className="collapse navbar-collapse">
                         <ul className="navbar-nav mr-auto">
                             <li className={'nav-item ' + this.urlService.navIsActive(URLS.Skins)}>
-                                <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>Skins 0.6<span className="sr-only">(current)</span></a>
+                                <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>Skins<span className="sr-only">(current)</span></a>
                             </li>
 
+                        {/*
                             <li className={'nav-item'}>
                                 <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Skins 0.7</a>
                             </li>
-                            {/*
+                            
                                 <li className={'nav-item ' + this.urlService.navIsActive(URLS.Mapres)}>
                                     <a className="nav-link"><FontAwesomeIcon icon={faLock} /> Mapres</a>
                                 </li>

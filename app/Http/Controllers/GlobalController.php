@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class GlobalController extends Controller
 {
+    protected $numberPerLoadage = 10;
+
     protected function getGlobalPageData()
     {
         return [
