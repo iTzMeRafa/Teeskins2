@@ -29,9 +29,24 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
                 id={this.props.id} 
                 className="card-img-top" 
                 src={this.props.imagePath} 
-                onLoad={this.renderSkin.bind(this)}
             />
         );
+    }
+
+    public componentDidMount(): void {
+        // TODO: Without EventListener https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+        window.onload = () => {
+            console.log("onload");
+        };
+        window.addEventListener('load', this.renderSkin);
+    }
+
+    public componentDidUpdate() {
+        window.addEventListener('keydown', this.renderSkin);
+    }
+
+    public componentWillUnmount(): void {
+        window.removeEventListener('load', this.renderSkin);
     }
 
     private renderSkin(): void {
