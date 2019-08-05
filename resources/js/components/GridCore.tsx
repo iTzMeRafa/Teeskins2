@@ -20,6 +20,7 @@ interface IGridCoreState {
     hideForAssetIDs: number[];
     maxAssetID: number;
     assets: any;
+    showLoadButton: boolean;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
@@ -34,13 +35,16 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                 </div>
                 <div className="row mb-3">
                     <div className="col-md-6 offset-md-3 text-center">
-                        <button 
-                            type="button" 
-                            className="btn-lg btn btn-outline-primary"
-                            onClick={() => this.loadMoreAssets()}
-                        >
+                        {this.state.showLoadButton && (
+                            <button 
+                                type="button" 
+                                className="btn-lg btn btn-outline-primary"
+                                onClick={() => this.loadMoreAssets()}
+                            >
                                 Load More
-                        </button>
+                            </button>
+                        )}
+                       
                     </div>
                 </div>
             </>
@@ -53,6 +57,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             hideForAssetIDs: [0],
             assets: this.props.assets,
             maxAssetID: Math.max.apply(Math, this.props.assets.map(function(asset) { return asset.id; })),
+            showLoadButton: true,
         };
 
         this.urlService = new UrlService();
@@ -102,10 +107,12 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         .then(response => {
 
             response.data.map(asset => {
-                this.setState({
-                    assets: [...this.state.assets, asset],
-                    maxAssetID: Math.max.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
-               });
+                this.setState({ assets: [...this.state.assets, asset] });
+            });
+
+            this.setState({ 
+                maxAssetID: Math.max.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
+                showLoadButton: response.data.length !== 0, 
             });
 
         }, error => {
