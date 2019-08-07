@@ -8,7 +8,7 @@ This Project uses the PHP-framework [Laravel](https://laravel.com/) serving as t
 
 ## Usage & Installation
 
-[Composer](https://getcomposer.org/), [NodeJS](https://nodejs.org/en/) and [>=PHP5.0](https://secure.php.net/) is required to run this project.
+[Composer](https://getcomposer.org/), [NodeJS](https://nodejs.org/en/) and [>=PHP5](https://secure.php.net/) is required to run this project.
 
 * Clone this repository to your desired location and install dependencies:
 
@@ -23,8 +23,8 @@ php artisan key:generate
 composer dumpautoload
 ```
 ## Compiling & Building Project
-- compiling once: ``` npm run dev ```
-- compiling and watching changes: ``` npm run watch ```
+- compiling once: ``` npm run build ```
+- compiling and watching changes: ``` npm run dev ```
 
 ## Could be useful 
 If you are still getting errors, try following:
