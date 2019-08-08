@@ -56,7 +56,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         this.state = {
             hideForAssetIDs: [0],
             assets: this.props.assets,
-            maxAssetID: Math.max.apply(Math, this.props.assets.map(function(asset) { return asset.id; })),
+            maxAssetID: Math.min.apply(Math, this.props.assets.map(function(asset) { return asset.id; })),
             showLoadButton: true,
         };
 
@@ -111,7 +111,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             });
 
             this.setState({ 
-                maxAssetID: Math.max.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
+                maxAssetID: Math.min.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
                 showLoadButton: response.data.length !== 0, 
             });
 

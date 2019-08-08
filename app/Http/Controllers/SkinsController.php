@@ -16,14 +16,14 @@ class SkinsController extends GlobalController
         return view('pages/skins')->with("data", $this->getViewData());
     }
 
-    public function fetchSkinsFromDatabase($offset = 0) {
+    public function fetchSkinsFromDatabase($offset = 999999) { // 'Hack' to start at highest skins id (newest), when no offset is set
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
             ->where([
                 ["isPublic", "=", 1],
-                ["skins.id", ">", $offset],
+                ["skins.id", "<", $offset],
             ])
-            ->orderBy("id")
+            ->orderByDesc("id")
             ->selectRaw('skins.*, users.name as username')
             ->limit($this->numberPerLoadage)
             ->get();
