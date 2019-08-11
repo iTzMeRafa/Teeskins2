@@ -102,7 +102,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
         const postData = new FormData();
         postData.append('excludes', this.state.excludeIDs);
-        postData.append('type', 'downloads');
+        postData.append('type', 'id');
 
         axios.post( `${this.urlService.getBaseURL()}/fetch/skins`, postData)
         .then(response => {

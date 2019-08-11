@@ -37,7 +37,7 @@ class SkinsController extends GlobalController
         $defaultSkinRequest = new Request();
         $defaultSkinRequest->setMethod('POST');
         $defaultSkinRequest->request->add(['excludes' => '' ]);
-        $defaultSkinRequest->request->add(['type' => 'downloads']);
+        $defaultSkinRequest->request->add(['type' => 'id']);
 
         $viewData = [
             'viewData' =>  [
