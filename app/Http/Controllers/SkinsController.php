@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SkinsController extends GlobalController
@@ -16,23 +17,31 @@ class SkinsController extends GlobalController
         return view('pages/skins')->with("data", $this->getViewData());
     }
 
-    public function fetchSkinsFromDatabase($offset = 999999) { // 'Hack' to start at highest skins id (newest), when no offset is set
+    public function fetchSkinsFromDatabase(Request $request) {
+        $tableType = 'skins.'.$request->type;
+        $excludesToArray = explode(',', $request->excludes);
+
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
-            ->where([
-                ["isPublic", "=", 1],
-                ["skins.id", "<", $offset],
-            ])
-            ->orderByDesc("id")
+            ->where("skins.isPublic", "=", 1)
+            ->whereNotIn('skins.id', $excludesToArray)
+            ->orderByDesc($tableType)
             ->selectRaw('skins.*, users.name as username')
             ->limit($this->numberPerLoadage)
             ->get();
     }
 
     private function getViewData() {
+
+        // Create default Request for fetching Skins
+        $defaultSkinRequest = new Request();
+        $defaultSkinRequest->setMethod('POST');
+        $defaultSkinRequest->request->add(['excludes' => '' ]);
+        $defaultSkinRequest->request->add(['type' => 'downloads']);
+
         $viewData = [
             'viewData' =>  [
-                'skins' => $this->fetchSkinsFromDatabase(),
+                'skins' => $this->fetchSkinsFromDatabase($defaultSkinRequest),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

@@ -42,7 +42,7 @@ Route::post('/check/assetName/{assetName}', 'CheckController@assetName')->name('
 Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail');
 Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
-Route::post('/fetch/skins/{offset}', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
+Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...

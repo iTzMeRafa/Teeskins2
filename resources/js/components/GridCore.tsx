@@ -18,7 +18,7 @@ interface IGridCoreProps {
 
 interface IGridCoreState {
     hideForAssetIDs: number[];
-    maxAssetID: number;
+    excludeIDs: any;
     assets: any;
     showLoadButton: boolean;
 }
@@ -56,7 +56,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         this.state = {
             hideForAssetIDs: [0],
             assets: this.props.assets,
-            maxAssetID: Math.min.apply(Math, this.props.assets.map(function(asset) { return asset.id; })),
+            excludeIDs: this.props.assets.map(function(asset) { return asset.id; }),
             showLoadButton: true,
         };
 
@@ -98,12 +98,13 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     }
 
     private loadMoreAssets() {
-
         // Fetch Next Assets
-        axios({
-            method: 'post',
-            url: `${this.urlService.getBaseURL()}/fetch/skins/${this.state.maxAssetID}`,
-        })
+
+        const postData = new FormData();
+        postData.append('excludes', this.state.excludeIDs);
+        postData.append('type', 'downloads');
+
+        axios.post( `${this.urlService.getBaseURL()}/fetch/skins`, postData)
         .then(response => {
 
             response.data.map(asset => {
@@ -111,7 +112,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             });
 
             this.setState({ 
-                maxAssetID: Math.min.apply(Math, this.state.assets.map(function(asset) { return asset.id; })),
+                excludeIDs: this.state.assets.map(asset => { return asset.id; }),
                 showLoadButton: response.data.length !== 0, 
             });
 
