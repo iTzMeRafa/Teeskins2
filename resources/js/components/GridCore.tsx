@@ -21,6 +21,7 @@ interface IGridCoreState {
     excludeIDs: any;
     assets: any;
     showLoadButton: boolean;
+    sortingType: string;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
@@ -30,6 +31,8 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     public render() {
         return (
             <>
+                {this.renderSortingPanel()}
+
                 <div className="row mb-5">
                     {this.renderAssets()}
                 </div>
@@ -58,6 +61,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             assets: this.props.assets,
             excludeIDs: this.props.assets.map(function(asset) { return asset.id; }),
             showLoadButton: true,
+            sortingType: 'id',
         };
 
         this.urlService = new UrlService();
@@ -69,6 +73,28 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         });
     }
 
+    private renderSortingPanel() {
+        return (
+            <div className="row justify-content-end mb-5">
+                <div className="col-3">
+                    <h4>Sort By</h4>
+                    <select 
+                        value={this.state.sortingType}
+                        required={true} 
+                        name="assetType" 
+                        className="form-control" 
+                        id="sortingPanel" 
+                        onChange={() => this.handleSortingChange()}
+                    >
+                        <option value="id">Newest</option>
+                        <option value="downloads">Downloads</option>
+                        <option value="likes">Likes</option>
+                    </select>
+                </div>
+            </div>
+        );
+    }
+    
     private renderAssets() {
         return this.state.assets.map(asset => {
             return (
@@ -119,6 +145,11 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         }, error => {
             console.log(error);
         });
+    }
+
+    private handleSortingChange() {
+        const selectedSortingType = (document.getElementById("sortingPanel") as HTMLSelectElement).value;
+        this.setState({ sortingType: selectedSortingType });
     }
 
     private getClassName() {

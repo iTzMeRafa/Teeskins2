@@ -12,9 +12,9 @@ class SkinsController extends GlobalController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($sortType = 'id')
     {
-        return view('pages/skins')->with("data", $this->getViewData());
+        return view('pages/skins')->with("data", $this->getViewData($sortType));
     }
 
     public function fetchSkinsFromDatabase(Request $request) {
@@ -31,13 +31,13 @@ class SkinsController extends GlobalController
             ->get();
     }
 
-    private function getViewData() {
+    private function getViewData($sortType) {
 
         // Create default Request for fetching Skins
         $defaultSkinRequest = new Request();
         $defaultSkinRequest->setMethod('POST');
         $defaultSkinRequest->request->add(['excludes' => '' ]);
-        $defaultSkinRequest->request->add(['type' => 'id']);
+        $defaultSkinRequest->request->add(['type' => $sortType]);
 
         $viewData = [
             'viewData' =>  [
