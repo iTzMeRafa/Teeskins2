@@ -143,6 +143,14 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             case 'search':
                 fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/search');
                 break;
+
+            case 'dashboard':
+                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/userUploads');
+                break;
+
+            case 'adminUploadSkins':
+                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/skinUploads');
+                break;
         }
 
         axios.post(fetchUrl, postData)
@@ -172,6 +180,12 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                 else if (this.props.page === 'search') {
                     this.urlService.redirectToPagePath('/search/'+this.props.queryString);
                 }
+                else if (this.props.page === 'dashboard') {
+                    this.urlService.redirectToPageURL(URLS.Dashboard);
+                }
+                else if (this.props.page === 'adminUploadSkins') {
+                    this.urlService.redirectToPageURL(URLS.SkinUploads);
+                }
                 break;
 
             case "downloads":
@@ -181,6 +195,12 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                 else if (this.props.page === 'search') {
                     this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/downloads');
                 }
+                else if (this.props.page === 'dashboard') {
+                    this.urlService.redirectToPageURL(URLS.DashboardDownloads);
+                }
+                else if (this.props.page === 'adminUploadSkins') {
+                    this.urlService.redirectToPageURL(URLS.SkinUploadsDownload);
+                }
                 break;
 
             case "likes":
@@ -189,6 +209,12 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                 }
                 else if (this.props.page === 'search') {
                     this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/likes');
+                }
+                else if (this.props.page === 'dashboard') {
+                    this.urlService.redirectToPageURL(URLS.DashboardLikes);
+                }
+                else if (this.props.page === 'adminUploadSkins') {
+                    this.urlService.redirectToPageURL(URLS.SkinUploadsLikes);
                 }
                 break;
         }

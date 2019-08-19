@@ -17,10 +17,14 @@ export enum URLS {
     TermsOfUse = "/terms-of-use",
 
     Dashboard = "/userpanel/dashboard",
+    DashboardDownloads = "/userpanel/dashboard/downloads",
+    DashboardLikes = "/userpanel/dashboard/likes",
     Settings = "/userpanel/settings",
 
     UserList = "/adminpanel/userlist",
     SkinUploads = "/adminpanel/uploads/skin",
+    SkinUploadsDownload = "/adminpanel/uploads/skin/downloads",
+    SkinUploadsLikes = "/adminpanel/uploads/skin/likes",
     MapresUploads = "/adminpanel/uploads/mapres",
     GameskinUploads = "/adminpanel/uploads/gameskin",
     EmoticonUploads = "/adminpanel/uploads/emoticon",

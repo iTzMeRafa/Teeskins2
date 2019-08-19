@@ -13,16 +13,21 @@ class DashboardController extends GlobalController
         $this->middleware('auth');
     }
     
-    public function index() {
-        return view('pages/dashboard')->with('data', $this->getViewData());
+    public function index($sortType = 'id') {
+        return view('pages/dashboard')->with('data', $this->getViewData($sortType));
     }
 
-    private function getUserUploads() {
+    public function getUserUploads(Request $request) {
+        $tableType = 'skins.'.$request->type;
+        $excludesToArray = explode(',', $request->excludes);
+
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
             ->where("userID", "=", Auth::user()->id)
-            ->orderBy("uploadDate")
+            ->whereNotIn('skins.id', $excludesToArray)
+            ->orderByDesc($tableType)
             ->selectRaw('skins.*, users.name as username')
+            ->limit($this->numberPerLoadage)
             ->get();
     }
 
@@ -38,11 +43,20 @@ class DashboardController extends GlobalController
         ];
     }
 
-    private function getViewData() {
+    private function getViewData($sortType) {
+
+        // Create default Request for fetching Skins
+        $defaultSkinRequest = new Request();
+        $defaultSkinRequest->setMethod('POST');
+        $defaultSkinRequest->request->add(['excludes' => '' ]);
+        $defaultSkinRequest->request->add(['type' => $sortType]);
+
         $viewData = [
             'viewData' => [
-                'assets' => $this->getUserUploads(),
+                'assets' => $this->getUserUploads($defaultSkinRequest),
                 'statistics' => $this->getUserStatistics(),
+                'sortType' => $sortType,
+                'page' => 'dashboard',
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

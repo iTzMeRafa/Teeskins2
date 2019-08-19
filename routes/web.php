@@ -25,6 +25,7 @@ Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
 
 // Userpanels
 Route::get('/userpanel/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/userpanel/dashboard/{sortType}', 'DashboardController@index')->name('dashboardSort');
 Route::get('/userpanel/settings', 'SettingsController@index')->name('settings');
 
 // Error Pages
@@ -46,6 +47,8 @@ Route::post('/update/username/{username}', 'SettingsController@updateUsername')-
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
 Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
 Route::post('/fetch/search', 'SearchController@fetchSkinsFromDatabase')->name('fetchSearchOffset');
+Route::post('/fetch/userUploads', 'DashboardController@getUserUploads')->name('fetchUserUploadsOffset');
+Route::post('/fetch/skinUploads', 'AdminpanelUploadSkinsController@getUnverifiedSkins')->name('fetchSkinUploadsOffset');
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
@@ -53,3 +56,4 @@ Route::get('/adminpanel/userlist', 'AdminpanelUserlistController@index')->name('
 
 /* AssetType must be singular */
 Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
+Route::get('/adminpanel/uploads/skin/{sortType}', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');

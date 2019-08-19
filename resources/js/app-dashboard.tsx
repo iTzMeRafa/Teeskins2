@@ -31,6 +31,7 @@ export default class DashBoard extends React.Component {
                             userInfo={data.globalData.userInfo}
                             assets={data.viewData.assets}
                             sortType={data.viewData.sortType}
+                            page={data.viewData.page}
                         />
                     </div>
                 </div>

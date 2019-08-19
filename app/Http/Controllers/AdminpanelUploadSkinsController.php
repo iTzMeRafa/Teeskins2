@@ -12,23 +12,37 @@ class AdminpanelUploadSkinsController extends GlobalController
         $this->middleware('adminAuth');
     }
     
-    public function index() {
-        return view('pages/admin/skinsUpload')->with('data', $this->getViewData());
+    public function index($sortType = 'id') {
+        return view('pages/admin/skinsUpload')->with('data', $this->getViewData($sortType));
     }
 
-    private function getUnverifiedSkins() {
+    public function getUnverifiedSkins(Request $request) {
+        $tableType = 'skins.'.$request->type;
+        $excludesToArray = explode(',', $request->excludes);
+
         return DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
-            ->where("isPublic", "=", 0)
-            ->orderBy("id")
+            ->where("skins.isPublic", "=", 0)
+            ->whereNotIn('skins.id', $excludesToArray)
+            ->orderByDesc($tableType)
             ->selectRaw('skins.*, users.name as username')
+            ->limit($this->numberPerLoadage)
             ->get();
     }
 
-    private function getViewData() {
+    private function getViewData($sortType) {
+
+        // Create default Request for fetching Skins
+        $defaultSkinRequest = new Request();
+        $defaultSkinRequest->setMethod('POST');
+        $defaultSkinRequest->request->add(['excludes' => '' ]);
+        $defaultSkinRequest->request->add(['type' => $sortType]);
+
         $viewData = [
             'viewData' => [
-                'skins' => $this->getUnverifiedSkins(),
+                'skins' => $this->getUnverifiedSkins($defaultSkinRequest),
+                'sortType' => $sortType,
+                'page' => 'adminUploadSkins',
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

@@ -29,7 +29,7 @@ export default class AdminSkinsUpload extends React.Component {
                             updateDownloads={false} 
                             updateLikes={false}
                             sortType={data.viewData.sortType}
-                            page={'search'}
+                            page={data.viewData.page}
                         />
                     </div>
                 </div>

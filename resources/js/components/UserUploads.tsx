@@ -8,6 +8,7 @@ interface IUserUploadsInterfaceProps {
     assets: any;
     userInfo: IUserInfoInterface;
     sortType: 'id' | 'downloads' | 'likes';
+    page: string;
 }
 
 export default class UserUploads extends React.Component<IUserUploadsInterfaceProps> {
@@ -22,7 +23,7 @@ export default class UserUploads extends React.Component<IUserUploadsInterfacePr
                     updateDownloads={true}
                     updateLikes={true}
                     sortType={this.props.sortType}
-                    page={'search'}
+                    page={this.props.page}
                 />
             </div>
         );
