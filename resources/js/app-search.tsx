@@ -1,3 +1,5 @@
+import UserUploads from "./app-dashboard";
+
 require('./bootstrap');
 
 import * as React from 'react';
@@ -7,6 +9,9 @@ import SearchHeadline from './components/SearchHeadline';
 import GridCore from './components/GridCore';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
+// Services
+import {URLS, UrlService} from "./Services/UrlService";
+
 /*
  * This global variable comes from the page associated controller
  * and contains all necessary data for its view and the wireframe
@@ -14,6 +19,14 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class Search extends React.Component {
+
+    private readonly urlService: UrlService;
+
+    public constructor(props: {}) {
+        super(props);
+        this.urlService = new UrlService();
+    }
+
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -26,6 +39,10 @@ export default class Search extends React.Component {
                     sortType={data.viewData.sortType}
                     page={data.viewData.page}
                     queryString={data.viewData.query}
+                    idURL={this.urlService.mergeBaseWithPathURL('/search/'+data.viewData.query)}
+                    downloadsURL={this.urlService.mergeBaseWithPathURL('/search/'+data.viewData.query+'/downloads')}
+                    likesURL={this.urlService.mergeBaseWithPathURL('/search/'+data.viewData.query+'/likes')}
+                    fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSearch)}
                 />
             </Wireframe>
         );

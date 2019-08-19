@@ -2,13 +2,17 @@ import * as React from 'react';
 import GridCore from "./GridCore";
 
 // Interfaces
-import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
+import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface IUserUploadsInterfaceProps {
     assets: any;
     userInfo: IUserInfoInterface;
     sortType: 'id' | 'downloads' | 'likes';
     page: string;
+    idURL: string;
+    downloadsURL: string;
+    likesURL: string;
+    fetchURL: string;
 }
 
 export default class UserUploads extends React.Component<IUserUploadsInterfaceProps> {
@@ -24,6 +28,10 @@ export default class UserUploads extends React.Component<IUserUploadsInterfacePr
                     updateLikes={true}
                     sortType={this.props.sortType}
                     page={this.props.page}
+                    idURL={this.props.idURL}
+                    downloadsURL={this.props.downloadsURL}
+                    likesURL={this.props.likesURL}
+                    fetchURL={this.props.fetchURL}
                 />
             </div>
         );

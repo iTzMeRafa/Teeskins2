@@ -1,3 +1,5 @@
+import GridCore from "./app-adminSkinsUpload";
+
 require('./bootstrap');
 
 import * as React from 'react';
@@ -8,6 +10,9 @@ import UserUploads from './components/UserUploads';
 import UserStatistics from './components/UserStatistics';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
+// Services
+import {URLS, UrlService} from "./Services/UrlService";
+
 /*
  * This global variable comes from the page associated controller
  * and contains all necessary data for its view and the wireframe
@@ -15,6 +20,14 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class DashBoard extends React.Component {
+
+    private readonly urlService: UrlService;
+
+    public constructor(props: {}) {
+        super(props);
+        this.urlService = new UrlService();
+    }
+
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -32,6 +45,10 @@ export default class DashBoard extends React.Component {
                             assets={data.viewData.assets}
                             sortType={data.viewData.sortType}
                             page={data.viewData.page}
+                            idURL={this.urlService.mergeBaseWithURL(URLS.Dashboard)}
+                            downloadsURL={this.urlService.mergeBaseWithURL(URLS.DashboardDownloads)}
+                            likesURL={this.urlService.mergeBaseWithURL(URLS.DashboardLikes)}
+                            fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchUserUploads)}
                         />
                     </div>
                 </div>

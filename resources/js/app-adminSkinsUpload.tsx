@@ -7,6 +7,9 @@ import GridCore from "./components/GridCore"
 import AdminPanelSideBar from './components/AdminPanelSideBar';
 import { IDataInterface } from "./interfaces/IDataInterface";
 
+// Services
+import {URLS, UrlService} from "./Services/UrlService";
+
 /*
  * This global variable comes from the page associated controller
  * and contains all necessary data for its view and the wireframe
@@ -14,6 +17,14 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class AdminSkinsUpload extends React.Component {
+
+    private readonly urlService: UrlService;
+
+    public constructor(props: {}) {
+        super(props);
+        this.urlService = new UrlService();
+    }
+
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -30,6 +41,10 @@ export default class AdminSkinsUpload extends React.Component {
                             updateLikes={false}
                             sortType={data.viewData.sortType}
                             page={data.viewData.page}
+                            idURL={this.urlService.mergeBaseWithURL(URLS.SkinUploads)}
+                            downloadsURL={this.urlService.mergeBaseWithURL(URLS.SkinUploadsDownload)}
+                            likesURL={this.urlService.mergeBaseWithURL(URLS.SkinUploadsLikes)}
+                            fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSkinUploads)}
                         />
                     </div>
                 </div>

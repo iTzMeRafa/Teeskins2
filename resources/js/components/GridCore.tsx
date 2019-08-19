@@ -6,7 +6,7 @@ import axios from 'axios';
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
-import {URLS, UrlService} from '../Services/UrlService';
+import {UrlService} from '../Services/UrlService';
 
 interface IGridCoreProps {
     assets: any;
@@ -16,6 +16,10 @@ interface IGridCoreProps {
     updateLikes: boolean;
     sortType: 'id' | 'downloads' | 'likes';
     page: string;
+    fetchURL: string;
+    idURL: string;
+    downloadsURL: string;
+    likesURL: string;
     queryString?: string;
 }
 
@@ -133,27 +137,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         postData.append('type', this.props.sortType);
         postData.append('queryString', this.props.queryString);
 
-        let fetchUrl;
-
-        switch(this.props.page) {
-            case 'skins':
-                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/skins');
-                break;
-
-            case 'search':
-                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/search');
-                break;
-
-            case 'dashboard':
-                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/userUploads');
-                break;
-
-            case 'adminUploadSkins':
-                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/skinUploads');
-                break;
-        }
-
-        axios.post(fetchUrl, postData)
+        axios.post(this.props.fetchURL, postData)
         .then(response => {
 
             response.data.map(asset => {
@@ -174,48 +158,15 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         const selectedSortingType = (document.getElementById("sortingPanel") as HTMLSelectElement).value;
         switch (selectedSortingType) {
             case "id":
-                if (this.props.page === 'skins') {
-                    this.urlService.redirectToPageURL(URLS.Skins);
-                }
-                else if (this.props.page === 'search') {
-                    this.urlService.redirectToPagePath('/search/'+this.props.queryString);
-                }
-                else if (this.props.page === 'dashboard') {
-                    this.urlService.redirectToPageURL(URLS.Dashboard);
-                }
-                else if (this.props.page === 'adminUploadSkins') {
-                    this.urlService.redirectToPageURL(URLS.SkinUploads);
-                }
+                this.urlService.redirectToAbsoluteURL(this.props.idURL);
                 break;
 
             case "downloads":
-                if (this.props.page === 'skins') {
-                    this.urlService.redirectToPageURL(URLS.SkinsDownloads);
-                }
-                else if (this.props.page === 'search') {
-                    this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/downloads');
-                }
-                else if (this.props.page === 'dashboard') {
-                    this.urlService.redirectToPageURL(URLS.DashboardDownloads);
-                }
-                else if (this.props.page === 'adminUploadSkins') {
-                    this.urlService.redirectToPageURL(URLS.SkinUploadsDownload);
-                }
+                this.urlService.redirectToAbsoluteURL(this.props.downloadsURL);
                 break;
 
             case "likes":
-                if (this.props.page === 'skins') {
-                    this.urlService.redirectToPageURL(URLS.SkinsLikes);
-                }
-                else if (this.props.page === 'search') {
-                    this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/likes');
-                }
-                else if (this.props.page === 'dashboard') {
-                    this.urlService.redirectToPageURL(URLS.DashboardLikes);
-                }
-                else if (this.props.page === 'adminUploadSkins') {
-                    this.urlService.redirectToPageURL(URLS.SkinUploadsLikes);
-                }
+                this.urlService.redirectToAbsoluteURL(this.props.likesURL);
                 break;
         }
     }

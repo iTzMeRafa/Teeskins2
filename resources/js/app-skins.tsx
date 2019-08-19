@@ -3,9 +3,11 @@ require('./bootstrap');
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import GridCore from "./components/GridCore";
-import SortingPanel from "./components/SortingPanel";
 import Wireframe from "./components/Wireframe";
 import { IDataInterface } from "./interfaces/IDataInterface";
+
+// Services
+import {URLS, UrlService} from "./Services/UrlService";
 
 /*
  * This global variable comes from the page associated controller
@@ -14,6 +16,14 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class Skins extends React.Component {
+
+    private readonly urlService: UrlService;
+
+    public constructor(props: {}) {
+        super(props);
+        this.urlService = new UrlService();
+    }
+
     render(){
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -26,6 +36,10 @@ export default class Skins extends React.Component {
                     updateDownloads={true}
                     updateLikes={true}
                     page={data.viewData.page}
+                    idURL={this.urlService.mergeBaseWithURL(URLS.Skins)}
+                    downloadsURL={this.urlService.mergeBaseWithURL(URLS.SkinsDownloads)}
+                    likesURL={this.urlService.mergeBaseWithURL(URLS.SkinsLikes)}
+                    fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSkins)}
                 />
             </Wireframe>
         );

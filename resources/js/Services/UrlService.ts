@@ -30,6 +30,11 @@ export enum URLS {
     EmoticonUploads = "/adminpanel/uploads/emoticon",
     ParticleUploads = "/adminpanel/uploads/particle",
     CursorUploads = "/adminpanel/uploads/cursor",
+
+    FetchSkins = "/fetch/skins",
+    FetchSearch = "/fetch/search",
+    FetchUserUploads = "/fetch/userUploads",
+    FetchSkinUploads = "/fetch/skinUploads",
 }
 
 export class UrlService {
@@ -54,7 +59,11 @@ export class UrlService {
 
     public mergeBaseWithPathURL(path) {
         return this.getBaseURL() + path;
-    } 
+    }
+
+    public mergeBaseWithURL(url: URLS) {
+        return this.getBaseURL() + url;
+    }
 
     public redirectToPageURL(url: URLS) {
         window.location.href = this.getBaseURL() + url;
