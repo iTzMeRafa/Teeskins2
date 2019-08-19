@@ -4,11 +4,14 @@ export enum URLS {
     Register = "/register",
 
     Skins = "/skins",
+    SkinsDownloads = "/skins/downloads",
+    SkinsLikes = "/skins/likes",
     Mapres = "/mapres",
     Gameskins = "/gameskins",
     Emoticons = "/emoticons",
     Particles = "/particles",
     Cursors = "/cursors",
+    Search = "/search",
 
     PrivacyPolicies = "/privacy-policies",
     TermsOfUse = "/terms-of-use",
@@ -51,6 +54,10 @@ export class UrlService {
 
     public redirectToPageURL(url: URLS) {
         window.location.href = this.getBaseURL() + url;
+    }
+
+    public redirectToPagePath(path) {
+        window.location.href = this.mergeBaseWithPathURL(path);
     }
 
     public redirectToAbsoluteURL(url: string) {

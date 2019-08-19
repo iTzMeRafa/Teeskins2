@@ -17,12 +17,15 @@ export default class Search extends React.Component {
      render() {
         return (
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                <SearchHeadline countResults={data.viewData.skins.length} query={data.viewData.query} />
+                <SearchHeadline countResults={data.viewData.countSkins} query={data.viewData.query} />
                 <GridCore 
                     userInfo={data.globalData.userInfo} 
                     assets={data.viewData.skins} numPerRow={4}
                     updateDownloads={true}
                     updateLikes={true}
+                    sortType={data.viewData.sortType}
+                    page={data.viewData.page}
+                    queryString={data.viewData.query}
                 />
             </Wireframe>
         );

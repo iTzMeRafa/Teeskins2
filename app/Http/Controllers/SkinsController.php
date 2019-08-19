@@ -42,6 +42,8 @@ class SkinsController extends GlobalController
         $viewData = [
             'viewData' =>  [
                 'skins' => $this->fetchSkinsFromDatabase($defaultSkinRequest),
+                'sortType' => $sortType,
+                'page' => 'skins',
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

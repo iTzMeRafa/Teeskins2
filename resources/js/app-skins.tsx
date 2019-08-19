@@ -17,14 +17,15 @@ export default class Skins extends React.Component {
     render(){
         return(
             <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                {/*<SortingPanel/>*/}
                 <h3></h3>
                 <GridCore 
                     userInfo={data.globalData.userInfo} 
-                    assets={data.viewData.skins} 
+                    assets={data.viewData.skins}
+                    sortType={data.viewData.sortType}
                     numPerRow={4}
                     updateDownloads={true}
                     updateLikes={true}
+                    page={data.viewData.page}
                 />
             </Wireframe>
         );

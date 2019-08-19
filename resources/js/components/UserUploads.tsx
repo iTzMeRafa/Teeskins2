@@ -7,6 +7,7 @@ import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
 interface IUserUploadsInterfaceProps {
     assets: any;
     userInfo: IUserInfoInterface;
+    sortType: 'id' | 'downloads' | 'likes';
 }
 
 export default class UserUploads extends React.Component<IUserUploadsInterfaceProps> {
@@ -20,6 +21,8 @@ export default class UserUploads extends React.Component<IUserUploadsInterfacePr
                     numPerRow={3}
                     updateDownloads={true}
                     updateLikes={true}
+                    sortType={this.props.sortType}
+                    page={'search'}
                 />
             </div>
         );

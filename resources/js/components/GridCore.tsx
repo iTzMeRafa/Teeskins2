@@ -3,10 +3,10 @@ import Skin from './Skin';
 import axios from 'axios';
 
 // Interfaces
-import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
+import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
-import { UrlService } from './../Services/UrlService';
+import {URLS, UrlService} from '../Services/UrlService';
 
 interface IGridCoreProps {
     assets: any;
@@ -14,6 +14,9 @@ interface IGridCoreProps {
     numPerRow: 1 | 2 | 3 | 4;
     updateDownloads: boolean;
     updateLikes: boolean;
+    sortType: 'id' | 'downloads' | 'likes';
+    page: string;
+    queryString?: string;
 }
 
 interface IGridCoreState {
@@ -21,14 +24,14 @@ interface IGridCoreState {
     excludeIDs: any;
     assets: any;
     showLoadButton: boolean;
-    sortingType: string;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
 
-    private readonly urlService;
+    private readonly urlService: UrlService;
 
     public render() {
+        console.log(this.state.excludeIDs);
         return (
             <>
                 {this.renderSortingPanel()}
@@ -61,7 +64,6 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             assets: this.props.assets,
             excludeIDs: this.props.assets.map(function(asset) { return asset.id; }),
             showLoadButton: true,
-            sortingType: 'id',
         };
 
         this.urlService = new UrlService();
@@ -75,11 +77,11 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
     private renderSortingPanel() {
         return (
-            <div className="row justify-content-end mb-5">
-                <div className="col-3">
+            <div className="row mb-5">
+                <div className="col-md-4">
                     <h4>Sort By</h4>
-                    <select 
-                        value={this.state.sortingType}
+                    <select
+                        value={this.props.sortType}
                         required={true} 
                         name="assetType" 
                         className="form-control" 
@@ -128,9 +130,22 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
         const postData = new FormData();
         postData.append('excludes', this.state.excludeIDs);
-        postData.append('type', 'id');
+        postData.append('type', this.props.sortType);
+        postData.append('queryString', this.props.queryString);
 
-        axios.post( `${this.urlService.getBaseURL()}/fetch/skins`, postData)
+        let fetchUrl;
+
+        switch(this.props.page) {
+            case 'skins':
+                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/skins');
+                break;
+
+            case 'search':
+                fetchUrl = this.urlService.mergeBaseWithPathURL('/fetch/search');
+                break;
+        }
+
+        axios.post(fetchUrl, postData)
         .then(response => {
 
             response.data.map(asset => {
@@ -138,7 +153,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             });
 
             this.setState({ 
-                excludeIDs: this.state.assets.map(asset => { return asset.id; }),
+                excludeIDs: this.state.assets.map(asset => { return asset.id; }, () => console.log(this.state.excludeIDs)),
                 showLoadButton: response.data.length !== 0, 
             });
 
@@ -149,7 +164,34 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
     private handleSortingChange() {
         const selectedSortingType = (document.getElementById("sortingPanel") as HTMLSelectElement).value;
-        this.setState({ sortingType: selectedSortingType });
+        switch (selectedSortingType) {
+            case "id":
+                if (this.props.page === 'skins') {
+                    this.urlService.redirectToPageURL(URLS.Skins);
+                }
+                else if (this.props.page === 'search') {
+                    this.urlService.redirectToPagePath('/search/'+this.props.queryString);
+                }
+                break;
+
+            case "downloads":
+                if (this.props.page === 'skins') {
+                    this.urlService.redirectToPageURL(URLS.SkinsDownloads);
+                }
+                else if (this.props.page === 'search') {
+                    this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/downloads');
+                }
+                break;
+
+            case "likes":
+                if (this.props.page === 'skins') {
+                    this.urlService.redirectToPageURL(URLS.SkinsLikes);
+                }
+                else if (this.props.page === 'search') {
+                    this.urlService.redirectToPagePath('/search/'+this.props.queryString+'/likes');
+                }
+                break;
+        }
     }
 
     private getClassName() {

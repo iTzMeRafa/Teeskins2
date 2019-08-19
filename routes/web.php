@@ -16,7 +16,9 @@ Auth::routes();
 // Pages
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/skins', 'SkinsController@index')->name('skins');
+Route::get('/skins/{sortType}', 'SkinsController@index')->name('skinsSort');
 Route::get('/search/{query}', 'SearchController@index')->name('search');
+Route::get('/search/{query}/{sortType}', 'SearchController@index')->name('searchSort');
 Route::get('/upload', 'UploadController@index')->name('upload');
 Route::get('/privacy-policies', 'PrivacyPoliciesController@index')->name('privacy-policies');
 Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
@@ -43,6 +45,7 @@ Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail')
 Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
 Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
+Route::post('/fetch/search', 'SearchController@fetchSkinsFromDatabase')->name('fetchSearchOffset');
 
 // Admin
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...

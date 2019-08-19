@@ -23,8 +23,15 @@ export default class DashBoard extends React.Component {
                         <UserPanelSideBar />
                     </div>
                     <div className="col-md-9">
-                        <UserStatistics userInfo={data.globalData.userInfo} statistics={data.viewData.statistics} />
-                        <UserUploads userInfo={data.globalData.userInfo} assets={data.viewData.assets} />
+                        <UserStatistics
+                            userInfo={data.globalData.userInfo}
+                            statistics={data.viewData.statistics}
+                        />
+                        <UserUploads
+                            userInfo={data.globalData.userInfo}
+                            assets={data.viewData.assets}
+                            sortType={data.viewData.sortType}
+                        />
                     </div>
                 </div>
             </Wireframe>
