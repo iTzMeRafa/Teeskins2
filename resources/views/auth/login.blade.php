@@ -67,7 +67,7 @@
                         <div class="row">
                         <div class="col-md-8 offset-md-4">
                             <a class="text-right" href="{{ route('register') }}">
-                                {{ __('Dont have a accout yet? Sign up now.')}}
+                                {{ __("Don't have an account yet? Sign up now.")}}
                             </div>
                         </div>
                     </form>
