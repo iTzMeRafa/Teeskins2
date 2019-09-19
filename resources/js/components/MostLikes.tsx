@@ -1,7 +1,11 @@
 import * as React from 'react';
-import Skin from "./Skin";
-import { MostLikedAsset } from "../interfaces/ITrendingInterface";
-import { IUserInfoInterface } from './../interfaces/IUserInfoInterface';
+import Skin from './Skin';
+
+// Interfaces
+/* eslint-disable-next-line no-unused-vars */
+import { MostLikedAsset } from '../interfaces/ITrendingInterface';
+/* eslint-disable-next-line no-unused-vars */
+import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface IMostLikesProps {
     mostLikedAsset: MostLikedAsset;
@@ -9,26 +13,26 @@ interface IMostLikesProps {
 }
 
 export default class Newest extends React.Component<IMostLikesProps> {
-    render(){
-        return(
+  public render () {
+    return (
             <>
                 <h3 className="headline">most likes</h3>
                 <Skin
-                    id={this.props.mostLikedAsset.id}
-                    name={this.props.mostLikedAsset.name}
-                    author={this.props.mostLikedAsset.author}
-                    imagePath={this.props.mostLikedAsset.imagePath}
-                    username={this.props.mostLikedAsset.username}
-                    uploadDate={this.props.mostLikedAsset.uploadDate}
-                    userInfo={this.props.userInfo}
-                    downloads={this.props.mostLikedAsset.downloads}
-                    likes={this.props.mostLikedAsset.likes}
-                    isPublic={this.props.mostLikedAsset.isPublic}
-                    updateDownloads={true}
-                    updateLikes={true}
-                    locationType={"likes"}
+                  id={this.props.mostLikedAsset.id}
+                  name={this.props.mostLikedAsset.name}
+                  author={this.props.mostLikedAsset.author}
+                  imagePath={this.props.mostLikedAsset.imagePath}
+                  username={this.props.mostLikedAsset.username}
+                  uploadDate={this.props.mostLikedAsset.uploadDate}
+                  userInfo={this.props.userInfo}
+                  downloads={this.props.mostLikedAsset.downloads}
+                  likes={this.props.mostLikedAsset.likes}
+                  isPublic={this.props.mostLikedAsset.isPublic}
+                  updateDownloads={true}
+                  updateLikes={true}
+                  locationType={'likes'}
                 />
             </>
-        );
-    }
+    );
+  }
 }

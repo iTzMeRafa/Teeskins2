@@ -1,3 +1,4 @@
+/* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from './IUserInfoInterface';
 
 export interface IDataInterface {
@@ -11,7 +12,7 @@ export interface IGlobalDataInterface {
 }
 
 /**
- * The viewData is based on its view and 
+ * The viewData is based on its view and
  * therefore cant be explicitly stated
  */
 export interface IViewDataInterface {

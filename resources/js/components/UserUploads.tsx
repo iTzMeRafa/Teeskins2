@@ -1,7 +1,8 @@
 import * as React from 'react';
-import GridCore from "./GridCore";
+import GridCore from './GridCore';
 
 // Interfaces
+/* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface IUserUploadsInterfaceProps {
@@ -16,24 +17,24 @@ interface IUserUploadsInterfaceProps {
 }
 
 export default class UserUploads extends React.Component<IUserUploadsInterfaceProps> {
-    render(){
-        return(
-            <div className="mb-4">
-                <h3>Your Uploads</h3>
-                <GridCore 
-                    userInfo={this.props.userInfo} 
-                    assets={this.props.assets} 
-                    numPerRow={3}
-                    updateDownloads={true}
-                    updateLikes={true}
-                    sortType={this.props.sortType}
-                    page={this.props.page}
-                    idURL={this.props.idURL}
-                    downloadsURL={this.props.downloadsURL}
-                    likesURL={this.props.likesURL}
-                    fetchURL={this.props.fetchURL}
-                />
-            </div>
-        );
-    }
+  public render () {
+    return (
+      <div className="mb-4">
+        <h3>Your Uploads</h3>
+        <GridCore
+          userInfo={this.props.userInfo}
+          assets={this.props.assets}
+          numPerRow={3}
+          updateDownloads={true}
+          updateLikes={true}
+          sortType={this.props.sortType}
+          page={this.props.page}
+          idURL={this.props.idURL}
+          downloadsURL={this.props.downloadsURL}
+          likesURL={this.props.likesURL}
+          fetchURL={this.props.fetchURL}
+        />
+      </div>
+    );
+  }
 }

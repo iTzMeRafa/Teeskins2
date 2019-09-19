@@ -1,9 +1,12 @@
-require('./bootstrap');
-
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Wireframe from "./components/Wireframe";
-import { IDataInterface } from "./interfaces/IDataInterface";
+import Wireframe from './components/Wireframe';
+
+// Interfaces
+/* eslint-disable-next-line no-unused-vars */
+import { IDataInterface } from './interfaces/IDataInterface';
+
+require('./bootstrap');
 
 /*
  * This global variable comes from the page associated controller
@@ -12,39 +15,44 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class TermsOfUse extends React.Component {
-    render(){
-        return(
-            <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                {this.renderTermsOfUseText()}
-            </Wireframe>
-        );
-    }
+  public render () {
+    return (
+      <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
+        {this.renderTermsOfUseText()}
+      </Wireframe>
+    );
+  }
 
-    private renderTermsOfUseText() {
-        return (
-            <div>
-                <h1>Impressum</h1>
-                    <p>Angaben gemäß § 5 Telemediengesetz</p>																
-	            <h2>Allgemeine Informationen</h2>
-	            <dl>
-					<dt>Name und Anschrift</dt>
-			        <dd>
-                        Rafael Carneiro <br />
-                        Elsa-Brandström-Str. 11, Bergkamen <br />
-                        Teeskins.de - Teeworlds Assets Database
-                    </dd>
-					<dt>E-Mail-Adresse</dt>
-			        <dd>craetical@gmail.com</dd>
-					<dt>Telefon</dt>
-			        <dd>01724280326</dd>
-                </dl>
-                <br />
-                <p>Special thanks to <strong>Whis</strong> for designing Teeskins' logo</p>
-            </div>
-        );
-    }
+  private renderTermsOfUseText () {
+    return (
+      <div>
+        <h1>Impressum</h1>
+        <p>Angaben gemäß § 5 Telemediengesetz</p>
+        <h2>Allgemeine Informationen</h2>
+        <dl>
+
+          <dt>Name und Anschrift</dt>
+          <dd>
+            Rafael Carneiro <br />
+            Elsa-Brandström-Str. 11, Bergkamen <br />
+            Teeskins.de - Teeworlds Assets Database
+          </dd>
+
+          <dt>E-Mail-Adresse</dt>
+          <dd>craetical@gmail.com</dd>
+
+          <dt>Telefon</dt>
+          <dd>01724280326</dd>
+
+        </dl>
+        <br />
+
+        <p>Special thanks to <strong>Whis</strong> for designing Teeskins' logo</p>
+      </div>
+    );
+  }
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<TermsOfUse />, document.getElementById('app'));
+  ReactDOM.render(<TermsOfUse />, document.getElementById('app'));
 }

@@ -1,10 +1,13 @@
-require('./bootstrap');
-
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
 import ErrorCode from './components/ErrorCode';
-import { IDataInterface } from "./interfaces/IDataInterface";
+
+// Interfaces
+/* eslint-disable-next-line no-unused-vars */
+import { IDataInterface } from './interfaces/IDataInterface';
+
+require('./bootstrap');
 
 /*
  * This global variable comes from the page associated controller
@@ -13,18 +16,18 @@ import { IDataInterface } from "./interfaces/IDataInterface";
 declare var data: IDataInterface;
 
 export default class Error404 extends React.Component {
-     render() {
-        return (
-            <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
-                <ErrorCode 
-                    errorCode={404}
-                    text="Page not found."
-                />
-            </Wireframe>
-        );
-    }
+  public render () {
+    return (
+      <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
+        <ErrorCode
+          errorCode={404}
+          text="Page not found."
+        />
+      </Wireframe>
+    );
+  }
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<Error404 />, document.getElementById('app'));
+  ReactDOM.render(<Error404 />, document.getElementById('app'));
 }

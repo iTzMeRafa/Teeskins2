@@ -1,25 +1,20 @@
 import * as React from 'react';
 
 // Services
-import { URLS } from './../Services/UrlService';
+import { URLS } from '../Services/UrlService';
 
 export default class Footer extends React.Component {
-
-    public constructor(props: {}) {
-        super(props);
-    }
-
-    public render() {
-        return(
-            <footer>
-                <p>&copy; {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
-                <div className="footer-navigation">
-                    <ul>
-                        <li><a href={URLS.PrivacyPolicies}> Privacy Policies </a></li>
-                        <li><a href={URLS.TermsOfUse}> Terms of use </a></li>
-                    </ul>
-                </div>
-            </footer>
-        );
-    }
+  public render () {
+    return (
+      <footer>
+        <p>&copy; {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
+        <div className="footer-navigation">
+          <ul>
+            <li><a href={URLS.PrivacyPolicies}> Privacy Policies </a></li>
+            <li><a href={URLS.TermsOfUse}> Terms of use </a></li>
+          </ul>
+        </div>
+      </footer>
+    );
+  }
 }
