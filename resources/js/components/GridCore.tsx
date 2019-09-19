@@ -123,6 +123,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                         handleVisibilityChange={() => this.setAssetVisibility(asset.id)}
                         updateDownloads={this.props.updateDownloads}
                         updateLikes={this.props.updateLikes}
+                        locationType={"skin"}
                     />
                 </div>
             );

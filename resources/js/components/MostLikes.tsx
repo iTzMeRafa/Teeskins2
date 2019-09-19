@@ -26,6 +26,7 @@ export default class Newest extends React.Component<IMostLikesProps> {
                     isPublic={this.props.mostLikedAsset.isPublic}
                     updateDownloads={true}
                     updateLikes={true}
+                    locationType={"likes"}
                 />
             </>
         );

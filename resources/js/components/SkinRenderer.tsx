@@ -4,6 +4,7 @@ interface ISkinRendererProps {
     imagePath: string;
     id: string;
     size: "small" | "default" | "large";
+    locationType: "newest" | "likes" | "downloads" | "skin";
 }
 
 interface ISkinRendererState {
@@ -26,7 +27,7 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     public render() {
         return (
             <img 
-                id={this.props.id} 
+                id={this.props.id + '_' + this.props.locationType}
                 className="card-img-top" 
                 src={this.props.imagePath} 
                 onLoad={this.renderSkin.bind(this)}
@@ -35,8 +36,8 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     }
 
     private renderSkin(): void {
-        
-        const skin = document.getElementById(this.props.id) as HTMLImageElement;
+        console.log(this.props.imagePath);
+        const skin = document.getElementById(this.props.id + '_' + this.props.locationType) as HTMLImageElement;
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
         

@@ -27,6 +27,11 @@ interface ISkinProps {
     userInfo: IUserInfoInterface;
     updateDownloads: boolean;
     updateLikes: boolean;
+
+    /**
+     * Prevents duplicate id for image tag, if a asset is trending on multiple types
+     */
+    locationType: "newest" | "likes" | "downloads" | "skin";
 }
 
 interface ISkinState {
@@ -68,6 +73,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
                         imagePath={this.props.imagePath}
                         size="default"
                         id={this.props.id.toString()}
+                        locationType={this.props.locationType}
                     />
                 
                 <div className="card-body">
