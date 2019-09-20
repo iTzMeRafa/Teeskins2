@@ -4,6 +4,7 @@
     "/js/app-adminHome.js": "/js/app-adminHome.js",
     "/js/app-adminSkinsUpload.js": "/js/app-adminSkinsUpload.js",
     "/js/app-adminUserlist.js": "/js/app-adminUserlist.js",
+    "/js/app-api.js": "/js/app-api.js",
     "/js/app-dashboard.js": "/js/app-dashboard.js",
     "/js/app-home.js": "/js/app-home.js",
     "/css/app.css": "/css/app.css",

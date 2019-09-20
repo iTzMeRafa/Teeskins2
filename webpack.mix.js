@@ -45,6 +45,9 @@ mix.react('resources/js/app-adminUserlist.tsx', 'public/js');
 // Admin Skins Upload
 mix.react('resources/js/app-adminSkinsUpload.tsx', 'public/js');
 
+// API
+mix.react('resources/js/app-api.tsx', 'public/js');
+
 // 404 Error Page
 mix.react('resources/js/app-404.tsx', 'public/js');
 
