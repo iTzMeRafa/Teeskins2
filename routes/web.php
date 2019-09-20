@@ -57,3 +57,8 @@ Route::get('/adminpanel/userlist', 'AdminpanelUserlistController@index')->name('
 /* AssetType must be singular */
 Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
 Route::get('/adminpanel/uploads/skin/{sortType}', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
+
+// API's
+Route::get('/api', 'APIController@index')->name('apiController');
+Route::get('/api/skins', 'APISkinsController@index')->name('apiSkinsController');
+Route::get('/api/skins/{sortType}', 'APISkinsController@index')->name('apiSkinsController');
