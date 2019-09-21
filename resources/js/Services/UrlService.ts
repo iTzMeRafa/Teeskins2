@@ -18,6 +18,9 @@ export enum URLS {
     PrivacyPolicies = '/privacy-policies',
     TermsOfUse = '/terms-of-use',
 
+    API = '/api',
+    APISkins = '/api/skins',
+
     Dashboard = '/userpanel/dashboard',
     DashboardDownloads = '/userpanel/dashboard/downloads',
     DashboardLikes = '/userpanel/dashboard/likes',

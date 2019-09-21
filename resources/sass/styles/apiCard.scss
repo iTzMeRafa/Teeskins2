@@ -1,0 +1,18 @@
+.apiCard {
+
+  &__dot {
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+
+    &--online {
+      background-color: $primary-green;
+    }
+
+    &--offline {
+      background-color: $primary-red;
+    }
+  }
+}

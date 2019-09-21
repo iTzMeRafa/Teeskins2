@@ -12,6 +12,7 @@ export default class Footer extends React.Component {
           <ul>
             <li><a href={URLS.PrivacyPolicies}> Privacy Policies </a></li>
             <li><a href={URLS.TermsOfUse}> Terms of use </a></li>
+            <li><a href={URLS.API}> API </a></li>
           </ul>
         </div>
       </footer>
