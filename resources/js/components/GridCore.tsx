@@ -8,6 +8,7 @@ import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
 import { UrlService } from '../Services/UrlService';
+import { TYPES } from '../Services/AssetService';
 
 interface IGridCoreProps {
     assets: any;
@@ -124,6 +125,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
               updateLikes={this.props.updateLikes}
               locationType={'assetPage'}
               assetType={asset.assetType}
+              useSkinRenderer={asset.assetType === TYPES.Skin}
             />
           </div>
         );

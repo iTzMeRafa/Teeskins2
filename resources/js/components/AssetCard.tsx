@@ -28,6 +28,7 @@ interface IAssetCardProps {
     userInfo: IUserInfoInterface;
     updateDownloads: boolean;
     updateLikes: boolean;
+    useSkinRenderer?: boolean;
     assetType: TYPES;
 
     /**
@@ -110,12 +111,22 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       return (
         <div className="card">
           {this.renderHeadControl()}
-          <SkinRenderer
-            imagePath={this.props.imagePath}
-            size="default"
-            id={this.props.id.toString()}
-            locationType={this.props.locationType}
-          />
+          {this.props.useSkinRenderer && (
+            <SkinRenderer
+              imagePath={this.props.imagePath}
+              size="default"
+              id={this.props.id.toString()}
+              locationType={this.props.locationType}
+            />
+          )}
+
+          {!this.props.useSkinRenderer && (
+              <img
+                  id={this.props.id + '_' + this.props.locationType}
+                  className="card-img-top"
+                  src={this.props.imagePath}
+              />
+          )}
 
           <div className="card-body">
             <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>

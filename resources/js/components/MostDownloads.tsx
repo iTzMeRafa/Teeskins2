@@ -7,6 +7,9 @@ import { Asset } from '../interfaces/IAssetInterface';
 /* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
+// Services
+import {TYPES} from "../Services/AssetService";
+
 interface IMostDownloadsProps {
     mostDownloadedAsset: Asset;
     userInfo: IUserInfoInterface;
@@ -32,6 +35,7 @@ export default class Newest extends React.Component<IMostDownloadsProps> {
                   updateDownloads={true}
                   updateLikes={true}
                   locationType={'downloads'}
+                  useSkinRenderer={this.props.mostDownloadedAsset.assetType === TYPES.Skin}
                 />
             </>
     );
