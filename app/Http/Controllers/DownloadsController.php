@@ -15,6 +15,30 @@ class DownloadsController extends Controller
                     DB::table('skins')->where('id' , '=', $assetID)->increment('downloads');
                     break;
 
+                case "body":
+                    DB::table('body')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
+                case "decoration":
+                    DB::table('decoration')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
+                case "eyes":
+                    DB::table('eyes')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
+                case "feet":
+                    DB::table('feet')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
+                case "hands":
+                    DB::table('hands')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
+                case "marking":
+                    DB::table('marking')->where('id' , '=', $assetID)->increment('downloads');
+                    break;
+
                 case "mapres":
                     DB::table('mapres')->where('id' , '=', $assetID)->increment('downloads');
                     break;

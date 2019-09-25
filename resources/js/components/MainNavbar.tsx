@@ -25,8 +25,28 @@ export default class MainNavbar extends React.Component {
 
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav mr-auto">
+
                 <li className={'nav-item ' + this.urlService.navIsActive(URLS.Skins)}>
-                  <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>Skins<span className="sr-only">(current)</span></a>
+                  <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>
+                    Skins <span className="badge badge-secondary">0.6</span> <span className="sr-only">(current)</span>
+                  </a>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Skins <span className="badge badge-secondary">0.7</span>
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Body)}>Body</a>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Decoration)}>Decoration</a>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Eyes)}>Eyes</a>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Feet)}>Feet</a>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Hands)}>Hands</a>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Marking)}>Marking</a>
+                    <div className="dropdown-divider"></div>
+                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.SkinGenerator)}>Skin Generator</a>
+                  </div>
                 </li>
 
                 {/*

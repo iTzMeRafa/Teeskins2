@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Skin from './Skin';
+import AssetCard from './AssetCard';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
-import { NewestAsset } from '../interfaces/ITrendingInterface';
+import { Asset } from '../interfaces/IAssetInterface';
 /* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface INewestProps {
-    newestAsset: NewestAsset;
+    newestAsset: Asset;
     userInfo: IUserInfoInterface;
 }
 
@@ -17,7 +17,7 @@ export default class Newest extends React.Component<INewestProps> {
     return (
             <>
                 <h3 className="headline">newest</h3>
-                <Skin
+                <AssetCard
                   id={this.props.newestAsset.id}
                   name={this.props.newestAsset.name}
                   author={this.props.newestAsset.author}
@@ -28,6 +28,7 @@ export default class Newest extends React.Component<INewestProps> {
                   downloads={this.props.newestAsset.downloads}
                   likes={this.props.newestAsset.likes}
                   isPublic={this.props.newestAsset.isPublic}
+                  assetType={this.props.newestAsset.assetType}
                   updateDownloads={true}
                   updateLikes={true}
                   locationType={'newest'}

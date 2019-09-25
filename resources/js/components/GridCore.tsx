@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Skin from './Skin';
+import AssetCard from './AssetCard';
 import axios from 'axios';
 
 // Interfaces
@@ -35,7 +35,6 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     private readonly urlService: UrlService;
 
     public render () {
-      console.log(this.state.excludeIDs);
       return (
         <>
             {this.renderSortingPanel()}
@@ -51,7 +50,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
                     className="btn-lg btn btn-outline-primary"
                     onClick={() => this.loadMoreAssets()}
                   >
-                            Load More
+                    Load More
                   </button>
                 )}
 
@@ -109,7 +108,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             key={asset.id}
             style={this.state.hideForAssetIDs.includes(asset.id) ? { display: 'none' } : { display: 'block' }}
           >
-            <Skin
+            <AssetCard
               id={asset.id}
               name={asset.name}
               author={asset.author}
@@ -123,7 +122,8 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
               handleVisibilityChange={() => this.setAssetVisibility(asset.id)}
               updateDownloads={this.props.updateDownloads}
               updateLikes={this.props.updateLikes}
-              locationType={'skin'}
+              locationType={'assetPage'}
+              assetType={asset.assetType}
             />
           </div>
         );

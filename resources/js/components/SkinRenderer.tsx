@@ -4,7 +4,7 @@ interface ISkinRendererProps {
     imagePath: string;
     id: string;
     size: 'small' | 'default' | 'large';
-    locationType: 'newest' | 'likes' | 'downloads' | 'skin';
+    locationType: 'newest' | 'likes' | 'downloads' | 'assetPage';
 }
 
 interface ISkinRendererState {

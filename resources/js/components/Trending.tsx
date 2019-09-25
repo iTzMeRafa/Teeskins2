@@ -5,14 +5,14 @@ import MostDownloads from './MostDownloads';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
-import { NewestAsset, MostDownloadedAsset, MostLikedAsset } from '../interfaces/ITrendingInterface';
+import { Asset } from '../interfaces/IAssetInterface';
 /* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface ITrendingProps {
-    mostDownloadedAsset: MostDownloadedAsset;
-    mostLikedAsset: MostLikedAsset;
-    newestAsset: NewestAsset;
+    mostDownloadedAsset: Asset;
+    mostLikedAsset: Asset;
+    newestAsset: Asset;
     userInfo: IUserInfoInterface;
 }
 

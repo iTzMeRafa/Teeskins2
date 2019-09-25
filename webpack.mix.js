@@ -18,6 +18,24 @@ mix.react('resources/js/app-home.tsx', 'public/js')
 // Skins
 mix.react('resources/js/app-skins.tsx', 'public/js');
 
+// Body
+mix.react('resources/js/app-body.tsx', 'public/js');
+
+// Decoration
+mix.react('resources/js/app-decoration.tsx', 'public/js');
+
+// Eyes
+mix.react('resources/js/app-eyes.tsx', 'public/js');
+
+// Feet
+mix.react('resources/js/app-feet.tsx', 'public/js');
+
+// Hands
+mix.react('resources/js/app-hands.tsx', 'public/js');
+
+// Marking
+mix.react('resources/js/app-marking.tsx', 'public/js');
+
 // Upload
 mix.react('resources/js/app-upload.tsx', 'public/js');
 
@@ -44,6 +62,24 @@ mix.react('resources/js/app-adminUserlist.tsx', 'public/js');
 
 // Admin Skins Upload
 mix.react('resources/js/app-adminSkinsUpload.tsx', 'public/js');
+
+// Admin Body Upload
+mix.react('resources/js/app-adminBodyUpload.tsx', 'public/js');
+
+// Admin Decoration Upload
+mix.react('resources/js/app-adminDecorationUpload.tsx', 'public/js');
+
+// Admin Eyes Upload
+mix.react('resources/js/app-adminEyesUpload.tsx', 'public/js');
+
+// Admin Feet Upload
+mix.react('resources/js/app-adminFeetUpload.tsx', 'public/js');
+
+// Admin Hands Upload
+mix.react('resources/js/app-adminHandsUpload.tsx', 'public/js');
+
+// Admin Marking Upload
+mix.react('resources/js/app-adminMarkingUpload.tsx', 'public/js');
 
 // API
 mix.react('resources/js/app-api.tsx', 'public/js');

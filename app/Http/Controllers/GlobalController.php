@@ -17,6 +17,19 @@ class GlobalController extends Controller
         ];
     }
 
+    protected function getHTTPStatusCodeFromUrl($url) {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, true);    // we want headers
+        curl_setopt($ch, CURLOPT_NOBODY, true);    // we don't need body
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_TIMEOUT,10);
+        $output = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        return $httpCode;
+    }
+
     private function getUserInfo() {
         return [
             'isLoggedIn' => Auth::check(),
@@ -30,29 +43,35 @@ class GlobalController extends Controller
 
     private function getUserAssetLikes() {
         return [
-            'skins' => $this->getUserSkinLikes(),
+            'skins' => $this->getUserAssetLikesMethod('skin'),
+            'body' => $this->getUserAssetLikesMethod('body'),
+            'decoration' => $this->getUserAssetLikesMethod('decoration'),
+            'eyes' => $this->getUserAssetLikesMethod('eyes'),
+            'feet' => $this->getUserAssetLikesMethod('feet'),
+            'hands' => $this->getUserAssetLikesMethod('hands'),
+            'marking' => $this->getUserAssetLikesMethod('marking'),
         ];
     }
 
-    private function getUserSkinLikes() {
+    private function getUserAssetLikesMethod($assetType) {
         $likes = [];
         if (!Auth::check()) {
             return $likes;
         }
 
-        $skinLikes =  
+        $assetLikes =
             DB::table('likes')
             ->select('assetID')
             ->where([
-                ['assetType', '=', 'skin'], 
+                ['assetType', '=', $assetType],
                 ['userID', '=', Auth::id()]
             ])
             ->distinct()
             ->get();
         
         
-        foreach ($skinLikes as $key => $skinLike) {
-            $likes[$key] = $skinLike->assetID;
+        foreach ($assetLikes as $key => $assetLike) {
+            $likes[$key] = $assetLike->assetID;
         }
         return $likes;
     }

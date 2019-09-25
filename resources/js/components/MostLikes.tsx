@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Skin from './Skin';
+import AssetCard from './AssetCard';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
-import { MostLikedAsset } from '../interfaces/ITrendingInterface';
+import { Asset } from '../interfaces/IAssetInterface';
 /* eslint-disable-next-line no-unused-vars */
 import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 interface IMostLikesProps {
-    mostLikedAsset: MostLikedAsset;
+    mostLikedAsset: Asset;
     userInfo: IUserInfoInterface;
 }
 
@@ -17,7 +17,7 @@ export default class Newest extends React.Component<IMostLikesProps> {
     return (
             <>
                 <h3 className="headline">most likes</h3>
-                <Skin
+                <AssetCard
                   id={this.props.mostLikedAsset.id}
                   name={this.props.mostLikedAsset.name}
                   author={this.props.mostLikedAsset.author}
@@ -28,6 +28,7 @@ export default class Newest extends React.Component<IMostLikesProps> {
                   downloads={this.props.mostLikedAsset.downloads}
                   likes={this.props.mostLikedAsset.likes}
                   isPublic={this.props.mostLikedAsset.isPublic}
+                  assetType={this.props.mostLikedAsset.assetType}
                   updateDownloads={true}
                   updateLikes={true}
                   locationType={'likes'}

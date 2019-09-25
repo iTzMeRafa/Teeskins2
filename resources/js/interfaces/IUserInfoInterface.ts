@@ -1,5 +1,5 @@
 /* eslint-disable-next-line no-unused-vars */
-import { IAssetLikesInterface } from './IAssetLikesInterface';
+import { IAssetTypeLikesInterface } from './IAssetLikesInterface';
 
 export interface IUserInfoInterface {
     isLoggedIn: boolean;
@@ -7,6 +7,6 @@ export interface IUserInfoInterface {
     id: number | null;
     username: string | null;
     role: string | null;
-    assetLikes: IAssetLikesInterface;
+    assetLikes: IAssetTypeLikesInterface;
     triggerParentVisibility: () => void;
 }

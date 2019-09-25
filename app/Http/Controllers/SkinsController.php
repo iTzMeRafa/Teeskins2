@@ -21,7 +21,7 @@ class SkinsController extends GlobalController
         $tableType = 'skins.'.$request->type;
         $excludesToArray = explode(',', $request->excludes);
 
-        return DB::table("skins")
+        $skins = DB::table("skins")
             ->join('users', 'users.id', '=', 'skins.userID')
             ->where("skins.isPublic", "=", 1)
             ->whereNotIn('skins.id', $excludesToArray)
@@ -29,6 +29,12 @@ class SkinsController extends GlobalController
             ->selectRaw('skins.*, users.name as username')
             ->limit($this->numberPerLoadage)
             ->get();
+
+        foreach ($skins as $skin) {
+            $skin->assetType = 'skin';
+        }
+
+        return $skins;
     }
 
     private function getViewData($sortType) {

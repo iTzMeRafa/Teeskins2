@@ -2,6 +2,12 @@
 
 export enum TYPES {
     Skin = 'skin',
+    Body = 'body',
+    Decoration = 'decoration',
+    Eye = 'eye',
+    Feet = 'feet',
+    Hand = 'hand',
+    Marking = 'marking',
     Mapres = 'mapres',
     Gameskin = 'gameskin',
     Emoticon = 'emoticon',

@@ -12,8 +12,9 @@ import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
 import { UrlService, URLS } from '../Services/UrlService';
+import { TYPES } from '../Services/AssetService';
 
-interface ISkinProps {
+interface IAssetCardProps {
     id: number;
     name: string;
     author: string;
@@ -27,14 +28,15 @@ interface ISkinProps {
     userInfo: IUserInfoInterface;
     updateDownloads: boolean;
     updateLikes: boolean;
+    assetType: TYPES;
 
     /**
-     * Prevents duplicate id for image tag, if a asset is trending on multiple types
+     * Prevents duplicate id for image tag, if the same asset will be displayed multiple times on one page
      */
-    locationType: 'newest' | 'likes' | 'downloads' | 'skin';
+    locationType: 'newest' | 'likes' | 'downloads' | 'assetPage' ;
 }
 
-interface ISkinState {
+interface IAssetCardState {
     liked: boolean;
     downloaded: boolean;
     likes: number;
@@ -44,16 +46,31 @@ interface ISkinState {
     deleted: boolean;
 }
 
-export default class Skin extends React.Component<ISkinProps, ISkinState> {
-    private readonly blockName = 'skinCanvas';
+export default class AssetCard extends React.Component<IAssetCardProps, IAssetCardState> {
+    private readonly blockName = 'assetCanvas';
     private urlService: UrlService;
 
-    public constructor (props: ISkinProps) {
+    public constructor (props: IAssetCardProps) {
       super(props);
       this.urlService = new UrlService();
 
       this.state = {
-        liked: this.props.userInfo.assetLikes.skins.includes(this.props.id),
+
+        // TODO: Refactor, no clean solution with deep ternary operators
+        liked:
+            this.props.assetType === TYPES.Skin
+              ? this.props.userInfo.assetLikes.skins.includes(this.props.id)
+              : this.props.assetType === TYPES.Body
+                ? this.props.userInfo.assetLikes.body.includes(this.props.id)
+                : this.props.assetType === TYPES.Decoration
+                  ? this.props.userInfo.assetLikes.decoration.includes(this.props.id)
+                  : this.props.assetType === TYPES.Eye
+                    ? this.props.userInfo.assetLikes.eye.includes(this.props.id)
+                    : this.props.assetType === TYPES.Feet
+                      ? this.props.userInfo.assetLikes.feet.includes(this.props.id)
+                      : this.props.assetType === TYPES.Hand
+                        ? this.props.userInfo.assetLikes.hand.includes(this.props.id)
+                        : this.props.userInfo.assetLikes.marking.includes(this.props.id),
         downloaded: false,
         likes: 0,
         downloads: 0,
@@ -61,6 +78,32 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
         hid: false,
         deleted: false
       };
+
+      /* Check if asset is liked depending on asset type
+      switch(this.props.assetType) {
+        case TYPES.Skin:
+          this.setState({ liked: this.props.userInfo.assetLikes.skins.includes(this.props.id) });
+          break;
+        case TYPES.Body:
+          this.setState({ liked: this.props.userInfo.assetLikes.body.includes(this.props.id) });
+          break;
+        case TYPES.Decoration:
+          this.setState({ liked: this.props.userInfo.assetLikes.decoration.includes(this.props.id) });
+          break;
+        case TYPES.Eye:
+          this.setState({ liked: this.props.userInfo.assetLikes.eye.includes(this.props.id) });
+          break;
+        case TYPES.Feet:
+          this.setState({ liked: this.props.userInfo.assetLikes.feet.includes(this.props.id) });
+          break;
+        case TYPES.Hand:
+          this.setState({ liked: this.props.userInfo.assetLikes.hand.includes(this.props.id) });
+          break;
+        case TYPES.Marking:
+          this.setState({ liked: this.props.userInfo.assetLikes.marking.includes(this.props.id) });
+          break;
+      } */
+
     }
 
     public render () {
@@ -86,11 +129,11 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private renderHeadControl () {
       const tooltipContent = (
         <span>
-                Downloads:
-          <strong>{this.props.downloads + this.state.downloads}</strong> <br />
-                Likes: <strong>{this.props.likes + this.state.likes}</strong> <br />
-                Upload Date: <strong>{this.props.uploadDate}</strong> <br />
-                Uploaded By: <strong>{this.props.username}</strong>
+          Assettype: <strong>{this.props.assetType}</strong> <br />
+          Downloads: <strong>{this.props.downloads + this.state.downloads}</strong> <br />
+          Likes: <strong>{this.props.likes + this.state.likes}</strong> <br />
+          Upload Date: <strong>{this.props.uploadDate}</strong> <br />
+          Uploaded By: <strong>{this.props.username}</strong>
         </span>
       );
 
@@ -172,10 +215,6 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
       );
     }
 
-    private getVisibility () {
-      return !(this.state.hid || this.state.deleted || this.state.accepted);
-    }
-
     private handleDownloadClick (): void {
       if (!this.props.updateDownloads) {
         return;
@@ -183,7 +222,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
 
       axios({
         method: 'post',
-        url: `${this.urlService.getBaseURL()}/download/skin/${this.props.id}`
+        url: `${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
           this.setState({
@@ -199,7 +238,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
       if (confirm('Are you sure to accept this asset?')) {
         axios({
           method: 'post',
-          url: `${this.urlService.getBaseURL()}/accept/skin/${this.props.id}`
+          url: `${this.urlService.getBaseURL()}/accept/${this.props.assetType}/${this.props.id}`
         })
           .then(() => {
             if (this.props.handleVisibilityChange) {
@@ -215,7 +254,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
       if (confirm('Are you sure to put this asset private?')) {
         axios({
           method: 'post',
-          url: `${this.urlService.getBaseURL()}/hide/skin/${this.props.id}`
+          url: `${this.urlService.getBaseURL()}/hide/${this.props.assetType}/${this.props.id}`
         })
           .then(() => {
             if (this.props.handleVisibilityChange) {
@@ -231,7 +270,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
       if (confirm('Are you sure to delete this asset?')) {
         axios({
           method: 'post',
-          url: `${this.urlService.getBaseURL()}/delete/skin/${this.props.id}`
+          url: `${this.urlService.getBaseURL()}/delete/${this.props.assetType}/${this.props.id}`
         })
           .then(() => {
             if (this.props.handleVisibilityChange) {
@@ -260,7 +299,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private like (): void {
       axios({
         method: 'post',
-        url: `${this.urlService.getBaseURL()}/like/skin/${this.props.id}`
+        url: `${this.urlService.getBaseURL()}/like/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
           this.setState({
@@ -275,7 +314,7 @@ export default class Skin extends React.Component<ISkinProps, ISkinState> {
     private unlike (): void {
       axios({
         method: 'post',
-        url: `${this.urlService.getBaseURL()}/unlike/skin/${this.props.id}`
+        url: `${this.urlService.getBaseURL()}/unlike/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
           this.setState({
