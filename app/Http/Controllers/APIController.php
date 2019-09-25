@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class APIController extends GlobalController
 {
@@ -33,6 +34,7 @@ class APIController extends GlobalController
             'viewData' => [
                 'exampleJSONResponse' => $this->getExampleSkinJSONResponse(),
                 'page' => 'api',
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiSkins')),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

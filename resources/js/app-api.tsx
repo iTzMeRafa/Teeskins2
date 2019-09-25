@@ -38,7 +38,7 @@ export default class API extends React.Component {
               absoluteAPIURL={this.urlService.mergeBaseWithURL(URLS.APISkins)}
               hasSortType={true}
               exampleJSONResponse={data.viewData.exampleJSONResponse.original}
-              apiAvailable={true} // TODO: get HTTP Status Code from Controller
+              apiAvailable={data.viewData.apiHTTPStatusCode === 200}
             />
           </div>
           <div className="col-md-6 mb-4"></div>
