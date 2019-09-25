@@ -79,32 +79,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         hid: false,
         deleted: false
       };
-
-      /* Check if asset is liked depending on asset type
-      switch(this.props.assetType) {
-        case TYPES.Skin:
-          this.setState({ liked: this.props.userInfo.assetLikes.skins.includes(this.props.id) });
-          break;
-        case TYPES.Body:
-          this.setState({ liked: this.props.userInfo.assetLikes.body.includes(this.props.id) });
-          break;
-        case TYPES.Decoration:
-          this.setState({ liked: this.props.userInfo.assetLikes.decoration.includes(this.props.id) });
-          break;
-        case TYPES.Eye:
-          this.setState({ liked: this.props.userInfo.assetLikes.eye.includes(this.props.id) });
-          break;
-        case TYPES.Feet:
-          this.setState({ liked: this.props.userInfo.assetLikes.feet.includes(this.props.id) });
-          break;
-        case TYPES.Hand:
-          this.setState({ liked: this.props.userInfo.assetLikes.hand.includes(this.props.id) });
-          break;
-        case TYPES.Marking:
-          this.setState({ liked: this.props.userInfo.assetLikes.marking.includes(this.props.id) });
-          break;
-      } */
-
     }
 
     public render () {
@@ -122,9 +96,9 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
 
           {!this.props.useSkinRenderer && (
               <img
-                  id={this.props.id + '_' + this.props.locationType}
-                  className="card-img-top"
-                  src={this.props.imagePath}
+                id={this.props.id + '_' + this.props.locationType}
+                className={`card-img-top ${this.blockName}__preview`}
+                src={this.props.imagePath}
               />
           )}
 
@@ -158,7 +132,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
               <FontAwesomeIcon icon={faInfoCircle} />
             </Tooltip>
           </div>
-          <div className="clearfix"></div>
+          <div className="clearfix" />
         </div>
       );
     }

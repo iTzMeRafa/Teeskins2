@@ -34,6 +34,11 @@ $skinWidth: 100px;
     cursor: pointer;
   }
 
+  &__preview {
+    width: 50%;
+    margin: 0 auto;
+  }
+
   &__dropdown-item {
     cursor: pointer;
   }
