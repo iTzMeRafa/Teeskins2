@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
 import Trending from './components/Trending';
 import Jumbotron from './components/Jumbotron';
+import LoadingSpinner from './components/LoadingSpinner';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
@@ -20,6 +21,7 @@ export default class Home extends React.Component {
   public render () {
     return (
       <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
+        {/*<LoadingSpinner />*/}
         <Jumbotron
           title="Welcome to Teeskins!"
           subtitle={'Teeskins is a web-based teeworlds assets database.\n Here you can find custom assets to pimp your game. Have a look around!'}
