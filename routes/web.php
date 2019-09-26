@@ -76,7 +76,7 @@ Route::post('/fetch/eyes', 'EyesController@fetchEyesFromDatabase')->name('fetchE
 Route::post('/fetch/feet', 'FeetController@fetchFeetFromDatabase')->name('fetchFeetOffset');
 Route::post('/fetch/hands', 'HandsController@fetchHandsFromDatabase')->name('fetchHandsOffset');
 Route::post('/fetch/marking', 'MarkingController@fetchMarkingFromDatabase')->name('fetchMarkingOffset');
-Route::post('/fetch/search', 'SearchController@fetchSkinsFromDatabase')->name('fetchSearchOffset');
+Route::post('/fetch/search', 'SearchController@fetchAssetsFromDatabase')->name('fetchSearchOffset');
 Route::post('/fetch/userUploads', 'DashboardController@getUserUploads')->name('fetchUserUploadsOffset');
 Route::post('/fetch/skinUploads', 'AdminpanelUploadSkinsController@getUnverifiedSkins')->name('fetchSkinUploadsOffset');
 Route::post('/fetch/bodyUploads', 'AdminpanelUploadBodyController@getUnverifiedBody')->name('fetchBodyUploadsOffset');

@@ -97,7 +97,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           {!this.props.useSkinRenderer && (
               <img
                 id={this.props.id + '_' + this.props.locationType}
-                className={`card-img-top ${this.blockName}__preview`}
+                className={`card-img-top ${this.blockName}__preview ${this.blockName}__preview--${this.props.assetType}`}
                 src={this.props.imagePath}
               />
           )}

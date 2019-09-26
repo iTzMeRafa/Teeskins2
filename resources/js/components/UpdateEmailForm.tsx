@@ -126,7 +126,6 @@ export default class UpdateEmailForm extends React.Component<IUpdateEmailFormPro
         url: `${this.urlService.getBaseURL()}/check/email/${inputValue}`
       })
         .then(response => {
-          console.log(response.data);
           this.setState({
             isNotDuplicateEmail: response.data === 'valid',
             errorMessage: response.data === 'valid' ? '' : 'Email already taken!'
@@ -159,7 +158,6 @@ export default class UpdateEmailForm extends React.Component<IUpdateEmailFormPro
           url: `${this.urlService.getBaseURL()}/update/email/${this.state.email}`
         })
           .then(response => {
-            console.log(response.data);
             if (response.data === 'valid') {
               this.setState({ successEmailChange: 'success' });
             } else if (response.data === 'invalid') {

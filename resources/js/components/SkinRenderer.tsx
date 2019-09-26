@@ -35,7 +35,6 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     }
 
     private renderSkin (): void {
-      console.log(this.props.imagePath);
       const skin = document.getElementById(this.props.id + '_' + this.props.locationType) as HTMLImageElement;
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');

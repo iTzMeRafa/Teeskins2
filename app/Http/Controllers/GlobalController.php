@@ -30,6 +30,15 @@ class GlobalController extends Controller
         return $httpCode;
     }
 
+    protected function getTrendingAsset($assetType, $trendingType) {
+        return DB::table($assetType)
+            ->join('users', 'users.id', '=', $assetType .'.userID')
+            ->where("isPublic", "=", 1)
+            ->orderByDesc($trendingType)
+            ->selectRaw($assetType .'.*, users.name as username')
+            ->first();
+    }
+
     private function getUserInfo() {
         return [
             'isLoggedIn' => Auth::check(),

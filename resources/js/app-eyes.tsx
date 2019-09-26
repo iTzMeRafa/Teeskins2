@@ -27,7 +27,6 @@ export default class Eyes extends React.Component {
   }
 
   public render () {
-    console.log(data.viewData.eyes);
     return (
         <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
           <GridCore

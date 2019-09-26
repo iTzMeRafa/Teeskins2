@@ -69,7 +69,6 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         excludeIDs: this.props.assets.map(function (asset) { return asset.id; }),
         showLoadButton: true
       };
-
       this.urlService = new UrlService();
     }
 
@@ -102,11 +101,15 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     }
 
     private renderAssets () {
+
+      // Sort Assets by sortType before rendering them
+      this.sortAssets();
+
       return this.state.assets.map(asset => {
         return (
           <div
             className={`${this.getClassName()} mb-4`}
-            key={asset.id}
+            key={asset.assetType + '_' + asset.id}
             style={this.state.hideForAssetIDs.includes(asset.id) ? { display: 'none' } : { display: 'block' }}
           >
             <AssetCard
@@ -132,6 +135,21 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
       });
     }
 
+    private sortAssets () {
+      this.state.assets.sort((a, b) => {
+        switch (this.props.sortType) {
+          case "id":
+            return +new Date(b.uploadDate) - +new Date(a.uploadDate);
+
+          case "downloads":
+            return b.downloads - a.downloads;
+
+          case "likes":
+            return b.likes - a.likes;
+        }
+      });
+    }
+
     private loadMoreAssets () {
       // Fetch Next Assets
 
@@ -147,7 +165,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
           });
 
           this.setState({
-            excludeIDs: this.state.assets.map(asset => { return asset.id; }, () => console.log(this.state.excludeIDs)),
+            excludeIDs: this.state.assets.map(asset => { return asset.id; }),
             showLoadButton: response.data.length !== 0
           });
         }, error => {

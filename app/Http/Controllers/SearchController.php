@@ -22,45 +22,73 @@ class SearchController extends GlobalController
         return view('pages/search')->with('data', $this->getViewData());
     }
 
-    public function fetchSkinsFromDatabase(Request $request) {
-        $tableType = 'skins.'.$request->type;
-        $excludesToArray = explode(',', $request->excludes);
+    public function fetchAssetsFromDatabase(Request $request) {
+        $skins      = $this->fetchAssetsByType($request, "skin");
+        $body       = $this->fetchAssetsByType($request, "body");
+        $decoration = $this->fetchAssetsByType($request, "decoration");
+        $eyes       = $this->fetchAssetsByType($request, "eyes");
+        $feet       = $this->fetchAssetsByType($request, "feet");
+        $hands      = $this->fetchAssetsByType($request, "hands");
+        $marking    = $this->fetchAssetsByType($request, "marking");
 
-        return DB::table("skins")
-            ->join('users', 'users.id', '=', 'skins.userID')
-            ->where([
-                ['skins.name', 'like', '%' . $request->queryString . '%'],
-                ['skins.isPublic', '=', 1]
-            ])
-            ->whereNotIn('skins.id', $excludesToArray)
-            ->orderByDesc($tableType)
-            ->selectRaw('skins.*, users.name as username')
-            ->limit($this->numberPerLoadage)
-            ->get();
+        $allAssets = collect();
+        $allAssets = $allAssets->merge($skins);
+        $allAssets = $allAssets->merge($body);
+        $allAssets = $allAssets->merge($decoration);
+        $allAssets = $allAssets->merge($eyes);
+        $allAssets = $allAssets->merge($feet);
+        $allAssets = $allAssets->merge($hands);
+        $allAssets = $allAssets->merge($marking);
+
+        $assets = [];
+        foreach ($allAssets as $_asset) {
+            array_push($assets, $_asset);
+        }
+
+        return $assets;
     }
 
-    private function countTotalSkins() {
-        return DB::table("skins")
+    private function fetchAssetsByType($request, $assetType) {
+        $tableName = $assetType == "skin" ? "skins" : $assetType;
+        $tableType = $tableName . '.'.$request->type;
+        $excludesToArray = explode(',', $request->excludes);
+
+        $asset = DB::table($tableName)
+            ->join('users', 'users.id', '=', $tableName . '.userID')
             ->where([
-                ['name', 'like', '%' . $this->query . '%'],
-                ['isPublic', '=', 1]
+                [$tableName . '.name', 'like', '%' . $request->queryString . '%'],
+                [$tableName . '.isPublic', '=', 1]
             ])
-            ->count();
+            ->whereNotIn($tableName . '.id', $excludesToArray)
+            ->orderByDesc($tableType)
+            ->selectRaw($tableName . '.*, users.name as username')
+            ->limit($this->numberPerLoadage)
+            ->get();
+
+        foreach ($asset as $_asset) {
+            $_asset->assetType = $assetType;
+        }
+
+        return $asset;
+    }
+
+    private function countTotalAssets() {
+        return 100;
     }
 
     private function getViewData() {
 
-        // Create default Request for fetching Skins
-        $defaultSkinRequest = new Request();
-        $defaultSkinRequest->setMethod('POST');
-        $defaultSkinRequest->request->add(['excludes' => '']);
-        $defaultSkinRequest->request->add(['type' => $this->sortType]);
-        $defaultSkinRequest->request->add(['queryString' => $this->query]);
+        // Create default Request for fetching Assets
+        $defaultAssetRequest = new Request();
+        $defaultAssetRequest->setMethod('POST');
+        $defaultAssetRequest->request->add(['excludes' => '']);
+        $defaultAssetRequest->request->add(['type' => $this->sortType]);
+        $defaultAssetRequest->request->add(['queryString' => $this->query]);
 
         $viewData = [
             'viewData' =>  [
-                'skins' => $this->fetchSkinsFromDatabase($defaultSkinRequest),
-                'countSkins' => $this->countTotalSkins(),
+                'assets' => $this->fetchAssetsFromDatabase($defaultAssetRequest),
+                'countAssets' => $this->countTotalAssets(),
                 'query' => $this->query,
                 'sortType' => $this->sortType,
                 'page' => 'search',

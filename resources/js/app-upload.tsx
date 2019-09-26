@@ -260,14 +260,11 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
       postData.append('assetType', this.state.assetType);
 
       const settings = { headers: { 'content-type': 'multipart/form-data' } };
-      console.log(postData);
 
       // Axios Upload here
       axios.post('/upload', postData, settings)
         .then(response => {
-          this.setState({ uploadStatus: response.data }, () => {
-            console.log('Upload Status: ' + this.state.uploadStatus);
-          });
+          this.setState({ uploadStatus: response.data });
         })
         .then(error => {
           console.log(error);

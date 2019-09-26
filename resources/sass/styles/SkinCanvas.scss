@@ -1,9 +1,9 @@
 $ratio: 1.5;
-$skinWidth: 100px;
+$assetWidth: 100px;
 
 .assetCanvas {
-  width: $skinWidth;
-  height: $skinWidth / $ratio;
+  width: $assetWidth;
+  height: $assetWidth / $ratio;
   margin: 0 auto;
 
   &__headControl {
@@ -35,8 +35,14 @@ $skinWidth: 100px;
   }
 
   &__preview {
-    width: 50%;
     margin: 0 auto;
+
+    &--body, &--eyes, &--marking {
+      width: 25%;
+    }
+    &--decoration, &--feet, &--hands {
+      width: 50%;
+    }
   }
 
   &__dropdown-item {
