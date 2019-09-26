@@ -91,7 +91,6 @@ Route::post('/fetch/markingUploads', 'AdminpanelUploadMarkingController@getUnver
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
 Route::get('/adminpanel/userlist', 'AdminpanelUserlistController@index')->name('adminpanelUserlist');
 
-/* AssetType must be singular */
 Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
 Route::get('/adminpanel/uploads/skin/{sortType}', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
 
@@ -101,14 +100,14 @@ Route::get('/adminpanel/uploads/body/{sortType}', 'AdminpanelUploadBodyControlle
 Route::get('/adminpanel/uploads/decoration', 'AdminpanelUploadDecorationController@index')->name('adminpanelUploadDecoration');
 Route::get('/adminpanel/uploads/decoration/{sortType}', 'AdminpanelUploadDecorationController@index')->name('adminpanelUploadDecoration');
 
-Route::get('/adminpanel/uploads/eye', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
-Route::get('/adminpanel/uploads/eye/{sortType}', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
+Route::get('/adminpanel/uploads/eyes', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
+Route::get('/adminpanel/uploads/eyes/{sortType}', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
 
 Route::get('/adminpanel/uploads/feet', 'AdminpanelUploadFeetController@index')->name('adminpanelUploadFeet');
 Route::get('/adminpanel/uploads/feet/{sortType}', 'AdminpanelUploadFeetController@index')->name('adminpanelUploadFeet');
 
-Route::get('/adminpanel/uploads/hand', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
-Route::get('/adminpanel/uploads/hand/{sortType}', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
+Route::get('/adminpanel/uploads/hands', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
+Route::get('/adminpanel/uploads/hands/{sortType}', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
 
 Route::get('/adminpanel/uploads/marking', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
 Route::get('/adminpanel/uploads/marking/{sortType}', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
