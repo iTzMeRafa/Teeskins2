@@ -18,23 +18,80 @@ class DashboardController extends GlobalController
     }
 
     public function getUserUploads(Request $request) {
-        $tableType = 'skins.'.$request->type;
+        $skins      = $this->fetchAssetsByType($request, "skin");
+        $body       = $this->fetchAssetsByType($request, "body");
+        $decoration = $this->fetchAssetsByType($request, "decoration");
+        $eyes       = $this->fetchAssetsByType($request, "eyes");
+        $feet       = $this->fetchAssetsByType($request, "feet");
+        $hands      = $this->fetchAssetsByType($request, "hands");
+        $marking    = $this->fetchAssetsByType($request, "marking");
+
+        $allAssets = collect();
+        $allAssets = $allAssets->merge($skins);
+        $allAssets = $allAssets->merge($body);
+        $allAssets = $allAssets->merge($decoration);
+        $allAssets = $allAssets->merge($eyes);
+        $allAssets = $allAssets->merge($feet);
+        $allAssets = $allAssets->merge($hands);
+        $allAssets = $allAssets->merge($marking);
+
+        $assets = [];
+        foreach ($allAssets as $_asset) {
+            array_push($assets, $_asset);
+        }
+
+        return $assets;
+    }
+
+    private function fetchAssetsByType($request, $assetType) {
+        $tableName = $assetType == "skin" ? "skins" : $assetType;
+        $tableType = $tableName . '.'.$request->type;
         $excludesToArray = explode(',', $request->excludes);
 
-        return DB::table("skins")
-            ->join('users', 'users.id', '=', 'skins.userID')
+        $asset = DB::table($tableName)
+            ->join('users', 'users.id', '=', $tableName . '.userID')
             ->where("userID", "=", Auth::user()->id)
-            ->whereNotIn('skins.id', $excludesToArray)
+            ->whereNotIn($tableName . '.id', $excludesToArray)
             ->orderByDesc($tableType)
-            ->selectRaw('skins.*, users.name as username')
+            ->selectRaw($tableName . '.*, users.name as username')
             ->limit($this->numberPerLoadage)
             ->get();
+
+        foreach ($asset as $_asset) {
+            $_asset->assetType = $assetType;
+        }
+
+        return $asset;
     }
 
     private function getUserStatistics() {
-        $uploadCount = DB::table("skins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
-        $totalLikes = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('likes');
-        $totalDownloads = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $uploadSkinsCount       = DB::table("skins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadBodyCount        = DB::table("body")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadDecorationCount  = DB::table("decoration")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadEyesCount        = DB::table("eyes")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadFeetCount        = DB::table("feet")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadHandsCount       = DB::table("hands")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadMarkingCount     = DB::table("marking")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+
+        $totalSkinsLikes        = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalBodyLikes         = DB::table("body")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalDecorationLikes   = DB::table("decoration")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalEyesLikes         = DB::table("eyes")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalFeetLikes         = DB::table("feet")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalHandsLikes        = DB::table("hands")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalMarkingLikes      = DB::table("marking")->where("userID", "=", Auth::user()->id)->sum('likes');
+
+        $totalSkinsDownloads        = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalBodyDownloads         = DB::table("body")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalDecorationDownloads   = DB::table("decoration")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalEyesDownloads         = DB::table("eyes")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalFeetDownloads         = DB::table("feet")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalHandsDownloads        = DB::table("hands")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalMarkingDownloads      = DB::table("marking")->where("userID", "=", Auth::user()->id)->sum('downloads');
+
+        $uploadCount    = $uploadSkinsCount + $uploadBodyCount + $uploadDecorationCount + $uploadEyesCount + $uploadFeetCount + $uploadHandsCount + $uploadMarkingCount;
+        $totalLikes     = $totalSkinsLikes + $totalBodyLikes + $totalDecorationLikes + $totalEyesLikes + $totalFeetLikes + $totalHandsLikes + $totalMarkingLikes;
+        $totalDownloads = $totalSkinsDownloads + $totalBodyDownloads + $totalDecorationDownloads + $totalEyesDownloads + $totalFeetDownloads + $totalHandsDownloads + $totalMarkingDownloads;
 
         return [
             'uploadCount' => $uploadCount,
@@ -45,15 +102,15 @@ class DashboardController extends GlobalController
 
     private function getViewData($sortType) {
 
-        // Create default Request for fetching Skins
-        $defaultSkinRequest = new Request();
-        $defaultSkinRequest->setMethod('POST');
-        $defaultSkinRequest->request->add(['excludes' => '' ]);
-        $defaultSkinRequest->request->add(['type' => $sortType]);
+        // Create default Request for fetching Asset
+        $defaultAssetRequest = new Request();
+        $defaultAssetRequest->setMethod('POST');
+        $defaultAssetRequest->request->add(['excludes' => '' ]);
+        $defaultAssetRequest->request->add(['type' => $sortType]);
 
         $viewData = [
             'viewData' => [
-                'assets' => $this->getUserUploads($defaultSkinRequest),
+                'assets' => $this->getUserUploads($defaultAssetRequest),
                 'statistics' => $this->getUserStatistics(),
                 'sortType' => $sortType,
                 'page' => 'dashboard',

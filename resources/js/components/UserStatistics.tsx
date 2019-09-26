@@ -23,7 +23,7 @@ export default class UserStatistics extends React.Component<IUserStatisticsInter
                   <div className="col-md-4">
                     <div className="card">
                       <div className="card-body">
-                        <FontAwesomeIcon icon={faUpload} /> <strong>{this.props.statistics.uploadCount}</strong> Uploads
+                        <FontAwesomeIcon icon={faUpload} /> <strong>{this.props.statistics.uploadCount}</strong> <br /> Uploads
                       </div>
                     </div>
                   </div>
@@ -31,7 +31,7 @@ export default class UserStatistics extends React.Component<IUserStatisticsInter
                   <div className="col-md-4">
                     <div className="card">
                       <div className="card-body">
-                        <FontAwesomeIcon icon={faThumbsUp} /> <strong>{this.props.statistics.totalLikes}</strong> Total Likes
+                        <FontAwesomeIcon icon={faThumbsUp} /> <strong>{this.props.statistics.totalLikes}</strong> <br /> Total Likes
                       </div>
                     </div>
                   </div>
@@ -39,7 +39,7 @@ export default class UserStatistics extends React.Component<IUserStatisticsInter
                   <div className="col-md-4">
                     <div className="card">
                       <div className="card-body">
-                        <FontAwesomeIcon icon={faDownload} /> <strong>{this.props.statistics.totalDownloads}</strong> Total Downloads
+                        <FontAwesomeIcon icon={faDownload} /> <strong>{this.props.statistics.totalDownloads}</strong> <br /> Total Downloads
                       </div>
                     </div>
                   </div>
