@@ -11,30 +11,83 @@ class APIController extends GlobalController
         return view('pages/api')->with('data', $this->getViewData());
     }
 
-    private function getExampleSkinJSONResponse() {
-        $skins =
-            DB::table("skins")
-                ->join('users', 'users.id', '=', 'skins.userID')
-                ->where("skins.isPublic", "=", 1)
+    private function getApis() {
+        return [
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("skins"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiSkins')),
+                'apiURL' => URL::route('apiSkins'),
+                'headline' => 'Skins API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("body"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiBody')),
+                'apiURL' => URL::route('apiBody'),
+                'headline' => 'Body API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("decoration"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiDecoration')),
+                'apiURL' => URL::route('apiDecoration'),
+                'headline' => 'Decoration API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("eyes"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiEyes')),
+                'apiURL' => URL::route('apiEyes'),
+                'headline' => 'Eyes API',
+                'fetchType' => 'GET / CURL',
+            ],
+           [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("feet"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiFeet')),
+                'apiURL' => URL::route('apiFeet'),
+                'headline' => 'Feet API',
+               'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("hands"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiHands')),
+                'apiURL' => URL::route('apiHands'),
+                'headline' => 'Hands API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("marking"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiMarking')),
+                'apiURL' => URL::route('apiMarking'),
+                'headline' => 'Marking API',
+                'fetchType' => 'GET / CURL',
+            ],
+        ];
+    }
+
+    private function getExampleJSONResponse($assetType) {
+        $asset =
+            DB::table($assetType)
+                ->join('users', 'users.id', '=', $assetType .'.userID')
+                ->where($assetType.".isPublic", "=", 1)
                 ->orderByDesc('id')
                 ->limit(2)
-                ->selectRaw('skins.*, users.name as username')
+                ->selectRaw($assetType . '.*, users.name as username')
                 ->get();
 
-        foreach ($skins as $skin) {
-            unset($skin->isPublic);
-            unset($skin->userID);
+        foreach ($asset as $_asset) {
+            unset($_asset->isPublic);
+            unset($_asset->userID);
         }
 
-        return response()->json($skins);
+        return response()->json($asset);
     }
 
     private function getViewData() {
         $viewData = [
             'viewData' => [
-                'exampleJSONResponse' => $this->getExampleSkinJSONResponse(),
+                'apis' => $this->getApis(),
                 'page' => 'api',
-                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiSkins')),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

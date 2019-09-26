@@ -8,7 +8,7 @@ import ApiCard from './components/ApiCard';
 import { IDataInterface } from './interfaces/IDataInterface';
 
 // Services
-import { URLS, UrlService } from './Services/UrlService';
+import { UrlService } from './Services/UrlService';
 
 require('./bootstrap');
 
@@ -31,21 +31,28 @@ export default class API extends React.Component {
       <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
 
         <div className="row">
-          <div className="col-md-6 mb-4">
-            <ApiCard
-              headline={'Skins API'}
-              fetchType={'GET'}
-              absoluteAPIURL={this.urlService.mergeBaseWithURL(URLS.APISkins)}
-              hasSortType={true}
-              exampleJSONResponse={data.viewData.exampleJSONResponse.original}
-              apiAvailable={data.viewData.apiHTTPStatusCode === 200}
-            />
-          </div>
-          <div className="col-md-6 mb-4"></div>
+          {this.renderApis()}
         </div>
 
       </Wireframe>
     );
+  }
+
+  private renderApis () {
+    return data.viewData.apis.map(api => {
+      return (
+        <div className="col-md-6 mb-4">
+          <ApiCard
+            headline={api.headline}
+            fetchType={api.fetchType}
+            absoluteAPIURL={api.apiURL}
+            hasSortType={true}
+            exampleJSONResponse={api.exampleJSONResponse.original}
+            apiAvailable={api.apiHTTPStatusCode === 200}
+          />
+        </div>
+      );
+    });
   }
 }
 

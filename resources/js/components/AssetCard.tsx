@@ -65,12 +65,12 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                 ? this.props.userInfo.assetLikes.body.includes(this.props.id)
                 : this.props.assetType === TYPES.Decoration
                   ? this.props.userInfo.assetLikes.decoration.includes(this.props.id)
-                  : this.props.assetType === TYPES.Eye
-                    ? this.props.userInfo.assetLikes.eye.includes(this.props.id)
+                  : this.props.assetType === TYPES.Eyes
+                    ? this.props.userInfo.assetLikes.eyes.includes(this.props.id)
                     : this.props.assetType === TYPES.Feet
                       ? this.props.userInfo.assetLikes.feet.includes(this.props.id)
-                      : this.props.assetType === TYPES.Hand
-                        ? this.props.userInfo.assetLikes.hand.includes(this.props.id)
+                      : this.props.assetType === TYPES.Hands
+                        ? this.props.userInfo.assetLikes.hands.includes(this.props.id)
                         : this.props.userInfo.assetLikes.marking.includes(this.props.id),
         downloaded: false,
         likes: 0,

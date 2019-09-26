@@ -4,9 +4,9 @@ export enum TYPES {
     Skin = 'skin',
     Body = 'body',
     Decoration = 'decoration',
-    Eye = 'eye',
+    Eyes = 'eyes',
     Feet = 'feet',
-    Hand = 'hand',
+    Hands = 'hands',
     Marking = 'marking',
 }
 

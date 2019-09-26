@@ -40,15 +40,11 @@ class SearchController extends GlobalController
         $allAssets = $allAssets->merge($hands);
         $allAssets = $allAssets->merge($marking);
 
-        $assets = [];
-        foreach ($allAssets as $_asset) {
-            array_push($assets, $_asset);
-        }
-
-        return $assets;
+        return $allAssets;
     }
 
-    private function fetchAssetsByType($request, $assetType) {
+    // TODO: Most hacky shit ever, but works for now
+    private function fetchAssetsByType($request, $assetType, $withLimit = true, $typeOfReturn = 'get') {
         $tableName = $assetType == "skin" ? "skins" : $assetType;
         $tableType = $tableName . '.'.$request->type;
         $excludesToArray = explode(',', $request->excludes);
@@ -62,18 +58,28 @@ class SearchController extends GlobalController
             ->whereNotIn($tableName . '.id', $excludesToArray)
             ->orderByDesc($tableType)
             ->selectRaw($tableName . '.*, users.name as username')
-            ->limit($this->numberPerLoadage)
-            ->get();
+            ->limit($withLimit ? $this->numberPerLoadage : 9999999999999999)
+            ->$typeOfReturn();
 
-        foreach ($asset as $_asset) {
-            $_asset->assetType = $assetType;
+        if ($typeOfReturn == 'get') {
+            foreach ($asset as $_asset) {
+                $_asset->assetType = $assetType;
+            }
         }
 
         return $asset;
     }
 
-    private function countTotalAssets() {
-        return 100;
+    private function countTotalAssets($request) {
+        $skinsCount      = $this->fetchAssetsByType($request, "skin", false, 'count');
+        $bodyCount       = $this->fetchAssetsByType($request, "body", false, 'count');
+        $decorationCount = $this->fetchAssetsByType($request, "decoration", false, 'count');
+        $eyesCount       = $this->fetchAssetsByType($request, "eyes", false, 'count');
+        $feetCount       = $this->fetchAssetsByType($request, "feet", false, 'count');
+        $handsCount      = $this->fetchAssetsByType($request, "hands", false, 'count');
+        $markingCount    = $this->fetchAssetsByType($request, "marking", false, 'count');
+
+        return $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount;
     }
 
     private function getViewData() {
@@ -88,7 +94,7 @@ class SearchController extends GlobalController
         $viewData = [
             'viewData' =>  [
                 'assets' => $this->fetchAssetsFromDatabase($defaultAssetRequest),
-                'countAssets' => $this->countTotalAssets(),
+                'countAssets' => $this->countTotalAssets($defaultAssetRequest),
                 'query' => $this->query,
                 'sortType' => $this->sortType,
                 'page' => 'search',

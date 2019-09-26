@@ -47,6 +47,12 @@ export enum URLS {
 
     API = '/api',
     APISkins = '/api/skins',
+    APIBody = '/api/body',
+    APIDecoration = '/api/decoration',
+    APIEyes = '/api/eyes',
+    APIFeet = '/api/feet',
+    APIHands = '/api/hands',
+    APIMarking = '/api/marking',
 
     Dashboard = '/userpanel/dashboard',
     DashboardDownloads = '/userpanel/dashboard/downloads',
@@ -120,10 +126,11 @@ export class UrlService {
   }
 
   public navIsActive (naviPath) {
-    if (this.getUrlPath() === naviPath) {
-      return 'active';
-    }
-    return '';
+      if (this.getUrlPath() === naviPath) {
+        return 'active';
+      }
+
+      return '';
   }
 
   public mergeBaseWithPathURL (path) {

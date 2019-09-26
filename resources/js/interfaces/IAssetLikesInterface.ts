@@ -2,9 +2,9 @@ export interface IAssetTypeLikesInterface {
     skins: IAssetLikesInterface;
     body: IAssetLikesInterface;
     decoration: IAssetLikesInterface;
-    eye: IAssetLikesInterface;
+    eyes: IAssetLikesInterface;
     feet: IAssetLikesInterface;
-    hand: IAssetLikesInterface;
+    hands: IAssetLikesInterface;
     marking: IAssetLikesInterface;
 }
 

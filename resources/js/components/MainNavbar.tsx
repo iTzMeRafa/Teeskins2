@@ -6,7 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { URLS, UrlService } from '../Services/UrlService';
 
 export default class MainNavbar extends React.Component {
-    private readonly urlService;
+    private readonly urlService: UrlService;
 
     public constructor (props: {}) {
       super(props);
@@ -32,20 +32,32 @@ export default class MainNavbar extends React.Component {
                   </a>
                 </li>
 
-                <li className="nav-item dropdown">
+                <li
+                    className={
+                      "nav-item dropdown " +
+                      this.urlService.navIsActive(URLS.Body) +
+                      this.urlService.navIsActive(URLS.Decoration) +
+                      this.urlService.navIsActive(URLS.Eyes) +
+                      this.urlService.navIsActive(URLS.Feet) +
+                      this.urlService.navIsActive(URLS.Hands) +
+                      this.urlService.navIsActive(URLS.Marking)
+                    }
+                >
                   <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Skins <span className="badge badge-secondary">0.7</span>
                   </a>
                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Body)}>Body</a>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Decoration)}>Decoration</a>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Eyes)}>Eyes</a>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Feet)}>Feet</a>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Hands)}>Hands</a>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.Marking)}>Marking</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Body)} href={this.urlService.mergeBaseWithPathURL(URLS.Body)}>Body</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Decoration)} href={this.urlService.mergeBaseWithPathURL(URLS.Decoration)}>Decoration</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Eyes)} href={this.urlService.mergeBaseWithPathURL(URLS.Eyes)}>Eyes</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Feet)} href={this.urlService.mergeBaseWithPathURL(URLS.Feet)}>Feet</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Hands)} href={this.urlService.mergeBaseWithPathURL(URLS.Hands)}>Hands</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Marking)} href={this.urlService.mergeBaseWithPathURL(URLS.Marking)}>Marking</a>
+                    {/*
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.SkinGenerator)}>Skin Generator</a>
+                      <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.SkinGenerator)}>Skin Generator</a>
+                    */}
                   </div>
                 </li>
 
@@ -71,6 +83,6 @@ export default class MainNavbar extends React.Component {
       event.preventDefault();
 
       const query = (document.getElementById('searchinput') as HTMLInputElement).value;
-      this.urlService.redirectToPageURL('/search/' + query);
+      this.urlService.redirectToPagePath('/search/' + query);
     }
 }

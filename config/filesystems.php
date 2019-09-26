@@ -62,6 +62,48 @@ return [
             'visibility' => 'public',
         ],
 
+        'body' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/body' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'decoration' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/decoration' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'eyes' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/eyes' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'feet' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/feet' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'hands' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/hands' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'marking' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/marking' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

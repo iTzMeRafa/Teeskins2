@@ -86,8 +86,19 @@ class GlobalController extends Controller
     }
 
     private function getTotalItemsCount() {
-        $skinsCount = DB::table('skins')->where('isPublic', '=', 1)->count();
+        $skinsCount         = $this->getItemsCountByAssetType("skins");
+        $bodyCount          = $this->getItemsCountByAssetType("body");
+        $decorationCount    = $this->getItemsCountByAssetType("decoration");
+        $eyesCount          = $this->getItemsCountByAssetType("eyes");
+        $feetCount          = $this->getItemsCountByAssetType("feet");
+        $handsCount         = $this->getItemsCountByAssetType("hands");
+        $markingCount       = $this->getItemsCountByAssetType("marking");
 
-        return $skinsCount;
+        $totalAssetsCount = $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount;
+        return $totalAssetsCount;
+    }
+
+    private function getItemsCountByAssetType($assetType) {
+        return DB::table($assetType)->where('isPublic', '=', 1)->count();
     }
 }

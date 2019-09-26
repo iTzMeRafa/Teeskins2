@@ -13,6 +13,7 @@ class DeleteAssetController extends Controller
         $this->middleware('adminAuth');
     }
 
+    // TODO: Also delete Asset in folder, not just database entry
     public function deleteAsset($assetType, $assetID) {
         switch($assetType) {
 

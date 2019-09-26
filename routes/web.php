@@ -116,5 +116,24 @@ Route::get('/adminpanel/uploads/marking/{sortType}', 'AdminpanelUploadMarkingCon
 // API's
 // -------------------------------------------------
 Route::get('/api', 'APIController@index')->name('api');
+
 Route::get('/api/skins', 'APISkinsController@index')->name('apiSkins');
 Route::get('/api/skins/{sortType}', 'APISkinsController@index')->name('apiSkinsSort');
+
+Route::get('/api/body', 'APIBodyController@index')->name('apiBody');
+Route::get('/api/body/{sortType}', 'APIBodyController@index')->name('apiBodySort');
+
+Route::get('/api/decoration', 'APIDecorationController@index')->name('apiDecoration');
+Route::get('/api/decoration/{sortType}', 'APIDecorationController@index')->name('apiDecorationSort');
+
+Route::get('/api/eyes', 'APIEyesController@index')->name('apiEyes');
+Route::get('/api/eyes/{sortType}', 'APIEyesController@index')->name('apiEyesSort');
+
+Route::get('/api/feet', 'APIFeetController@index')->name('apiFeet');
+Route::get('/api/feet/{sortType}', 'APIFeetController@index')->name('apiFeetSort');
+
+Route::get('/api/hands', 'APIHandsController@index')->name('apiHands');
+Route::get('/api/hands/{sortType}', 'APIHandsController@index')->name('apiHandsSort');
+
+Route::get('/api/marking', 'APIMarkingController@index')->name('apiMarking');
+Route::get('/api/marking/{sortType}', 'APIMarkingController@index')->name('apiMarkingSort');

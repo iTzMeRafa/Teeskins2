@@ -40,30 +40,55 @@ class UploadController extends GlobalController
             $fileName = $name . '.' . $fileExtension;
 
             switch ($assetType) {
+
                 case "skin":
-                    if(Storage::disk('skins')->put($fileName, file_get_contents($file))) {
-                        DB::table('skins')->insert(
-                            [
-                                'name' => $name, 
-                                'author' => $author, 
-                                'imagePath' => '/database/skins/' . $fileName , 
-                                'userID' => Auth::id(), 
-                                'isPublic' => 0, 
-                                'likes' => 0,
-                                'downloads' => 0,
-                                'uploadDate' => NOW()
-                            ]
-                        );
-                    }
+                    $this->handleStorageAndUpload("skins", $fileName, $file, $name, $author);
                     break;
+                case "body":
+                    $this->handleStorageAndUpload("body", $fileName, $file, $name, $author);
+                    break;
+                case "decoration":
+                    $this->handleStorageAndUpload("decoration", $fileName, $file, $name, $author);
+                    break;
+                case "eyes":
+                    $this->handleStorageAndUpload("eyes", $fileName, $file, $name, $author);
+                    break;
+                case "feet":
+                    $this->handleStorageAndUpload("feet", $fileName, $file, $name, $author);
+                    break;
+                case "hands":
+                    $this->handleStorageAndUpload("hands", $fileName, $file, $name, $author);
+                    break;
+                case "marking":
+                    $this->handleStorageAndUpload("marking", $fileName, $file, $name, $author);
+                    break;
+                break;
+
                 default:
-                    return "failed";
+                    return "Did not match with asset type";
             }
 
             return "success";
         } 
         else {
             return "failed";
+        }
+    }
+
+    private function handleStorageAndUpload($assetType, $fileName, $file, $name, $author) {
+        if(Storage::disk($assetType)->put($fileName, file_get_contents($file))) {
+            DB::table($assetType)->insert(
+                [
+                    'name' => $name,
+                    'author' => $author,
+                    'imagePath' => '/database/'.$assetType.'/' . $fileName ,
+                    'userID' => Auth::id(),
+                    'isPublic' => 0,
+                    'likes' => 0,
+                    'downloads' => 0,
+                    'uploadDate' => NOW()
+                ]
+            );
         }
     }
 

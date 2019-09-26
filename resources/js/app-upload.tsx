@@ -188,7 +188,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
       const assetTypeSelect = [];
       Object.keys(TYPES).map(key => {
         assetTypeSelect.push(
-          <option key={TYPES[key]} disabled={TYPES[key] !== 'skin'} value={TYPES[key]}>
+          <option key={TYPES[key]} value={TYPES[key]}>
             {key}
           </option>
         );
