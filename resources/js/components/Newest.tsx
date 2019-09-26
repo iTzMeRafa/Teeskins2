@@ -35,7 +35,6 @@ export default class Newest extends React.Component<INewestProps> {
                   updateDownloads={true}
                   updateLikes={true}
                   locationType={'newest'}
-                  useSkinRenderer={this.props.newestAsset.assetType === TYPES.Skin}
                 />
             </>
     );

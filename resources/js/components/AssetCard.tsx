@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
+import BodySkinRenderer from './BodySkinRenderer';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +29,6 @@ interface IAssetCardProps {
     userInfo: IUserInfoInterface;
     updateDownloads: boolean;
     updateLikes: boolean;
-    useSkinRenderer?: boolean;
     assetType: TYPES;
 
     /**
@@ -85,22 +85,8 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       return (
         <div className="card">
           {this.renderHeadControl()}
-          {this.props.useSkinRenderer && (
-            <SkinRenderer
-              imagePath={this.props.imagePath}
-              size="default"
-              id={this.props.id.toString()}
-              locationType={this.props.locationType}
-            />
-          )}
 
-          {!this.props.useSkinRenderer && (
-              <img
-                id={this.props.id + '_' + this.props.locationType}
-                className={`card-img-top ${this.blockName}__preview ${this.blockName}__preview--${this.props.assetType}`}
-                src={this.props.imagePath}
-              />
-          )}
+          {this.renderAsset()}
 
           <div className="card-body">
             <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
@@ -109,6 +95,44 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           {this.renderBottomControls()}
         </div>
       );
+    }
+
+    private renderAsset() {
+
+      /* Render Skin */
+      if (this.props.assetType === TYPES.Skin) {
+        return (
+          <SkinRenderer
+              imagePath={this.props.imagePath}
+              size="default"
+              id={this.props.id.toString()}
+              locationType={this.props.locationType}
+          />
+        );
+      }
+
+      /* Render Body */
+      else if (this.props.assetType === TYPES.Body) {
+          return (
+            <BodySkinRenderer
+                imagePath={this.props.imagePath}
+                size="default"
+                id={this.props.id.toString()}
+                locationType={this.props.locationType}
+            />
+          );
+      }
+
+      /* Render Other Types */
+      else {
+        return (
+          <img
+              id={this.props.id + '_' + this.props.locationType}
+              className={`card-img-top ${this.blockName}__preview ${this.blockName}__preview--${this.props.assetType}`}
+              src={this.props.imagePath}
+          />
+        );
+      }
     }
 
     private renderHeadControl () {

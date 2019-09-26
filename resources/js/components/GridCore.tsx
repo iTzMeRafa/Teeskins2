@@ -128,7 +128,6 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
               updateLikes={this.props.updateLikes}
               locationType={'assetPage'}
               assetType={asset.assetType}
-              useSkinRenderer={asset.assetType === TYPES.Skin}
             />
           </div>
         );

@@ -1,0 +1,20 @@
+$bodyWidthSmall: 50px;
+$bodyWidthDefault: 85px;
+$bodyWidthLarge: 150px;
+
+.bodySkinRenderer {
+  margin: 0 auto;
+
+  &--small {
+    width: $bodyWidthSmall;
+    height: $bodyWidthSmall;
+  }
+  &--default {
+    width: $bodyWidthDefault;
+    height: $bodyWidthDefault;
+  }
+  &--large {
+    width: $bodyWidthLarge;
+    height: $bodyWidthLarge;
+  }
+}
