@@ -26,7 +26,7 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
   public render () {
     return (
         <img
-            id={this.props.id + '_' + this.props.locationType}
+            id={this.props.id + '_skin_' + this.props.locationType}
             className="card-img-top"
             src={this.props.imagePath}
             onLoad={this.renderSkin.bind(this)}
@@ -35,11 +35,11 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
   }
 
   private renderSkin (): void {
-    const skin = document.getElementById(this.props.id + '_' + this.props.locationType) as HTMLImageElement;
+    const skin = document.getElementById(this.props.id + '_skin_' + this.props.locationType) as HTMLImageElement;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.id = this.props.id;
+    canvas.id = this.props.id + '_skinCanvas';
     canvas.width = 96;
     canvas.height = 64;
     canvas.className = `${this.blockName} ${this.blockName}--${this.props.size}`;

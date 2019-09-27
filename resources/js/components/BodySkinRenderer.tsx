@@ -16,7 +16,7 @@ export default class BodySkinRenderer extends React.Component<IBodySkinRendererP
 
   public constructor (props: IBodySkinRendererProps) {
     super(props);
-    this.renderSkin = this.renderSkin.bind(this);
+    this.renderBodySkin = this.renderBodySkin.bind(this);
 
     this.state = {
       isLoaded: false
@@ -26,33 +26,30 @@ export default class BodySkinRenderer extends React.Component<IBodySkinRendererP
   public render () {
     return (
         <img
-            id={this.props.id + '_' + this.props.locationType}
+            id={this.props.id + '_body_' + this.props.locationType}
             className="card-img-top"
             src={this.props.imagePath}
-            onLoad={this.renderSkin.bind(this)}
+            onLoad={this.renderBodySkin.bind(this)}
         />
     );
   }
 
-  private renderSkin (): void {
-    const skin = document.getElementById(this.props.id + '_' + this.props.locationType) as HTMLImageElement;
+  private renderBodySkin (): void {
+    const body = document.getElementById(this.props.id + '_body_' + this.props.locationType) as HTMLImageElement;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    canvas.id = this.props.id;
+    canvas.id = this.props.id + '_bodyCanvas';
     canvas.width = 128;
     canvas.height = 128;
     canvas.className = `${this.blockName} ${this.blockName}--${this.props.size}`;
 
-    ctx.drawImage(skin, 0, 0, 128, 128,0, 0, 128, 128 ); // top left
-    ctx.drawImage(skin, 128, 0, 128, 128,0, 0, 128, 128 ); // top right
-    ctx.drawImage(skin, 0, 128, 128, 128,0, 0, 128, 128 ); // bottom left
-    ctx.drawImage(skin, 128, 128, 128, 128,0, 0, 128, 128 ); // bottom right
-
-    ctx.save();
-    ctx.restore();
+    ctx.drawImage(body, 0, 0, 128, 128,0, 0, 128, 128 ); // top left
+    ctx.drawImage(body, 128, 0, 128, 128,0, 0, 128, 128 ); // top right
+    ctx.drawImage(body, 0, 128, 128, 128,0, 0, 128, 128 ); // bottom left
+    ctx.drawImage(body, 128, 128, 128, 128,0, 0, 128, 128 ); // bottom right
 
     // replace with image
-    skin.parentNode.replaceChild(canvas, skin);
+    body.parentNode.replaceChild(canvas, body);
   }
 }
