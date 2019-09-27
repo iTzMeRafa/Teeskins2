@@ -47,6 +47,7 @@ export default class AdminBodyUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.BodyUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.BodyUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchBodyUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>

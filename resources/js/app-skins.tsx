@@ -41,6 +41,7 @@ export default class Skins extends React.Component {
             downloadsURL={this.urlService.mergeBaseWithURL(URLS.SkinsDownloads)}
             likesURL={this.urlService.mergeBaseWithURL(URLS.SkinsLikes)}
             fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSkins)}
+            showLoadButton={false}
           />
         </Wireframe>
       );

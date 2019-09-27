@@ -41,6 +41,7 @@ export default class Eyes extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.EyesDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.EyesLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchEyes)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

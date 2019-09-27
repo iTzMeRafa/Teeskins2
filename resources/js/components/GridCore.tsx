@@ -8,7 +8,6 @@ import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
 import { UrlService } from '../Services/UrlService';
-import { TYPES } from '../Services/AssetService';
 
 interface IGridCoreProps {
     assets: any;
@@ -22,6 +21,7 @@ interface IGridCoreProps {
     idURL: string;
     downloadsURL: string;
     likesURL: string;
+    showLoadButton: boolean;
     queryString?: string;
 }
 
@@ -67,9 +67,39 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         hideForAssetIDs: [0],
         assets: this.props.assets,
         excludeIDs: this.props.assets.map(function (asset) { return asset.id; }),
-        showLoadButton: true
+        showLoadButton: this.props.showLoadButton,
       };
       this.urlService = new UrlService();
+    }
+
+    public componentDidMount(): void {
+      if (!this.props.showLoadButton) {
+        document.addEventListener('scroll', this.trackScrolling);
+      }
+    }
+
+    public componentDidUpdate(): void {
+      if (!this.props.showLoadButton) {
+        document.addEventListener('scroll', this.trackScrolling);
+      }
+    }
+
+    public componentWillUnmount(): void {
+      if (!this.props.showLoadButton) {
+        document.addEventListener('scroll', this.trackScrolling);
+      }
+    }
+
+    private trackScrolling = () => {
+      const wrappedElement = document.getElementById('footer');
+      if (this.isBottomScrolled(wrappedElement)) {
+        this.loadMoreAssets();
+        document.removeEventListener('scroll', this.trackScrolling);
+      }
+    };
+
+    private isBottomScrolled(el) {
+      return el.getBoundingClientRect().bottom <= window.innerHeight;
     }
 
     private setAssetVisibility (assetID) {
@@ -165,7 +195,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
           this.setState({
             excludeIDs: this.state.assets.map(asset => { return asset.id; }),
-            showLoadButton: response.data.length !== 0
+            showLoadButton: response.data.length !== 0 && this.props.showLoadButton
           });
         }, error => {
           console.log(error);

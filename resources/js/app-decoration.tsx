@@ -41,6 +41,7 @@ export default class Decoration extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.DecorationDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.DecorationLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchDecoration)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

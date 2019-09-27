@@ -47,6 +47,7 @@ export default class AdminFeetUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.FeetUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.FeetUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchFeetUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>

@@ -41,6 +41,7 @@ export default class Hands extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.HandsDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.HandsLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchHands)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

@@ -44,6 +44,7 @@ export default class Search extends React.Component {
             downloadsURL={this.urlService.mergeBaseWithPathURL('/search/' + data.viewData.query + '/downloads')}
             likesURL={this.urlService.mergeBaseWithPathURL('/search/' + data.viewData.query + '/likes')}
             fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSearch)}
+            showLoadButton={false}
           />
         </Wireframe>
       );

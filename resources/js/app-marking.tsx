@@ -41,6 +41,7 @@ export default class Marking extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.MarkingDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.MarkingLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchMarking)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

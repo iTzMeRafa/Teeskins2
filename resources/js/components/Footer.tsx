@@ -6,7 +6,7 @@ import { URLS } from '../Services/UrlService';
 export default class Footer extends React.Component {
   public render () {
     return (
-      <footer>
+      <footer id="footer">
         <p>&copy; {(new Date().getFullYear())} by Rafael Carneiro. All rights reserved.</p>
         <div className="footer-navigation">
           <ul>

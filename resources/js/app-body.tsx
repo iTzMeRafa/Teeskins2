@@ -41,6 +41,7 @@ export default class Body extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.BodyDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.BodyLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchBody)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

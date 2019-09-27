@@ -41,6 +41,7 @@ export default class Feet extends React.Component {
               downloadsURL={this.urlService.mergeBaseWithURL(URLS.FeetDownloads)}
               likesURL={this.urlService.mergeBaseWithURL(URLS.FeetLikes)}
               fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchFeet)}
+              showLoadButton={false}
           />
         </Wireframe>
     );

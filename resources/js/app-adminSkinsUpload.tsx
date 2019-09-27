@@ -47,6 +47,7 @@ export default class AdminSkinsUpload extends React.Component {
                 downloadsURL={this.urlService.mergeBaseWithURL(URLS.SkinUploadsDownload)}
                 likesURL={this.urlService.mergeBaseWithURL(URLS.SkinUploadsLikes)}
                 fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchSkinUploads)}
+                showLoadButton={false}
               />
             </div>
           </div>

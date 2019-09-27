@@ -47,6 +47,7 @@ export default class AdminHandsUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.HandsUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.HandsUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchHandsUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>

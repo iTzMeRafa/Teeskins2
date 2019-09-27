@@ -33,6 +33,7 @@ export default class UserUploads extends React.Component<IUserUploadsInterfacePr
           downloadsURL={this.props.downloadsURL}
           likesURL={this.props.likesURL}
           fetchURL={this.props.fetchURL}
+          showLoadButton={false}
         />
       </div>
     );

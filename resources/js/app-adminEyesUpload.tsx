@@ -47,6 +47,7 @@ export default class AdminEyesUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.EyesUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.EyesUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchEyesUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>

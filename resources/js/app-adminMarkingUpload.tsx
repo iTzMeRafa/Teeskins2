@@ -47,6 +47,7 @@ export default class AdminMarkingUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.MarkingUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.MarkingUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchMarkingUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>

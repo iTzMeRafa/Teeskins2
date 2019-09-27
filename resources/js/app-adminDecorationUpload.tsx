@@ -47,6 +47,7 @@ export default class AdminDecorationUpload extends React.Component {
                   downloadsURL={this.urlService.mergeBaseWithURL(URLS.DecorationUploadsDownload)}
                   likesURL={this.urlService.mergeBaseWithURL(URLS.DecorationUploadsLikes)}
                   fetchURL={this.urlService.mergeBaseWithURL(URLS.FetchDecorationUploads)}
+                  showLoadButton={false}
               />
             </div>
           </div>
