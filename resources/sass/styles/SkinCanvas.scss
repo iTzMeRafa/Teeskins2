@@ -36,15 +36,10 @@ $assetWidth: 100px;
 
   &__preview {
     margin: 0 auto;
+    width: auto;
 
-    &--eyes, &--marking {
-      width: 35%;
-    }
-    &--decoration, &--feet, &--hands {
-      width: 70%;
-    }
-    &--body {
-      width: 50%;
+    &--eyes, &--decoration, &--marking, &--feet, &--hands {
+      height: 85px;
     }
   }
 
