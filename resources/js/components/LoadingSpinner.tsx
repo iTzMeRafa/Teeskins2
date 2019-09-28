@@ -1,9 +1,16 @@
 import * as React from 'react';
 
-export default class LoadingSpinner extends React.Component {
+interface ILoadingSpinnerProps {
+  isVisible: boolean;
+}
+
+export default class LoadingSpinner extends React.Component<ILoadingSpinnerProps> {
   public render () {
     return (
-        <div className="loadingSpinner" />
+        <div
+            className="loadingSpinner"
+            style={this.props.isVisible ? { display: 'block' } : { display: 'none' }}
+        />
     );
   }
 }

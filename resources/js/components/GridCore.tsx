@@ -1,5 +1,6 @@
 import * as React from 'react';
 import AssetCard from './AssetCard';
+import LoadingSpinner from './LoadingSpinner';
 import axios from 'axios';
 
 // Interfaces
@@ -30,6 +31,7 @@ interface IGridCoreState {
     excludeIDs: any;
     assets: any;
     showLoadButton: boolean;
+    showLoadingSpinner: boolean;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
@@ -57,6 +59,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
               </div>
             </div>
+          {<LoadingSpinner isVisible={this.state.showLoadingSpinner} />}
         </>
       );
     }
@@ -68,6 +71,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         assets: this.props.assets,
         excludeIDs: this.props.assets.map(function (asset) { return asset.id; }),
         showLoadButton: this.props.showLoadButton,
+        showLoadingSpinner: false,
       };
       this.urlService = new UrlService();
     }
@@ -180,8 +184,10 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     }
 
     private loadMoreAssets () {
-      // Fetch Next Assets
+      // Show LoadingSpinner
+      this.setState({ showLoadingSpinner: true });
 
+      // Fetch Next Assets
       const postData = new FormData();
       postData.append('excludes', this.state.excludeIDs);
       postData.append('type', this.props.sortType);
@@ -195,7 +201,8 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
           this.setState({
             excludeIDs: this.state.assets.map(asset => { return asset.id; }),
-            showLoadButton: response.data.length !== 0 && this.props.showLoadButton
+            showLoadButton: response.data.length !== 0 && this.props.showLoadButton,
+            showLoadingSpinner: false,
           });
         }, error => {
           console.log(error);
