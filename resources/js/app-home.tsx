@@ -21,8 +21,11 @@ export default class Home extends React.Component {
     return (
       <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
         <Jumbotron
-          title="Welcome to Teeskins!"
-          subtitle={'Teeskins is a web-based teeworlds assets database.\n Here you can find custom assets to pimp your game. Have a look around!'}
+          title="Teeworlds Skins"
+          subtitle={'' +
+          'Teeskins is a web-based teeworlds skins database. We have a huge collection of 0.6 and 0.7 teeworlds skins. ' +
+          'Here you can share and download teeworlds skins for free.' +
+          ''}
           showButton={false}
 
         />
