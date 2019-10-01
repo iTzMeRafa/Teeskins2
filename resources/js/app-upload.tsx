@@ -253,6 +253,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         return;
       }
 
+
       const postData = new FormData();
       postData.append('file', this.state.file);
       postData.append('name', this.state.inputName);
@@ -265,8 +266,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
       axios.post('/upload', postData, settings)
         .then(response => {
           this.setState({ uploadStatus: response.data });
-        })
-        .then(error => {
+        }, error => {
           console.log(error);
         });
     }
