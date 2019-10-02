@@ -12,19 +12,17 @@ interface IErrorCodeProps {
 export default class ErrorCode extends React.Component<IErrorCodeProps> {
     private readonly blockName = 'errors';
     private readonly urlService;
-    private readonly imageService;
 
     public constructor (props: IErrorCodeProps) {
       super(props);
 
       this.urlService = new UrlService();
-      this.imageService = new ImageService();
     }
 
     public render () {
       return (
         <div className={this.blockName}>
-          <img src={this.urlService.mergeBaseWithPathURL(this.imageService.getErrorStatusImage(this.props.errorCode))} />
+          <img src={this.urlService.mergeBaseWithPathURL(ImageService.getErrorStatusImage(this.props.errorCode))} />
           <h3 className={`${this.blockName}__statusCode`}>
             {this.props.errorCode}
           </h3>

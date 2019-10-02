@@ -1,0 +1,26 @@
+.partnerCarousel {
+  margin: 50px 0;
+
+  &__headline {
+    margin-bottom: 20px;
+  }
+
+  &__logo {
+    width: auto;
+    margin: 0 auto;
+
+    &--desktop {
+      height: 60px;
+    }
+
+    &--mobile {
+      height: 50px;
+    }
+  }
+}
+
+// Overwrite Slick Default Styling
+.slick-dots {
+  bottom: -50px !important;
+  zoom: 150% !important;
+}
