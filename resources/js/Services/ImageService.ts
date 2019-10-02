@@ -5,7 +5,11 @@ export enum PARTNERS {
   ISPONE = '/img/partner-logos/ispone.png',
   TEEWORLDSFRIENDS = '/img/partner-logos/teeworlds-friends.png',
   TEECLOUD = '/img/partner-logos/teecloud.png',
+}
 
+export enum ICONS {
+  THINK_FORWARD = '/img/icons/think-forward.png',
+  THINK_LEFT = '/img/icons/think-left.png',
 }
 
 export class ImageService {

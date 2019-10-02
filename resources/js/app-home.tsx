@@ -9,6 +9,9 @@ import PartnerCarousel from './components/PartnerCarousel';
 /* eslint-disable-next-line no-unused-vars */
 import { IDataInterface } from './interfaces/IDataInterface';
 
+// Services
+import { URLS, UrlService } from './Services/UrlService';
+
 require('./bootstrap');
 
 /*
@@ -18,6 +21,13 @@ require('./bootstrap');
 declare var data: IDataInterface;
 
 export default class Home extends React.Component {
+  private readonly urlService: UrlService;
+
+  public constructor (props: {}) {
+    super(props);
+    this.urlService = new UrlService();
+  }
+
   public render () {
     return (
       <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
@@ -27,7 +37,9 @@ export default class Home extends React.Component {
           'Teeskins is a web-based teeworlds skins database. We have a huge collection of 0.6 and 0.7 teeworlds skins. ' +
           'Here you can share and download teeworlds skins for free.' +
           ''}
-          showButton={false}
+          showButton={true}
+          buttonText={"Discover Now"}
+          buttonURL={this.urlService.mergeBaseWithURL(URLS.Skins)}
 
         />
         <Trending
