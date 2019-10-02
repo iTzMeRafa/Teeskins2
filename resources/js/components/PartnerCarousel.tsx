@@ -22,18 +22,16 @@ export default class PartnerCarousel extends React.Component {
 
   public render () {
     const logoStyling = isMobile ? `${this.blockName}__logo--mobile` : `${this.blockName}__logo--desktop`;
-    const dotsClass = `${this.blockName}__dots`;
 
     const settings = {
       autoplay: true,
-      dots: true,
+      dots: false,
       infinite: true,
       speed: 500,
       slidesToShow: isMobile ? 1 : 3,
       slidesToScroll: 1,
       arrows: false,
       fade: isMobile,
-      //dotsClass: dotsClass,
     };
 
 
