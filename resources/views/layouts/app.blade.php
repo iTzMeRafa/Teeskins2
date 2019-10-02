@@ -26,6 +26,20 @@
 
       gtag('config', 'UA-101435750-4');
     </script>
+
+    <!-- Sitelinks Searchbar -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": "https://teeskins.de/",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://teeskins.de/search/{search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+    </script>
 </head>
 <body>
     @include('templates.userPanel')
