@@ -90,6 +90,21 @@ mix.react('resources/js/app-404.tsx', 'public/js');
 // 500 Error Page
 mix.react('resources/js/app-500.tsx', 'public/js');
 
+// Login
+mix.react('resources/js/app-login.tsx', 'public/js');
+
+// Register
+mix.react('resources/js/app-register.tsx', 'public/js');
+
+// PasswordReset
+mix.react('resources/js/app-passwordReset.tsx', 'public/js');
+
+// PasswordEmail
+mix.react('resources/js/app-passwordEmail.tsx', 'public/js');
+
+// PasswordVerify
+mix.react('resources/js/app-passwordVerify.tsx', 'public/js');
+
 mix.webpackConfig({
     module: {
         rules: [

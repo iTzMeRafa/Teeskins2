@@ -44,4 +44,5 @@
         </div>
     </div>
 </div>
+<script src="{{ mix('js/app-passwordReset.js') }}"></script>
 @endsection

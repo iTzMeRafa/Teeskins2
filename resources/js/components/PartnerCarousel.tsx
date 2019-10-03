@@ -43,7 +43,7 @@ export default class PartnerCarousel extends React.Component {
               <Slider {...settings}>
                 {Object.keys(PARTNERS).map((partner, key) => {
                   return (
-                      <div>
+                      <div key={key}>
                         <img
                             key={key}
                             src={this.urlService.mergeBaseWithPathURL(PARTNERS[partner])}

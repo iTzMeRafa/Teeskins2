@@ -66,8 +66,12 @@
     </script>
 </head>
 <body>
+    <div class="ipl-progress-indicator-head" id="preloader">
+        <div class="first-indicator"></div>
+        <div class="second-indicator"></div>
+    </div>
     @include('templates.userPanel')
-    <div id="app"></div>
+    <div id="app" ></div>
     @yield('content')
 </body>
 </html>

@@ -79,4 +79,5 @@
         </div>
     </div>
 </div>
+<script src="{{ mix('js/app-register.js') }}"></script>
 @endsection

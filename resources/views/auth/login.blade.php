@@ -76,4 +76,5 @@
         </div>
     </div>
 </div>
+<script src="{{ mix('js/app-login.js') }}"></script>
 @endsection

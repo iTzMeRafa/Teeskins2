@@ -4,7 +4,6 @@ import Wireframe from './components/Wireframe';
 import Trending from './components/Trending';
 import Jumbotron from './components/Jumbotron';
 
-
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
 import { IDataInterface } from './interfaces/IDataInterface';
