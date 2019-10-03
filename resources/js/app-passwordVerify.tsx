@@ -1,7 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header';
-import Preloader from './components/Preloader';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
@@ -18,11 +17,9 @@ declare var data: IDataInterface;
 export default class PasswordVerify extends React.Component {
   public render () {
     return (
-        <Preloader>
-          <div className="container">
-            <Header />
-          </div>
-        </Preloader>
+        <div className="container">
+          <Header />
+        </div>
     );
   }
 }

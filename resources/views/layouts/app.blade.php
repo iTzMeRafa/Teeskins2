@@ -65,13 +65,31 @@
         }
     </script>
 </head>
-<body>
-    <div class="ipl-progress-indicator-head" id="preloader">
+<body onload="handlePreloader()">
+
+    <!-- Preloader -->
+    <div class="ipl-progress-indicator-head" id="progressBar">
         <div class="first-indicator"></div>
         <div class="second-indicator"></div>
     </div>
+    <div id="preloader" class="preloader"></div>
+
     @include('templates.userPanel')
-    <div id="app" class="preloader"></div>
+    <div id="app"></div>
     @yield('content')
+
+<script>
+    function handlePreloader() {
+        setInterval( function() {
+          const preloader = document.getElementById("preloader");
+          const progressBar = document.getElementById("progressBar");
+          preloader.style.opacity = 0;
+          preloader.style.visibility = "hidden";
+          progressBar.style.opacity = 0;
+          progressBar.style.visibility = "hidden";
+          progressBar.style.height = 0;
+        }, 500);
+    }
+</script>
 </body>
 </html>
