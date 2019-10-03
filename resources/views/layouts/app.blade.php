@@ -71,7 +71,7 @@
         <div class="second-indicator"></div>
     </div>
     @include('templates.userPanel')
-    <div id="app" ></div>
+    <div id="app" class="preloader"></div>
     @yield('content')
 </body>
 </html>
