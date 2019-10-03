@@ -1,7 +1,7 @@
 .preloader {
   width: 100%;
   height: 100vh;
-  background: $light-grey url("/../img/spinner/box-breathing.gif") no-repeat center;
+  background: $light-blue url("/../img/spinner/eclipse.gif") no-repeat center;
   z-index: 999;
   position: fixed;
   top: 0;
@@ -11,7 +11,7 @@
 }
 
 .ipl-progress-indicator-head {
-  background-color: $light-blue;
+  background-color: transparent;
   height: 4px;
   overflow: hidden;
   position: relative;
@@ -22,7 +22,7 @@
 }
 
 .first-indicator {
-  background-color: $primary-darkBlue;
+  background-color: $dark-purple;
   bottom: 0;
   top: 0;
   left: 0;
@@ -34,7 +34,7 @@
 }
 
 .second-indicator {
-  background-color: $primary-darkBlue;
+  background-color: $dark-purple;
   bottom: 0;
   top: 0;
   left: 0;
