@@ -60,7 +60,7 @@
           "url": "https://teeskins.de/",
           "sameAs": [
             "https://www.facebook.com/Teeskins/",
-            "https://github.com/iTzMeRafa/Teeskins",
+            "https://github.com/iTzMeRafa/Teeskins"
           ]
         }
     </script>
