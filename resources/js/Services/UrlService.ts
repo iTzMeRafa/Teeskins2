@@ -101,7 +101,7 @@ export enum URLS {
     FetchEyes = '/fetch/eyes',
     FetchFeet = '/fetch/feet',
     FetchHands = '/fetch/hands',
-    FetchMarking = '/fetch/Marking',
+    FetchMarking = '/fetch/marking',
     FetchSearch = '/fetch/search',
     FetchUserUploads = '/fetch/userUploads',
     FetchSkinUploads = '/fetch/skinUploads',

@@ -32,6 +32,7 @@ interface IGridCoreState {
     assets: any;
     showLoadButton: boolean;
     showLoadingSpinner: boolean;
+    isMoreLoadable: boolean;
 }
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
@@ -72,6 +73,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
         excludeIDs: this.props.assets.map(function (asset) { return asset.id; }),
         showLoadButton: this.props.showLoadButton,
         showLoadingSpinner: false,
+        isMoreLoadable: true,
       };
       this.urlService = new UrlService();
     }
@@ -97,7 +99,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
     private trackScrolling = () => {
       const wrappedElement = document.getElementById('footer');
       if (this.isBottomScrolled(wrappedElement)) {
-        this.loadMoreAssets();
+        this.state.isMoreLoadable ? this.loadMoreAssets() : null;
         document.removeEventListener('scroll', this.trackScrolling);
       }
     };
@@ -203,6 +205,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
             excludeIDs: this.state.assets.map(asset => { return asset.id; }),
             showLoadButton: response.data.length !== 0 && this.props.showLoadButton,
             showLoadingSpinner: false,
+            isMoreLoadable: response.data.length !== 0,
           });
         }, error => {
           console.log(error);
