@@ -50,6 +50,20 @@
           "logo": "https://teeskins.de/img/logo.png"
         }
     </script>
+
+    <!-- Social Media -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Teeskins",
+          "url": "https://teeskins.de/",
+          "sameAs": [
+            "https://www.facebook.com/Teeskins/",
+            "https://github.com/iTzMeRafa/Teeskins",
+          ]
+        }
+    </script>
 </head>
 <body>
     @include('templates.userPanel')
