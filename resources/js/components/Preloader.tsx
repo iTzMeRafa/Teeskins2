@@ -28,7 +28,7 @@ export default class Skins extends React.Component<{}, IPreloaderState> {
   }
 
   private asyncLoadageCall() {
-    return new Promise((resolve) => setTimeout(() => resolve(), 1000));
+    return new Promise((resolve) => setTimeout(() => resolve(), 2000));
   }
 
   private disableProgressBar() {
