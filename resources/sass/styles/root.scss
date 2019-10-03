@@ -4,6 +4,8 @@ body {
   background-color: $light-blue;
   background-attachment: fixed;
   background-repeat: repeat-x;
+  /* will be removed after preload */
+  overflow: hidden;
 }
 
 section {

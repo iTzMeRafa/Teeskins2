@@ -16,22 +16,21 @@ export default class MainNavbar extends React.Component {
     public render () {
       return (
 
-        <nav className="navbar navbar-expand-lg bg-realWhite">
-          <div className="container">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-              aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-              <FontAwesomeIcon icon={faBars} size={'2x'}/>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a className="navbar-brand" href="#"></a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+              <FontAwesomeIcon className="navbar-toggler-icon" icon={faBars} size={'2x'}/>
             </button>
 
-            <div className="collapse navbar-collapse">
+            <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-
                 <li className={'nav-item ' + this.urlService.navIsActive(URLS.Skins)}>
                   <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>
                     Skins <span className="badge badge-secondary">0.6</span> <span className="sr-only">(current)</span>
                   </a>
                 </li>
-
                 <li
                     className={
                       "nav-item dropdown " +
@@ -60,22 +59,20 @@ export default class MainNavbar extends React.Component {
                     */}
                   </div>
                 </li>
-
               </ul>
               <form method="GET" className="form-inline" onSubmit={() => this.handleSearchSubmit(event)}>
                 <input
-                  id="searchinput"
-                  required={true}
-                  className="form-control mr-sm-2 searchInput"
-                  type="search"
-                  placeholder="Search Name or Author..."
-                  aria-label="Search"
+                    id="searchinput"
+                    required={true}
+                    className="form-control mr-sm-2 searchInput"
+                    type="search"
+                    placeholder="Search Name or Author..."
+                    aria-label="Search"
                 />
 
               </form>
             </div>
-          </div>
-        </nav>
+          </nav>
       );
     }
 

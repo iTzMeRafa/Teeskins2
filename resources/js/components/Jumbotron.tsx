@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { isMobile } from 'react-device-detect';
 
 // Services
 import { UrlService } from '../Services/UrlService';
@@ -44,10 +45,13 @@ export default class Jumbotron extends React.Component<IJumbotronProps> {
           </div>
 
           <div className="col-md-4">
-            <img
-                src={this.urlService.mergeBaseWithPathURL(ICONS.THINK_LEFT)}
-                className={`${this.blockName}__icon`}
-            />
+            {!isMobile && (
+              <img
+                  src={this.urlService.mergeBaseWithPathURL(ICONS.THINK_LEFT)}
+                  className={`${this.blockName}__icon`}
+              />
+            )}
+
           </div>
 
         </div>

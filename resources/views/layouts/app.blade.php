@@ -93,7 +93,9 @@
         <div class="first-indicator"></div>
         <div class="second-indicator"></div>
     </div>
-    <div id="preloader" class="preloader"></div>
+    <div id="preloader" class="preloader">
+        @include('templates.preloader')
+    </div>
 
     @include('templates.userPanel')
     <div id="app"></div>
@@ -104,6 +106,7 @@
         setInterval( function() {
           const preloader = document.getElementById("preloader");
           const progressBar = document.getElementById("progressBar");
+          document.body.style.overflow = "visible";
           preloader.style.opacity = 0;
           preloader.style.visibility = "hidden";
           progressBar.style.opacity = 0;
