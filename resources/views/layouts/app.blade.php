@@ -2,13 +2,15 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 
+    <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Download & Share: Teeworlds Skins 0.6 & 0.7 ▷ +2000 Teeworlds Skins ✓ Biggest Skins Collection ✓ Join Now ✓" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Teeskins') }} - Teeworlds Assets Database</title>
+    <title>{{ config('app.name', 'Teeskins') }} - Teeworlds Skins Database</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
