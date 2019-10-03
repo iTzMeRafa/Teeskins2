@@ -97,7 +97,10 @@
         @include('templates.preloader')
     </div>
 
+    <!-- UserPanel -->
     @include('templates.userPanel')
+
+    <!-- Main Content -->
     <div id="app"></div>
     @yield('content')
 
