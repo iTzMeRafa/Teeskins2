@@ -40,6 +40,16 @@
           }
         }
     </script>
+
+    <!-- Logo -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "url": "https://teeskins.de/",
+          "logo": "https://teeskins.de/img/logo.png"
+        }
+    </script>
 </head>
 <body>
     @include('templates.userPanel')
