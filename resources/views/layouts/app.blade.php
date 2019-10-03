@@ -93,9 +93,18 @@
         <div class="first-indicator"></div>
         <div class="second-indicator"></div>
     </div>
-    <div id="preloader" class="preloader">
-        @include('templates.preloader')
-    </div>
+
+    <?php
+    // Prevent Preloader for specific pages
+    $currentPath = $_SERVER['REQUEST_URI'];
+    $preventPages = ['/login', '/register', '/password/reset'];
+
+    if (!in_array($currentPath, $preventPages)) {
+    ?>
+        <div id="preloader" class="preloader">
+            @include('templates.preloader')
+        </div>
+    <?php } ?>
 
     <!-- UserPanel -->
     @include('templates.userPanel')
@@ -110,11 +119,20 @@
           const preloader = document.getElementById("preloader");
           const progressBar = document.getElementById("progressBar");
           document.body.style.overflow = "visible";
-          preloader.style.opacity = 0;
-          preloader.style.visibility = "hidden";
-          progressBar.style.opacity = 0;
-          progressBar.style.visibility = "hidden";
-          progressBar.style.height = 0;
+
+          if (preloader) {
+            preloader.style.opacity = 0;
+            preloader.style.visibility = "hidden";
+          }
+
+          if (progressBar) {
+            progressBar.style.opacity = 0;
+            progressBar.style.visibility = "hidden";
+            progressBar.style.height = 0;
+          }
+
+
+
         }, 500);
     }
 </script>

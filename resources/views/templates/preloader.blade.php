@@ -1,11 +1,3 @@
-<?php
-    // Prevent Preloader for specific pages
-    $currentPath = $_SERVER['REQUEST_URI'];
-    $preventPages = ['/login', '/register', '/password/reset'];
-
-    if (!in_array($currentPath, $preventPages)) {
-?>
-
 <div class="preloader__navbar preloader__loading"></div>
 <div class="container">
 
@@ -25,5 +17,3 @@
     </div>
 
 </div>
-
-<?php } ?>
