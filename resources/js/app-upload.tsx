@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
+import SkinRenderer from './components/SkinRenderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -278,7 +279,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         // Asset Name Duplicate Validation
         axios({
           method: 'post',
-          url: `${this.urlService.getBaseURL()}/check/assetName/${inputNameValue}`
+          url: `${this.urlService.getBaseURL()}/check/assetName/${inputNameValue}/${this.state.assetType}`
         })
           .then(response => {
             this.setState({
@@ -357,7 +358,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
       // Asset Name Duplicate Validation
       axios({
         method: 'post',
-        url: `${this.urlService.getBaseURL()}/check/assetName/${fileName}`
+        url: `${this.urlService.getBaseURL()}/check/assetName/${fileName}/${this.state.assetType}`
       })
         .then(response => {
           this.setState({
@@ -380,6 +381,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
     }
 
     private renderPreview () {
+
       if (this.state.fileExtensionState === 'invalid' ||
             this.state.fileExtensionState === 'undefined' ||
             this.state.tempFile === null
@@ -392,15 +394,12 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         return 'Preview';
       }
 
-      const selectedAssetType = (document.getElementById('assetType') as HTMLSelectElement).value;
+      const selectedAssetType = this.state.assetType;
 
       if (selectedAssetType === TYPES.Skin && !this.state.isSkinTypeSelected) {
-        // TODO: return Skinrenderer here - not working properly yet
-        if (!this.state.isSkinTypeSelected) {
           this.setState({ isSkinTypeSelected: true }, () => {
             this.validateSubmissionState();
           });
-        }
       }
 
       if (selectedAssetType !== TYPES.Skin && this.state.isSkinTypeSelected) {
@@ -409,8 +408,16 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         });
       }
 
+      /* TODO: return Skinrenderer here - is correctly displaying, but when changing asset type select it breaks, idk why
+      if (selectedAssetType === TYPES.Skin) {
+        return (
+            <SkinRenderer imagePath={this.state.tempFile} id="1" size="default" locationType="assetPage"/>
+        );
+      }
+      */
+
       return (
-        <img src={this.state.tempFile} className="card-img-top" id="previewSkin" />
+          <img src={this.state.tempFile} className="card-img-top" id="previewSkin" />
       );
     }
 }

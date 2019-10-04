@@ -83,7 +83,7 @@ Route::post('/accept/{assetType}/{assetID}', 'VisibilityAssetController@setAsset
 Route::post('/hide/{assetType}/{assetID}', 'VisibilityAssetController@setAssetHide')->name('setAssetHide');
 Route::post('/delete/{assetType}/{assetID}', 'DeleteAssetController@deleteAsset')->name('deleteAsset');
 Route::post('/check/username/{username}', 'CheckController@username')->name('checkUsername');
-Route::post('/check/assetName/{assetName}', 'CheckController@assetName')->name('checkAssetName');
+Route::post('/check/assetName/{assetName}/{assetType}', 'CheckController@assetName')->name('checkAssetName');
 Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail');
 Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');

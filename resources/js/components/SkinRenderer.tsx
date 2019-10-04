@@ -59,6 +59,8 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     ctx.restore();
 
     // replace with image
-    skin.parentNode.replaceChild(canvas, skin);
+    if (skin) {
+      skin.parentNode.replaceChild(canvas, skin);
+    }
   }
 }

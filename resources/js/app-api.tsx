@@ -39,9 +39,9 @@ export default class API extends React.Component {
   }
 
   private renderApis () {
-    return data.viewData.apis.map(api => {
+    return data.viewData.apis.map((api, key) => {
       return (
-        <div className="col-md-6 mb-4">
+        <div className="col-md-6 mb-4" key={key}>
           <ApiCard
             headline={api.headline}
             fetchType={api.fetchType}
