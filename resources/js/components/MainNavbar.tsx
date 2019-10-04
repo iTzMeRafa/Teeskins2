@@ -26,11 +26,15 @@ export default class MainNavbar extends React.Component {
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
+
+                {/* Skins 0.6 */}
                 <li className={'nav-item ' + this.urlService.navIsActive(URLS.Skins)}>
                   <a className="nav-link" href={this.urlService.mergeBaseWithPathURL(URLS.Skins)}>
                     Skins <span className="badge badge-secondary">0.6</span> <span className="sr-only">(current)</span>
                   </a>
                 </li>
+
+                {/* Skins 0.7 */}
                 <li
                     className={
                       "nav-item dropdown " +
@@ -53,12 +57,35 @@ export default class MainNavbar extends React.Component {
                     <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Feet)} href={this.urlService.mergeBaseWithPathURL(URLS.Feet)}>Feet</a>
                     <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Hands)} href={this.urlService.mergeBaseWithPathURL(URLS.Hands)}>Hands</a>
                     <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Marking)} href={this.urlService.mergeBaseWithPathURL(URLS.Marking)}>Marking</a>
-                    {/*
-                    <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" href={this.urlService.mergeBaseWithPathURL(URLS.SkinGenerator)}>Skin Generator</a>
-                    */}
                   </div>
                 </li>
+
+                {/* Assets */}
+                <li
+                    className={
+                      "nav-item dropdown " +
+                      this.urlService.navIsActive(URLS.Mapres) +
+                      this.urlService.navIsActive(URLS.Gameskins) +
+                      this.urlService.navIsActive(URLS.Emoticons) +
+                      this.urlService.navIsActive(URLS.Cursors) +
+                      this.urlService.navIsActive(URLS.Particles) +
+                      this.urlService.navIsActive(URLS.Grids)
+                    }
+                >
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Assets
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Mapres)} href={this.urlService.mergeBaseWithPathURL(URLS.Mapres)}>Mapres</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Gameskins)} href={this.urlService.mergeBaseWithPathURL(URLS.Gameskins)}>Gameskins</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Emoticons)} href={this.urlService.mergeBaseWithPathURL(URLS.Emoticons)}>Emoticons</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Cursors)} href={this.urlService.mergeBaseWithPathURL(URLS.Cursors)}>Cursors</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Particles)} href={this.urlService.mergeBaseWithPathURL(URLS.Particles)}>Particles</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.Grids)} href={this.urlService.mergeBaseWithPathURL(URLS.Grids)}>Grids</a>
+                  </div>
+                </li>
+
               </ul>
               <form method="GET" className="form-inline" onSubmit={() => this.handleSearchSubmit(event)}>
                 <input

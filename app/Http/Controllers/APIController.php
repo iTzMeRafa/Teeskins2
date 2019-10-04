@@ -62,6 +62,49 @@ class APIController extends GlobalController
                 'headline' => 'Marking API',
                 'fetchType' => 'GET / CURL',
             ],
+
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("mapres"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiMapres')),
+                'apiURL' => URL::route('apiMapres'),
+                'headline' => 'Mapres API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("gameskins"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiGameskins')),
+                'apiURL' => URL::route('apiGameskins'),
+                'headline' => 'Gameskins API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("emoticons"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiEmoticons')),
+                'apiURL' => URL::route('apiEmoticons'),
+                'headline' => 'Emoticons API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("cursors"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiCursors')),
+                'apiURL' => URL::route('apiCursors'),
+                'headline' => 'Cursors API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("particles"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiParticles')),
+                'apiURL' => URL::route('apiParticles'),
+                'headline' => 'Particles API',
+                'fetchType' => 'GET / CURL',
+            ],
+            [
+                'exampleJSONResponse' => $this->getExampleJSONResponse("grids"),
+                'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('apiGrids')),
+                'apiURL' => URL::route('apiGrids'),
+                'headline' => 'Grids API',
+                'fetchType' => 'GET / CURL',
+            ],
         ];
     }
 

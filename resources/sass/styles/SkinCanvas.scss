@@ -31,14 +31,71 @@ $assetWidth: 100px;
     font: inherit;
     cursor: pointer;
     outline: inherit;
-    cursor: pointer;
+  }
+
+  &__outerPreview {
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+
+  &__outerPreview &__content-overlay {
+    background: rgba($real-white, .8);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+    border-radius: .5rem;
+  }
+
+  &__outerPreview:hover &__content-overlay {
+    opacity: 1;
+  }
+
+  &__content-image {
+    width: 100%;
+  }
+
+  &__content-details {
+    color: $real-black;
+    position: absolute;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  &__outerPreview:hover &__content-details {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
+
+  &__fadeIn-top {
+    top: 20%;
   }
 
   &__preview {
-    margin: 0 auto;
     width: auto;
 
-    &--eyes, &--decoration, &--marking, &--feet, &--hands {
+    &--eyes, &--decoration, &--marking, &--feet, &--hands, &--mapres, &--gameskins, &--emoticons, &--cursors, &--particles, &--grids {
       height: 85px;
     }
   }

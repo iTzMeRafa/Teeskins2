@@ -45,6 +45,30 @@ class DeleteAssetController extends Controller
                 DB::table('marking')->where('id', '=', $assetID)->delete();
                 break;
 
+            case 'mapres':
+                DB::table('mapres')->where('id', '=', $assetID)->delete();
+                break;
+
+            case 'gameskins':
+                DB::table('gameskins')->where('id', '=', $assetID)->delete();
+                break;
+
+            case 'emoticons':
+                DB::table('emoticons')->where('id', '=', $assetID)->delete();
+                break;
+
+            case 'cursors':
+                DB::table('cursors')->where('id', '=', $assetID)->delete();
+                break;
+
+            case 'particles':
+                DB::table('particles')->where('id', '=', $assetID)->delete();
+                break;
+
+            case 'grids':
+                DB::table('grids')->where('id', '=', $assetID)->delete();
+                break;
+
             default:
                 return "failed";
         }

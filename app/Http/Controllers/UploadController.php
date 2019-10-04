@@ -62,6 +62,24 @@ class UploadController extends GlobalController
                 case "marking":
                     $this->handleStorageAndUpload("marking", $fileName, $file, $name, $author);
                     break;
+                case "mapres":
+                    $this->handleStorageAndUpload("mapres", $fileName, $file, $name, $author);
+                    break;
+                case "gameskins":
+                    $this->handleStorageAndUpload("gameskins", $fileName, $file, $name, $author);
+                    break;
+                case "emoticons":
+                    $this->handleStorageAndUpload("emoticons", $fileName, $file, $name, $author);
+                    break;
+                case "cursors":
+                    $this->handleStorageAndUpload("cursors", $fileName, $file, $name, $author);
+                    break;
+                case "particles":
+                    $this->handleStorageAndUpload("particles", $fileName, $file, $name, $author);
+                    break;
+                case "grids":
+                    $this->handleStorageAndUpload("grids", $fileName, $file, $name, $author);
+                    break;
                 break;
 
                 default:

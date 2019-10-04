@@ -44,6 +44,30 @@ class VisibilityAssetController extends Controller
                 DB::table('marking')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
                 break;
 
+            case 'mapres':
+                DB::table('mapres')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
+            case 'gameskins':
+                DB::table('gameskins')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
+            case 'emoticons':
+                DB::table('emoticons')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
+            case 'cursors':
+                DB::table('cursors')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
+            case 'particles':
+                DB::table('particles')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
+            case 'grids':
+                DB::table('grids')->where('id' , '=', $assetID)->update(['isPublic' => 1]);
+                break;
+
             default:
                 return "failed";
         }
@@ -80,6 +104,30 @@ class VisibilityAssetController extends Controller
 
             case 'marking':
                 DB::table('marking')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'mapres':
+                DB::table('mapres')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'gameskins':
+                DB::table('gameskins')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'emoticons':
+                DB::table('emoticons')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'cursors':
+                DB::table('cursors')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'particles':
+                DB::table('particles')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
+                break;
+
+            case 'grids':
+                DB::table('grids')->where('id' , '=', $assetID)->update(['isPublic' => 0]);
                 break;
 
             default:

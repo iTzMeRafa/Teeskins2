@@ -49,21 +49,27 @@ class UnlikeController extends Controller
                     DB::table('mapres')->where('id' , '=', $assetID)->decrement('likes');
                     break;
 
-                case "gameskin":
+                case "gameskins":
                     DB::table('gameskins')->where('id' , '=', $assetID)->decrement('likes');
                     break;
 
-                case "emoticon":
+                case "emoticons":
                     DB::table('emoticons')->where('id' , '=', $assetID)->decrement('likes');
                     break;
 
-                case "particle":
+                case "cursors":
+                    DB::table('cursors')->where('id' , '=', $assetID)->decrement('likes');
+                    break;
+
+                case "particles":
                     DB::table('particles')->where('id' , '=', $assetID)->decrement('likes');
                     break;
 
-                case "cursor":
-                    DB::table('cursors')->where('id' , '=', $assetID)->decrement('likes');
+                case "grids":
+                    DB::table('grids')->where('id' , '=', $assetID)->decrement('likes');
                     break;
+
+
             }
 
         }

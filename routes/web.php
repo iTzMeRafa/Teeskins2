@@ -44,6 +44,24 @@ Route::get('/hands/{sortType}', 'HandsController@index')->name('handsSort');
 Route::get('/marking', 'MarkingController@index')->name('marking');
 Route::get('/marking/{sortType}', 'MarkingController@index')->name('markingSort');
 
+Route::get('/mapres', 'MapresController@index')->name('mapres');
+Route::get('/mapres/{sortType}', 'MapresController@index')->name('mapresSort');
+
+Route::get('/gameskins', 'GameskinsController@index')->name('gameskins');
+Route::get('/gameskins/{sortType}', 'GameskinsController@index')->name('gameskinsSort');
+
+Route::get('/emoticons', 'EmoticonsController@index')->name('emoticons');
+Route::get('/emoticons/{sortType}', 'EmoticonsController@index')->name('emoticonsSort');
+
+Route::get('/cursors', 'CursorsController@index')->name('cursors');
+Route::get('/cursors/{sortType}', 'CursorsController@index')->name('cursorsSort');
+
+Route::get('/particles', 'ParticlesController@index')->name('particles');
+Route::get('/particles/{sortType}', 'ParticlesController@index')->name('particlesSort');
+
+Route::get('/grids', 'GridsController@index')->name('grids');
+Route::get('/grids/{sortType}', 'GridsController@index')->name('gridsSort');
+
 // Userpanels
 // -------------------------------------------------
 Route::get('/userpanel/dashboard', 'DashboardController@index')->name('dashboard');
@@ -69,6 +87,7 @@ Route::post('/check/assetName/{assetName}', 'CheckController@assetName')->name('
 Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail');
 Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
+
 Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
 Route::post('/fetch/body', 'BodyController@fetchBodyFromDatabase')->name('fetchBodyOffset');
 Route::post('/fetch/decoration', 'DecorationController@fetchDecorationFromDatabase')->name('fetchDecorationOffset');
@@ -77,6 +96,13 @@ Route::post('/fetch/feet', 'FeetController@fetchFeetFromDatabase')->name('fetchF
 Route::post('/fetch/hands', 'HandsController@fetchHandsFromDatabase')->name('fetchHandsOffset');
 Route::post('/fetch/marking', 'MarkingController@fetchMarkingFromDatabase')->name('fetchMarkingOffset');
 Route::post('/fetch/search', 'SearchController@fetchAssetsFromDatabase')->name('fetchSearchOffset');
+Route::post('/fetch/mapres', 'MapresController@fetchMapresFromDatabase')->name('fetchMapresOffset');
+Route::post('/fetch/gameskins', 'GameskinsController@fetchGameskinsFromDatabase')->name('fetchGameskinsOffset');
+Route::post('/fetch/emoticons', 'EmoticonsController@fetchEmoticonsFromDatabase')->name('fetchEmoticonsOffset');
+Route::post('/fetch/cursors', 'CursorsController@fetchCursorsFromDatabase')->name('fetchCursorsOffset');
+Route::post('/fetch/particles', 'ParticlesController@fetchParticlesFromDatabase')->name('fetchParticlesOffset');
+Route::post('/fetch/grids', 'GridsController@fetchGridsFromDatabase')->name('fetchGridsOffset');
+
 Route::post('/fetch/userUploads', 'DashboardController@getUserUploads')->name('fetchUserUploadsOffset');
 Route::post('/fetch/skinUploads', 'AdminpanelUploadSkinsController@getUnverifiedSkins')->name('fetchSkinUploadsOffset');
 Route::post('/fetch/bodyUploads', 'AdminpanelUploadBodyController@getUnverifiedBody')->name('fetchBodyUploadsOffset');
@@ -85,6 +111,12 @@ Route::post('/fetch/eyesUploads', 'AdminpanelUploadEyesController@getUnverifiedE
 Route::post('/fetch/feetUploads', 'AdminpanelUploadFeetController@getUnverifiedFeet')->name('fetchFeetUploadsOffset');
 Route::post('/fetch/handsUploads', 'AdminpanelUploadHandsController@getUnverifiedHands')->name('fetchHandsUploadsOffset');
 Route::post('/fetch/markingUploads', 'AdminpanelUploadMarkingController@getUnverifiedMarking')->name('fetchMarkingUploadsOffset');
+Route::post('/fetch/mapresUploads', 'AdminpanelUploadMapresController@getUnverifiedMarking')->name('fetchMapresUploadsOffset');
+Route::post('/fetch/gameskinsUploads', 'AdminpanelUploadGameskinsController@getUnverifiedMarking')->name('fetchGameskinsUploadsOffset');
+Route::post('/fetch/emoticonsUploads', 'AdminpanelUploadEmoticonsController@getUnverifiedMarking')->name('fetchEmoticonsUploadsOffset');
+Route::post('/fetch/cursorsUploads', 'AdminpanelUploadCursorsController@getUnverifiedMarking')->name('fetchCursorsUploadsOffset');
+Route::post('/fetch/particlesUploads', 'AdminpanelUploadParticlesController@getUnverifiedMarking')->name('fetchParticlesUploadsOffset');
+Route::post('/fetch/gridsUploads', 'AdminpanelUploadGridsController@getUnverifiedMarking')->name('fetchGridsUploadsOffset');
 
 // Admin
 // -------------------------------------------------
@@ -112,6 +144,24 @@ Route::get('/adminpanel/uploads/hands/{sortType}', 'AdminpanelUploadHandsControl
 Route::get('/adminpanel/uploads/marking', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
 Route::get('/adminpanel/uploads/marking/{sortType}', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
 
+Route::get('/adminpanel/uploads/mapres', 'AdminpanelUploadMapresController@index')->name('adminpanelUploadMapres');
+Route::get('/adminpanel/uploads/mapres/{sortType}', 'AdminpanelUploadMapresController@index')->name('adminpanelUploadMapres');
+
+Route::get('/adminpanel/uploads/gameskins', 'AdminpanelUploadGameskinsController@index')->name('adminpanelUploadGameskins');
+Route::get('/adminpanel/uploads/gameskins/{sortType}', 'AdminpanelUploadGameskinsController@index')->name('adminpanelUploadGameskins');
+
+Route::get('/adminpanel/uploads/emoticons', 'AdminpanelUploadEmoticonsController@index')->name('adminpanelUploadEmoticons');
+Route::get('/adminpanel/uploads/emoticons/{sortType}', 'AdminpanelUploadEmoticonsController@index')->name('adminpanelUploadEmoticons');
+
+Route::get('/adminpanel/uploads/cursors', 'AdminpanelUploadCursorsController@index')->name('adminpanelUploadCursors');
+Route::get('/adminpanel/uploads/cursors/{sortType}', 'AdminpanelUploadCursorsController@index')->name('adminpanelUploadCursors');
+
+Route::get('/adminpanel/uploads/particles', 'AdminpanelUploadParticlesController@index')->name('adminpanelUploadParticles');
+Route::get('/adminpanel/uploads/particles/{sortType}', 'AdminpanelUploadParticlesController@index')->name('adminpanelUploadParticles');
+
+Route::get('/adminpanel/uploads/grids', 'AdminpanelUploadGridsController@index')->name('adminpanelUploadGrids');
+Route::get('/adminpanel/uploads/grids/{sortType}', 'AdminpanelUploadGridsController@index')->name('adminpanelUploadGrids');
+
 // API's
 // -------------------------------------------------
 Route::get('/api', 'APIController@index')->name('api');
@@ -136,3 +186,21 @@ Route::get('/api/hands/{sortType}', 'APIHandsController@index')->name('apiHandsS
 
 Route::get('/api/marking', 'APIMarkingController@index')->name('apiMarking');
 Route::get('/api/marking/{sortType}', 'APIMarkingController@index')->name('apiMarkingSort');
+
+Route::get('/api/mapres', 'APIMapresController@index')->name('apiMapres');
+Route::get('/api/mapres/{sortType}', 'APIMapresController@index')->name('apiMapresSort');
+
+Route::get('/api/gameskins', 'APIGameskinsController@index')->name('apiGameskins');
+Route::get('/api/gameskins/{sortType}', 'APIGameskinsController@index')->name('apiGameskinsSort');
+
+Route::get('/api/emoticons', 'APIEmoticonsController@index')->name('apiEmoticons');
+Route::get('/api/emoticons/{sortType}', 'APIEmoticonsController@index')->name('apiEmoticonsSort');
+
+Route::get('/api/cursors', 'APICursorsController@index')->name('apiCursors');
+Route::get('/api/cursors/{sortType}', 'APICursorsController@index')->name('apiCursorsSort');
+
+Route::get('/api/particles', 'APIParticlesController@index')->name('apiParticles');
+Route::get('/api/particles/{sortType}', 'APIParticlesController@index')->name('apiParticlesSort');
+
+Route::get('/api/grids', 'APIGridsController@index')->name('apiGrids');
+Route::get('/api/grids/{sortType}', 'APIGridsController@index')->name('apiGridsSort');

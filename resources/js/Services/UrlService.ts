@@ -33,13 +33,32 @@ export enum URLS {
     MarkingDownloads = '/marking/downloads',
     MarkingLikes = '/marking/likes',
 
+    Mapres = '/mapres',
+    MapresDownloads = '/mapres/downloads',
+    MapresLikes = '/mapres/likes',
+
+    Gameskins = '/gameskins',
+    GameskinsDownloads = '/gameskins/downloads',
+    GameskinsLikes = '/gameskins/likes',
+
+    Emoticons = '/emoticons',
+    EmoticonsDownloads = '/emoticons/downloads',
+    EmoticonsLikes = '/emoticons/likes',
+
+    Cursors = '/cursors',
+    CursorsDownloads = '/cursors/downloads',
+    CursorsLikes = '/cursors/likes',
+
+    Particles = '/particles',
+    ParticlesDownloads = '/particles/downloads',
+    ParticlesLikes = '/particles/likes',
+
+    Grids = '/grids',
+    GridsDownloads = '/grids/downloads',
+    GridsLikes = '/grids/likes',
+
     SkinGenerator = '/skinGenerator',
 
-    Mapres = '/mapres',
-    Gameskins = '/gameskins',
-    Emoticons = '/emoticons',
-    Particles = '/particles',
-    Cursors = '/cursors',
     Search = '/search',
 
     PrivacyPolicies = '/privacy-policies',
@@ -53,6 +72,12 @@ export enum URLS {
     APIFeet = '/api/feet',
     APIHands = '/api/hands',
     APIMarking = '/api/marking',
+    APIMapres = '/api/mapres',
+    APIGameskins = '/api/gameskins',
+    APIEmoticons = '/api/emoticons',
+    APICursors = '/api/cursors',
+    APIParticles = '/api/particles',
+    APIGrids = '/api/grids',
 
     Dashboard = '/userpanel/dashboard',
     DashboardDownloads = '/userpanel/dashboard/downloads',
@@ -60,6 +85,10 @@ export enum URLS {
     Settings = '/userpanel/settings',
 
     UserList = '/adminpanel/userlist',
+
+    SkinUploads = '/adminpanel/uploads/skin',
+    SkinUploadsDownload = '/adminpanel/uploads/skin/downloads',
+    SkinUploadsLikes = '/adminpanel/uploads/skin/likes',
 
     BodyUploads = '/adminpanel/uploads/body',
     BodyUploadsDownload = '/adminpanel/uploads/body/downloads',
@@ -85,15 +114,29 @@ export enum URLS {
     MarkingUploadsDownload = '/adminpanel/uploads/marking/downloads',
     MarkingUploadsLikes = '/adminpanel/uploads/marking/likes',
 
-    SkinUploads = '/adminpanel/uploads/skin',
-    SkinUploadsDownload = '/adminpanel/uploads/skin/downloads',
-    SkinUploadsLikes = '/adminpanel/uploads/skin/likes',
-
     MapresUploads = '/adminpanel/uploads/mapres',
-    GameskinUploads = '/adminpanel/uploads/gameskin',
-    EmoticonUploads = '/adminpanel/uploads/emoticon',
-    ParticleUploads = '/adminpanel/uploads/particle',
-    CursorUploads = '/adminpanel/uploads/cursor',
+    MapresUploadsDownload = '/adminpanel/uploads/mapres/downloads',
+    MapresUploadsLikes = '/adminpanel/uploads/mapres/likes',
+
+    GameskinsUploads = '/adminpanel/uploads/gameskins',
+    GameskinsUploadsDownload = '/adminpanel/uploads/gameskins/downloads',
+    GameskinsUploadsLikes = '/adminpanel/uploads/gameskins/likes',
+
+    EmoticonsUploads = '/adminpanel/uploads/emoticons',
+    EmoticonsUploadsDownload = '/adminpanel/uploads/emoticons/downloads',
+    EmoticonsUploadsLikes = '/adminpanel/uploads/emoticons/likes',
+
+    CursorsUploads = '/adminpanel/uploads/cursors',
+    CursorsUploadsDownload = '/adminpanel/uploads/cursors/downloads',
+    CursorsUploadsLikes = '/adminpanel/uploads/cursors/likes',
+
+    ParticlesUploads = '/adminpanel/uploads/particles',
+    ParticlesUploadsDownload = '/adminpanel/uploads/particles/downloads',
+    ParticlesUploadsLikes = '/adminpanel/uploads/particles/likes',
+
+    GridsUploads = '/adminpanel/uploads/grids',
+    GridsUploadsDownload = '/adminpanel/uploads/grids/downloads',
+    GridsUploadsLikes = '/adminpanel/uploads/grids/likes',
 
     FetchSkins = '/fetch/skins',
     FetchBody = '/fetch/body',
@@ -103,6 +146,13 @@ export enum URLS {
     FetchHands = '/fetch/hands',
     FetchMarking = '/fetch/marking',
     FetchSearch = '/fetch/search',
+    FetchMapres = '/fetch/mapres',
+    FetchGameskins = '/fetch/gameskins',
+    FetchEmoticons = '/fetch/emoticons',
+    FetchCursors = '/fetch/cursors',
+    FetchParticles = '/fetch/particles',
+    FetchGrids = '/fetch/grids',
+
     FetchUserUploads = '/fetch/userUploads',
     FetchSkinUploads = '/fetch/skinUploads',
     FetchBodyUploads = '/fetch/bodyUploads',
@@ -111,6 +161,12 @@ export enum URLS {
     FetchFeetUploads = '/fetch/feetUploads',
     FetchHandsUploads = '/fetch/handsUploads',
     FetchMarkingUploads = '/fetch/markingUploads',
+    FetchMapresUploads = '/fetch/mapresUploads',
+    FetchGameskinsUploads = '/fetch/gameskinsUploads',
+    FetchEmoticonsUploads = '/fetch/emoticonsUploads',
+    FetchCursorsUploads = '/fetch/cursorsUploads',
+    FetchParticlesUploads = '/fetch/particlesUploads',
+    FetchGridsUploads = '/fetch/gridsUploads',
 }
 
 export class UrlService {

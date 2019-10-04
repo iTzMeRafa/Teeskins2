@@ -25,6 +25,12 @@ class DashboardController extends GlobalController
         $feet       = $this->fetchAssetsByType($request, "feet");
         $hands      = $this->fetchAssetsByType($request, "hands");
         $marking    = $this->fetchAssetsByType($request, "marking");
+        $mapres     = $this->fetchAssetsByType($request, "mapres");
+        $gameskins  = $this->fetchAssetsByType($request, "gameskins");
+        $emoticons  = $this->fetchAssetsByType($request, "emoticons");
+        $cursors    = $this->fetchAssetsByType($request, "cursors");
+        $particles  = $this->fetchAssetsByType($request, "particles");
+        $grids      = $this->fetchAssetsByType($request, "grids");
 
         $allAssets = collect();
         $allAssets = $allAssets->merge($skins);
@@ -34,6 +40,12 @@ class DashboardController extends GlobalController
         $allAssets = $allAssets->merge($feet);
         $allAssets = $allAssets->merge($hands);
         $allAssets = $allAssets->merge($marking);
+        $allAssets = $allAssets->merge($mapres);
+        $allAssets = $allAssets->merge($gameskins);
+        $allAssets = $allAssets->merge($emoticons);
+        $allAssets = $allAssets->merge($cursors);
+        $allAssets = $allAssets->merge($particles);
+        $allAssets = $allAssets->merge($grids);
 
         $assets = [];
         foreach ($allAssets as $_asset) {
@@ -72,6 +84,12 @@ class DashboardController extends GlobalController
         $uploadFeetCount        = DB::table("feet")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
         $uploadHandsCount       = DB::table("hands")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
         $uploadMarkingCount     = DB::table("marking")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadMapresCount     = DB::table("mapres")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadGameskinsCount  = DB::table("gameskins")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadEmoticonsCount  = DB::table("emoticons")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadCursorsCount    = DB::table("cursors")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadParticlesCount  = DB::table("particles")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
+        $uploadGridsCount      = DB::table("grids")->where("userID", "=", Auth::user()->id)->orderBy("uploadDate")->count();
 
         $totalSkinsLikes        = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('likes');
         $totalBodyLikes         = DB::table("body")->where("userID", "=", Auth::user()->id)->sum('likes');
@@ -80,6 +98,12 @@ class DashboardController extends GlobalController
         $totalFeetLikes         = DB::table("feet")->where("userID", "=", Auth::user()->id)->sum('likes');
         $totalHandsLikes        = DB::table("hands")->where("userID", "=", Auth::user()->id)->sum('likes');
         $totalMarkingLikes      = DB::table("marking")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalMapresLikes      = DB::table("mapres")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalGameskinsLikes   = DB::table("gameskins")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalEmoticonsLikes   = DB::table("emoticons")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalCursorsLikes     = DB::table("cursors")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalParticlesLikes   = DB::table("particles")->where("userID", "=", Auth::user()->id)->sum('likes');
+        $totalGridsLikes       = DB::table("grids")->where("userID", "=", Auth::user()->id)->sum('likes');
 
         $totalSkinsDownloads        = DB::table("skins")->where("userID", "=", Auth::user()->id)->sum('downloads');
         $totalBodyDownloads         = DB::table("body")->where("userID", "=", Auth::user()->id)->sum('downloads');
@@ -88,10 +112,16 @@ class DashboardController extends GlobalController
         $totalFeetDownloads         = DB::table("feet")->where("userID", "=", Auth::user()->id)->sum('downloads');
         $totalHandsDownloads        = DB::table("hands")->where("userID", "=", Auth::user()->id)->sum('downloads');
         $totalMarkingDownloads      = DB::table("marking")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalMapresDownloads      = DB::table("mapres")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalGameskinsDownloads   = DB::table("gameskins")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalEmoticonsDownloads   = DB::table("emoticons")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalCursorsDownloads     = DB::table("cursors")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalParticlesDownloads   = DB::table("particles")->where("userID", "=", Auth::user()->id)->sum('downloads');
+        $totalGridsDownloads       = DB::table("grids")->where("userID", "=", Auth::user()->id)->sum('downloads');
 
-        $uploadCount    = $uploadSkinsCount + $uploadBodyCount + $uploadDecorationCount + $uploadEyesCount + $uploadFeetCount + $uploadHandsCount + $uploadMarkingCount;
-        $totalLikes     = $totalSkinsLikes + $totalBodyLikes + $totalDecorationLikes + $totalEyesLikes + $totalFeetLikes + $totalHandsLikes + $totalMarkingLikes;
-        $totalDownloads = $totalSkinsDownloads + $totalBodyDownloads + $totalDecorationDownloads + $totalEyesDownloads + $totalFeetDownloads + $totalHandsDownloads + $totalMarkingDownloads;
+        $uploadCount    = $uploadSkinsCount + $uploadBodyCount + $uploadDecorationCount + $uploadEyesCount + $uploadFeetCount + $uploadHandsCount + $uploadMarkingCount + $uploadMapresCount + $uploadGameskinsCount + $uploadEmoticonsCount + $uploadCursorsCount + $uploadParticlesCount + $uploadGridsCount;
+        $totalLikes     = $totalSkinsLikes + $totalBodyLikes + $totalDecorationLikes + $totalEyesLikes + $totalFeetLikes + $totalHandsLikes + $totalMarkingLikes + $totalMapresLikes + $totalGameskinsLikes + $totalEmoticonsLikes + $totalCursorsLikes + $totalParticlesLikes + $totalGridsLikes;
+        $totalDownloads = $totalSkinsDownloads + $totalBodyDownloads + $totalDecorationDownloads + $totalEyesDownloads + $totalFeetDownloads + $totalHandsDownloads + $totalMarkingDownloads + $totalMapresDownloads + $totalGameskinsDownloads + $totalEmoticonsDownloads + $totalCursorsDownloads + $totalParticlesDownloads + $totalGridsDownloads;
 
         return [
             'uploadCount' => $uploadCount,

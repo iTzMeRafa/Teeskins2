@@ -104,6 +104,48 @@ return [
             'visibility' => 'public',
         ],
 
+        'mapres' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/mapres' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'gameskins' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/gameskins' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'emoticons' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/emoticons' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'cursors' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/cursors' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'particles' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/particles' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'grids' => [
+            'driver' => 'local',
+            'root' => public_path() . '/database/grids' ,
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

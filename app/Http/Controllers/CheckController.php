@@ -18,6 +18,7 @@ class CheckController extends Controller
         }
     }
 
+    // TODO: Check AssetName depending on selected asset type on upload page
     public function assetName($assetName) {
         $countAssetName = DB::table('skins')->where('name', '=', $assetName)->count();
 

@@ -8,6 +8,12 @@ export enum TYPES {
     Feet = 'feet',
     Hands = 'hands',
     Marking = 'marking',
+    Mapres = 'mapres',
+    Gameskins = 'gameskins',
+    Emoticons = 'emoticons',
+    Cursors = 'cursors',
+    Particles = 'particles',
+    Grids = 'grids',
 }
 
 export enum EXTENSIONS {

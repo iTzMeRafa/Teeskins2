@@ -3,9 +3,13 @@ import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
 import BodySkinRenderer from './BodySkinRenderer';
-import 'rc-tooltip/assets/bootstrap_white.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import Lightbox from 'react-image-lightbox';
+
+// CSS
+import 'rc-tooltip/assets/bootstrap_white.css';
+import 'react-image-lightbox/style.css';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
@@ -45,6 +49,7 @@ interface IAssetCardState {
     accepted: boolean;
     hid: boolean;
     deleted: boolean;
+    isLightBoxOpen: boolean;
 }
 
 export default class AssetCard extends React.Component<IAssetCardProps, IAssetCardState> {
@@ -57,27 +62,51 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
 
       this.state = {
 
-        // TODO: Refactor, no clean solution with deep ternary operators
         liked:
             this.props.assetType === TYPES.Skin
-              ? this.props.userInfo.assetLikes.skins.includes(this.props.id)
-              : this.props.assetType === TYPES.Body
-                ? this.props.userInfo.assetLikes.body.includes(this.props.id)
-                : this.props.assetType === TYPES.Decoration
-                  ? this.props.userInfo.assetLikes.decoration.includes(this.props.id)
-                  : this.props.assetType === TYPES.Eyes
-                    ? this.props.userInfo.assetLikes.eyes.includes(this.props.id)
-                    : this.props.assetType === TYPES.Feet
-                      ? this.props.userInfo.assetLikes.feet.includes(this.props.id)
-                      : this.props.assetType === TYPES.Hands
-                        ? this.props.userInfo.assetLikes.hands.includes(this.props.id)
-                        : this.props.userInfo.assetLikes.marking.includes(this.props.id),
+            ? this.props.userInfo.assetLikes.skins.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Body
+            ? this.props.userInfo.assetLikes.body.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Decoration
+            ? this.props.userInfo.assetLikes.decoration.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Eyes
+            ? this.props.userInfo.assetLikes.eyes.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Feet
+            ? this.props.userInfo.assetLikes.feet.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Hands
+            ? this.props.userInfo.assetLikes.hands.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Marking
+            ? this.props.userInfo.assetLikes.marking.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Mapres
+            ? this.props.userInfo.assetLikes.mapres.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Gameskins
+            ? this.props.userInfo.assetLikes.gameskins.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Emoticons
+            ? this.props.userInfo.assetLikes.emoticons.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Cursors
+            ? this.props.userInfo.assetLikes.cursors.includes(this.props.id)
+
+            : this.props.assetType === TYPES.Particles
+            ? this.props.userInfo.assetLikes.particles.includes(this.props.id)
+
+            : this.props.userInfo.assetLikes.grids.includes(this.props.id),
         downloaded: false,
         likes: 0,
         downloads: 0,
         accepted: false,
         hid: false,
-        deleted: false
+        deleted: false,
+        isLightBoxOpen: false,
       };
     }
 
@@ -126,11 +155,24 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       /* Render Other Types */
       else {
         return (
-          <img
-              id={this.props.id + '_' + this.props.locationType}
-              className={`card-img-top ${this.blockName}__preview ${this.blockName}__preview--${this.props.assetType}`}
-              src={this.props.imagePath}
-          />
+            <div className={`${this.blockName}__outerPreview`}>
+              <div className={`${this.blockName}__content-overlay`}  onClick={() => this.setState({ isLightBoxOpen: true })} />
+              <img
+                  id={this.props.id + '_' + this.props.locationType}
+                  className={`card-img-top ${this.blockName}__preview ${this.blockName}__preview--${this.props.assetType}`}
+                  src={this.props.imagePath}
+                  onClick={() => this.setState({ isLightBoxOpen: true })}
+              />
+              <div className={`${this.blockName}__content-details ${this.blockName}__fadeIn-top`} onClick={() => this.setState({ isLightBoxOpen: true })}>
+                <FontAwesomeIcon icon={faSearchPlus} size={'2x'} />
+              </div>
+              {this.state.isLightBoxOpen && (
+                  <Lightbox
+                      mainSrc={this.props.imagePath}
+                      onCloseRequest={() => this.setState({ isLightBoxOpen: false })}
+                  />
+              )}
+            </div>
         );
       }
     }

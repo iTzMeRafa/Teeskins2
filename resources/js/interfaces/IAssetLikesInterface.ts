@@ -6,6 +6,12 @@ export interface IAssetTypeLikesInterface {
     feet: IAssetLikesInterface;
     hands: IAssetLikesInterface;
     marking: IAssetLikesInterface;
+    mapres: IAssetLikesInterface;
+    gameskins: IAssetLikesInterface;
+    emoticons: IAssetLikesInterface;
+    cursors: IAssetLikesInterface;
+    particles: IAssetLikesInterface;
+    grids: IAssetLikesInterface;
 }
 
 export interface IAssetLikesInterface {

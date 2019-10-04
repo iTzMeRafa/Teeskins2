@@ -49,20 +49,24 @@ class LikeController extends Controller
                     DB::table('mapres')->where('id' , '=', $assetID)->increment('likes');
                     break;
 
-                case "gameskin":
+                case "gameskins":
                     DB::table('gameskins')->where('id' , '=', $assetID)->increment('likes');
                     break;
 
-                case "emoticon":
+                case "emoticons":
                     DB::table('emoticons')->where('id' , '=', $assetID)->increment('likes');
                     break;
 
-                case "particle":
+                case "cursors":
+                    DB::table('cursors')->where('id' , '=', $assetID)->increment('likes');
+                    break;
+
+                case "particles":
                     DB::table('particles')->where('id' , '=', $assetID)->increment('likes');
                     break;
 
-                case "cursor":
-                    DB::table('cursors')->where('id' , '=', $assetID)->increment('likes');
+                case "grids":
+                    DB::table('grids')->where('id' , '=', $assetID)->increment('likes');
                     break;
             }
 

@@ -59,6 +59,12 @@ class GlobalController extends Controller
             'feet' => $this->getUserAssetLikesMethod('feet'),
             'hands' => $this->getUserAssetLikesMethod('hands'),
             'marking' => $this->getUserAssetLikesMethod('marking'),
+            'mapres' => $this->getUserAssetLikesMethod('mapres'),
+            'gameskins' => $this->getUserAssetLikesMethod('gameskins'),
+            'emoticons' => $this->getUserAssetLikesMethod('emoticons'),
+            'cursors' => $this->getUserAssetLikesMethod('cursors'),
+            'particles' => $this->getUserAssetLikesMethod('particles'),
+            'grids' => $this->getUserAssetLikesMethod('grids'),
         ];
     }
 
@@ -93,8 +99,14 @@ class GlobalController extends Controller
         $feetCount          = $this->getItemsCountByAssetType("feet");
         $handsCount         = $this->getItemsCountByAssetType("hands");
         $markingCount       = $this->getItemsCountByAssetType("marking");
+        $mapresCount        = $this->getItemsCountByAssetType("mapres");
+        $gameskins          = $this->getItemsCountByAssetType("gameskins");
+        $emoticonsCount     = $this->getItemsCountByAssetType("emoticons");
+        $cursorsCount       = $this->getItemsCountByAssetType("cursors");
+        $particlesCount     = $this->getItemsCountByAssetType("particles");
+        $gridsCount         = $this->getItemsCountByAssetType("grids");
 
-        $totalAssetsCount = $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount;
+        $totalAssetsCount = $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount + $mapresCount + $gameskins + $emoticonsCount + $cursorsCount + $particlesCount + $gridsCount;
         return $totalAssetsCount;
     }
 
