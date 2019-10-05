@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('pageDescription', 'Register & Join the biggest Teeworlds Skins Collection ▷ 2000+ Teeworlds Graphics ✓ Free ✓')
+@section('pageTitle', 'Login')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
