@@ -13,7 +13,6 @@ const mix = require('laravel-mix');
 
 // Main Pages
 // -------------------------------------------------
-
 mix.react('resources/js/app-home.tsx', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
 
@@ -26,6 +25,12 @@ mix.react('resources/js/app-privacyPolicies.tsx', 'public/js');
 mix.react('resources/js/app-termsOfUse.tsx', 'public/js');
 
 mix.react('resources/js/app-api.tsx', 'public/js');
+
+// Tools
+// -------------------------------------------------
+mix.react('resources/js/app-skinrenderer.tsx', 'public/js');
+
+mix.react('resources/js/app-bodyrenderer.tsx', 'public/js');
 
 // Assets
 // -------------------------------------------------

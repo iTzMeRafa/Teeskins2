@@ -86,6 +86,24 @@ export default class MainNavbar extends React.Component {
                   </div>
                 </li>
 
+                {/* Tools */}
+                <li
+                    className={
+                      "nav-item dropdown " +
+                      this.urlService.navIsActive(URLS.SkinRenderer) +
+                      this.urlService.navIsActive(URLS.BodyRenderer)
+                    }
+                >
+                  <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tools
+                  </a>
+                  <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.SkinRenderer)} href={this.urlService.mergeBaseWithPathURL(URLS.SkinRenderer)}>Skin Renderer</a>
+                    <a className={"dropdown-item " + this.urlService.navIsActive(URLS.BodyRenderer)} href={this.urlService.mergeBaseWithPathURL(URLS.BodyRenderer)}>Body Renderer</a>
+                  </div>
+                </li>
+
               </ul>
               <form method="GET" className="form-inline" onSubmit={() => this.handleSearchSubmit(event)}>
                 <input

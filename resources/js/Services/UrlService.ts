@@ -57,7 +57,8 @@ export enum URLS {
     GridsDownloads = '/grids/downloads',
     GridsLikes = '/grids/likes',
 
-    SkinGenerator = '/skinGenerator',
+    SkinRenderer = '/skinrenderer',
+    BodyRenderer = '/bodyrenderer',
 
     Search = '/search',
 

@@ -41,6 +41,7 @@ $assetWidth: 100px;
 
 
   &__outerPreview &__content-overlay {
+    cursor: pointer;
     background: rgba($real-white, .8);
     position: absolute;
     height: 100%;
@@ -65,6 +66,7 @@ $assetWidth: 100px;
   }
 
   &__content-details {
+    cursor: pointer;
     color: $real-black;
     position: absolute;
     text-align: center;

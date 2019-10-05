@@ -19,6 +19,8 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/upload', 'UploadController@index')->name('upload');
 Route::get('/privacy-policies', 'PrivacyPoliciesController@index')->name('privacy-policies');
 Route::get('/terms-of-use', 'TermsOfUseController@index')->name('terms-of-use');
+Route::get('/skinrenderer', 'SkinRendererController@index')->name('skinrenderer');
+Route::get('/bodyrenderer', 'BodyRendererController@index')->name('bodyrenderer');
 
 Route::get('/search/{query}', 'SearchController@index')->name('search');
 Route::get('/search/{query}/{sortType}', 'SearchController@index')->name('searchSort');

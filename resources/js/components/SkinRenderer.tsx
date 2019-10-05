@@ -36,10 +36,17 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
 
   private renderSkin (): void {
     const skin = document.getElementById(this.props.id + '_skin_' + this.props.locationType) as HTMLImageElement;
+    const existingSkinRender = document.getElementById(this.props.id + '_skinRender_' + this.props.locationType) as HTMLImageElement;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
+    const image = new Image();
 
-    canvas.id = this.props.id + '_skinCanvas';
+    image.className = `${this.blockName} ${this.blockName}--${this.props.size}`;
+    image.id =  this.props.id + '_skinRender_' + this.props.locationType;
+    image.width = 96;
+    image.height = 64;
+
+    canvas.id = this.props.id + '_skinCanvas_' + this.props.locationType;
     canvas.width = 96;
     canvas.height = 64;
     canvas.className = `${this.blockName} ${this.blockName}--${this.props.size}`;
@@ -58,9 +65,13 @@ export default class SkinRenderer extends React.Component<ISkinRendererProps, IS
     ctx.drawImage(skin, 64, 96, 32, 32, -69, 14, 24, 24);
     ctx.restore();
 
-    // replace with image
-    if (skin) {
-      skin.parentNode.replaceChild(canvas, skin);
+    if (existingSkinRender) {
+      existingSkinRender.parentNode.removeChild(existingSkinRender);
     }
+
+    image.src = canvas.toDataURL();
+    skin.parentNode.insertBefore(image, skin.nextSibling);
+    skin.style.display = "none";
+
   }
 }
