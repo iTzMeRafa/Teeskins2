@@ -1,18 +1,18 @@
-    .AdminPanelSideBar {
-        padding: 20px 15px;
+.AdminPanelSideBar {
+    padding: 20px 15px;
 
-        ul, li {
-            list-style: none;
-        }
-
-        &__title {
-            border-bottom: 1px solid $lighter-grey;
-            padding-bottom: 10px;
-        }
-
-        &__navbar {
-            border-bottom: none !important;
-            padding-top: 0 !important;
-            display: block !important;
-        }
+    ul, li {
+        list-style: none;
     }
+
+    &__title {
+        border-bottom: 1px solid $lighter-grey;
+        padding-bottom: 10px;
+    }
+
+    &__navbar {
+        border-bottom: none !important;
+        padding-top: 0 !important;
+        display: block !important;
+    }
+}

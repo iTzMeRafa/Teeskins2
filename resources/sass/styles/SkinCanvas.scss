@@ -6,6 +6,10 @@ $assetWidth: 100px;
   height: $assetWidth / $ratio;
   margin: 0 auto;
 
+  &__reportAlert {
+    border-radius: .5rem !important;
+  }
+
   &__headControl {
     padding: 10px;
   }

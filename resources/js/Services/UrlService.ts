@@ -86,6 +86,7 @@ export enum URLS {
     Settings = '/userpanel/settings',
 
     UserList = '/adminpanel/userlist',
+    Reports = '/adminpanel/reports',
 
     SkinUploads = '/adminpanel/uploads/skin',
     SkinUploadsDownload = '/adminpanel/uploads/skin/downloads',

@@ -33,12 +33,12 @@ export default class Home extends React.Component {
         <Jumbotron
           title="Teeworlds Skins"
           subtitle={'' +
-          'Teeskins is a web-based teeworlds skins database. We have a huge collection of 0.6 and 0.7 teeworlds skins. ' +
-          'Here you can share and download teeworlds skins for free.' +
+          'Teeskins is a web-based Teeworlds Assets Database. We have a huge collection of graphics for every Teeworlds asset type. ' +
+          'Download and Share Teeworlds Graphics with the Community!' +
           ''}
           showButton={true}
-          buttonText={"Discover Now"}
-          buttonURL={this.urlService.mergeBaseWithURL(URLS.Skins)}
+          buttonText={"Join Now"}
+          buttonURL={this.urlService.mergeBaseWithURL(URLS.Register)}
 
         />
         <Trending

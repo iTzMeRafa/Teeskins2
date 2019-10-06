@@ -4,7 +4,7 @@ import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
 import BodySkinRenderer from './BodySkinRenderer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash, faSearchPlus, faFlag } from '@fortawesome/free-solid-svg-icons';
 import Lightbox from 'react-image-lightbox';
 
 // CSS
@@ -50,6 +50,7 @@ interface IAssetCardState {
     hid: boolean;
     deleted: boolean;
     isLightBoxOpen: boolean;
+    successfulReported: boolean;
 }
 
 export default class AssetCard extends React.Component<IAssetCardProps, IAssetCardState> {
@@ -107,22 +108,27 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         hid: false,
         deleted: false,
         isLightBoxOpen: false,
+        successfulReported: false,
       };
     }
 
     public render () {
       return (
-        <div className="card">
-          {this.renderHeadControl()}
+          <>
+            {this.renderReportAlert()}
+            <div className="card">
+              {this.renderHeadControl()}
 
-          {this.renderAsset()}
+              {this.renderAsset()}
 
-          <div className="card-body">
-            <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
-            <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
-          </div>
-          {this.renderBottomControls()}
-        </div>
+              <div className="card-body">
+                <h5 className={`card-title ${this.blockName}__title`}>{this.props.name}</h5>
+                <p className={`card-text ${this.blockName}__author`}>by {this.props.author}</p>
+              </div>
+              {this.renderBottomControls()}
+            </div>
+            {this.renderReportModal()}
+          </>
       );
     }
 
@@ -175,6 +181,21 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
             </div>
         );
       }
+    }
+
+    private renderReportAlert() {
+      return (
+          <div
+              className={`${this.blockName}__reportAlert alert alert-warning alert-dismissible fade show`}
+              role="alert"
+              style={this.state.successfulReported ? { display: 'block' } : { display: 'none' }}
+          >
+            <strong>Reported</strong> thank you!
+            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      );
     }
 
     private renderHeadControl () {
@@ -233,9 +254,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
     }
 
     private renderSettingControls () {
-      if (this.props.userInfo.role !== 'admin') {
-        return;
-      }
 
       return (
         <div className="dropdown">
@@ -244,26 +262,123 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           </button>
           <div className="dropdown-menu" aria-labelledby="settingControls">
 
-            {this.props.isPublic === 0 && (
+            {this.props.isPublic === 0 && this.props.userInfo.role === 'admin' && (
               <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handleAcceptOnClick()}>
                 <FontAwesomeIcon icon={faCheck} /> Accept
               </a>
             )}
 
-            {this.props.isPublic === 1 && (
+            {this.props.isPublic === 1 && this.props.userInfo.role === 'admin' && (
               <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handlePutPrivateOnClick()}>
                 <FontAwesomeIcon icon={faLock} /> Put Private
               </a>
             )}
 
-            <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handleDeleteOnClick()}>
-              <FontAwesomeIcon icon={faTrash} /> Delete
-            </a>
+            {this.props.userInfo.role === 'admin' && (
+              <a className={`${this.blockName}__dropdown-item dropdown-item`} onClick={() => this.handleDeleteOnClick()}>
+                <FontAwesomeIcon icon={faTrash} /> Delete
+              </a>
+            )}
+
+            {this.props.userInfo.isLoggedIn ? (
+              <a className={`${this.blockName}__dropdown-item dropdown-item`} data-toggle="modal" data-target={`#reportModal-${this.props.id}-${this.props.locationType}`}>
+                <FontAwesomeIcon icon={faFlag} /> Report
+              </a>
+            ) : (
+                <a href={this.urlService.mergeBaseWithURL(URLS.Login)} className={`${this.blockName}__dropdown-item dropdown-item`}>
+                  <FontAwesomeIcon icon={faFlag} /> Report
+                </a>
+              )}
 
           </div>
         </div>
-
       );
+    }
+    
+    private renderReportModal() {
+      return (
+          <div className="modal fade" id={`reportModal-${this.props.id}-${this.props.locationType}`} tabIndex={-1} role="dialog" aria-labelledby="reportModalTitle" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLongTitle">Report Asset</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <p className="mb-5">
+                    You are about to report the {this.props.assetType} "<strong>{this.props.name}</strong>". <br />
+                    Please choose and tell us the reason for that.
+                  </p>
+
+                  <div className="btn-group btn-group-toggle mb-5" data-toggle="buttons" style={{width: '100%'}}>
+                    <label className="btn btn-outline-secondary active">
+                      <input
+                          type="radio"
+                          name={`reportReason-${this.props.id}-${this.props.locationType}`}
+                          //id={`reportReason1-${this.props.id}-${this.props.locationType}`}
+                          value="author"
+                          autoComplete="off"
+                          checked
+                      /> Wrong Author
+                    </label>
+                    <label className="btn btn-outline-secondary">
+                      <input
+                          type="radio"
+                          name={`reportReason-${this.props.id}-${this.props.locationType}`}
+                          //id={`reportReason2-${this.props.id}-${this.props.locationType}`}
+                          value="file"
+                          autoComplete="off"
+                      /> Corrupted File
+                    </label>
+                    <label className="btn btn-outline-secondary">
+                      <input
+                          type="radio"
+                          name={`reportReason-${this.props.id}-${this.props.locationType}`}
+                          //id={`reportReason3-${this.props.id}-${this.props.locationType}`}
+                          value="other"
+                          autoComplete="off"
+                      /> Others
+                    </label>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor={`reportReasonTextarea-${this.props.id}-${this.props.locationType}`}>Your reason or improvement</label>
+                    <textarea className="form-control" id={`reportReasonTextarea-${this.props.id}-${this.props.locationType}`} rows={5} />
+                  </div>
+
+                </div>
+                <div className="modal-footer">
+                  <button type="button" id={`closeReportModalButton-${this.props.id}-${this.props.locationType}`} className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" onClick={() => this.sendReport()}>Report</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+      );
+    }
+
+    private sendReport(): void {
+      const reportReasonVal = (document.querySelector(`input[name = "reportReason-${this.props.id}-${this.props.locationType}"]:checked`) as HTMLInputElement).value;
+      const reportReasonText = (document.getElementById(`reportReasonTextarea-${this.props.id}-${this.props.locationType}`) as HTMLTextAreaElement).value;
+      const closeReportModalButton = document.getElementById(`closeReportModalButton-${this.props.id}-${this.props.locationType}`) as HTMLButtonElement;
+
+      if (reportReasonVal && reportReasonText) {
+        axios({
+          method: 'post',
+          url: `${this.urlService.getBaseURL()}/report/${this.props.assetType}/${this.props.id}/${reportReasonVal}/${reportReasonText}`
+        })
+          .then(response => {
+            console.log(response.data);
+           if (response.data === 'valid') {
+             closeReportModalButton.click();
+             this.setState({ successfulReported: true })
+           }
+          }, error => {
+            console.log(error);
+          });
+      }
     }
 
     private handleDownloadClick (): void {

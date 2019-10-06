@@ -25,6 +25,11 @@ export default class AdminPanelSideBar extends React.Component {
                   Userlist
                 </a>
               </li>
+              <li className="nav-item">
+                <a className={`nav-link ${this.urlService.navIsActive(URLS.Reports)}`} href={this.urlService.mergeBaseWithPathURL(URLS.Reports)}>
+                  Reports
+                </a>
+              </li>
             </ul>
           </div>
 

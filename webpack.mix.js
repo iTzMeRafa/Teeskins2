@@ -98,6 +98,7 @@ mix.react('resources/js/app-adminParticlesUpload.tsx', 'public/js');
 
 mix.react('resources/js/app-adminGridsUpload.tsx', 'public/js');
 
+mix.react('resources/js/app-adminReports.tsx', 'public/js');
 
 // Error Pages
 // -------------------------------------------------

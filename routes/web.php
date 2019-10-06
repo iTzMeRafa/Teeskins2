@@ -89,6 +89,7 @@ Route::post('/check/assetName/{assetName}/{assetType}', 'CheckController@assetNa
 Route::post('/check/email/{email}', 'CheckController@email')->name('checkEmail');
 Route::post('/update/username/{username}', 'SettingsController@updateUsername')->name('updateUsername');
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
+Route::post('/report/{assetType}/{assetID}/{reportReasonVal}/{reportReasonText}', 'ReportController@insertReport')->name('insertReprot');
 
 Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
 Route::post('/fetch/body', 'BodyController@fetchBodyFromDatabase')->name('fetchBodyOffset');
@@ -124,6 +125,7 @@ Route::post('/fetch/gridsUploads', 'AdminpanelUploadGridsController@getUnverifie
 // -------------------------------------------------
 Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
 Route::get('/adminpanel/userlist', 'AdminpanelUserlistController@index')->name('adminpanelUserlist');
+Route::get('/adminpanel/reports', 'ReportController@index')->name('reports');
 
 Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
 Route::get('/adminpanel/uploads/skin/{sortType}', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
