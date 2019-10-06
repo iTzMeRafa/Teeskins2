@@ -10,7 +10,7 @@ class ReportController extends GlobalController
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('adminAuth');
     }
 
     public function index() {
