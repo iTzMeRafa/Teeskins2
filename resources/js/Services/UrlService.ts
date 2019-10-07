@@ -4,6 +4,7 @@ export enum URLS {
     Home = '/',
     Login = '/login',
     Register = '/register',
+    Upload = '/upload',
 
     Skins = '/skins',
     SkinsDownloads = '/skins/downloads',

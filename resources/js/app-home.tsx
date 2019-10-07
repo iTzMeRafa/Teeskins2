@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Wireframe from './components/Wireframe';
 import Trending from './components/Trending';
 import Jumbotron from './components/Jumbotron';
+import Advantages from './components/Advantages';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
@@ -41,6 +42,7 @@ export default class Home extends React.Component {
           buttonURL={this.urlService.mergeBaseWithURL(URLS.Register)}
 
         />
+        <Advantages />
         <Trending
           mostDownloadedAsset={data.viewData.mostDownloadedAsset}
           mostLikedAsset={data.viewData.mostLikedAsset}
