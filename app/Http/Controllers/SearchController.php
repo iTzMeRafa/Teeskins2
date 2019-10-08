@@ -23,53 +23,30 @@ class SearchController extends GlobalController
     }
 
     public function fetchAssetsFromDatabase(Request $request) {
-        $skins      = $this->fetchAssetsByType($request, "skin");
-        $body       = $this->fetchAssetsByType($request, "body");
-        $decoration = $this->fetchAssetsByType($request, "decoration");
-        $eyes       = $this->fetchAssetsByType($request, "eyes");
-        $feet       = $this->fetchAssetsByType($request, "feet");
-        $hands      = $this->fetchAssetsByType($request, "hands");
-        $marking    = $this->fetchAssetsByType($request, "marking");
-        $mapres     = $this->fetchAssetsByType($request, "mapres");
-        $gameskins  = $this->fetchAssetsByType($request, "gameskins");
-        $emoticons  = $this->fetchAssetsByType($request, "emoticons");
-        $cursors    = $this->fetchAssetsByType($request, "cursors");
-        $particles  = $this->fetchAssetsByType($request, "particles");
-        $grids      = $this->fetchAssetsByType($request, "grids");
-
         $allAssets = collect();
-        $allAssets = $allAssets->merge($skins);
-        $allAssets = $allAssets->merge($body);
-        $allAssets = $allAssets->merge($decoration);
-        $allAssets = $allAssets->merge($eyes);
-        $allAssets = $allAssets->merge($feet);
-        $allAssets = $allAssets->merge($hands);
-        $allAssets = $allAssets->merge($marking);
-        $allAssets = $allAssets->merge($mapres);
-        $allAssets = $allAssets->merge($gameskins);
-        $allAssets = $allAssets->merge($emoticons);
-        $allAssets = $allAssets->merge($cursors);
-        $allAssets = $allAssets->merge($particles);
-        $allAssets = $allAssets->merge($grids);
+
+        foreach ($this->assetTypes as $assetType) {
+            $asset = $this->fetchAssetsByType($request, $assetType);
+            $allAssets = $allAssets->merge($asset);
+        }
 
         return $allAssets;
     }
 
     // TODO: Most hacky shit ever, but works for now | Does fetch the skins and count them to prevent duplicate code
     private function fetchAssetsByType($request, $assetType, $withLimit = true, $typeOfReturn = 'get') {
-        $tableName = $assetType == "skin" ? "skins" : $assetType;
-        $tableType = $tableName . '.'.$request->type;
+        $tableType = $assetType . '.'.$request->type;
         $excludesToArray = explode(',', $request->excludes);
 
-        $asset = DB::table($tableName)
-            ->join('users', 'users.id', '=', $tableName . '.userID')
+        $asset = DB::table($assetType)
+            ->join('users', 'users.id', '=', $assetType . '.userID')
             ->where([
-                [$tableName . '.name', 'like', '%' . $request->queryString . '%'],
-                [$tableName . '.isPublic', '=', 1]
+                [$assetType . '.name', 'like', '%' . $request->queryString . '%'],
+                [$assetType . '.isPublic', '=', 1]
             ])
-            ->whereNotIn($tableName . '.id', $excludesToArray)
+            ->whereNotIn($assetType . '.id', $excludesToArray)
             ->orderByDesc($tableType)
-            ->selectRaw($tableName . '.*, users.name as username')
+            ->selectRaw($assetType . '.*, users.name as username')
             ->limit($withLimit ? $this->numberPerLoadage : 9999999999999999)
             ->$typeOfReturn();
 
@@ -83,21 +60,14 @@ class SearchController extends GlobalController
     }
 
     private function countTotalAssets($request) {
-        $skinsCount      = $this->fetchAssetsByType($request, "skin", false, 'count');
-        $bodyCount       = $this->fetchAssetsByType($request, "body", false, 'count');
-        $decorationCount = $this->fetchAssetsByType($request, "decoration", false, 'count');
-        $eyesCount       = $this->fetchAssetsByType($request, "eyes", false, 'count');
-        $feetCount       = $this->fetchAssetsByType($request, "feet", false, 'count');
-        $handsCount      = $this->fetchAssetsByType($request, "hands", false, 'count');
-        $markingCount    = $this->fetchAssetsByType($request, "marking", false, 'count');
-        $mapresCount    = $this->fetchAssetsByType($request, "mapres", false, 'count');
-        $gameskinsCount    = $this->fetchAssetsByType($request, "gameskins", false, 'count');
-        $emoticonsCount    = $this->fetchAssetsByType($request, "emoticons", false, 'count');
-        $cursorsCount    = $this->fetchAssetsByType($request, "cursors", false, 'count');
-        $particlesCount    = $this->fetchAssetsByType($request, "particles", false, 'count');
-        $gridsCount    = $this->fetchAssetsByType($request, "grids", false, 'count');
 
-        return $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount + $mapresCount + $gameskinsCount + $emoticonsCount + $cursorsCount + $particlesCount + $gridsCount;
+        $assetsTotalCount = 0;
+
+        foreach ($this->assetTypes as $assetType) {
+            $assetsTotalCount += $this->fetchAssetsByType($request, $assetType, false, 'count');
+        }
+
+        return $assetsTotalCount;
     }
 
     private function getViewData() {
