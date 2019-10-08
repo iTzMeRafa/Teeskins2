@@ -66,21 +66,13 @@ class GlobalController extends Controller
     }
 
     private function getUserAssetLikes() {
-        return [
-            'skins' => $this->getUserAssetLikesMethod('skins'),
-            'body' => $this->getUserAssetLikesMethod('body'),
-            'decoration' => $this->getUserAssetLikesMethod('decoration'),
-            'eyes' => $this->getUserAssetLikesMethod('eyes'),
-            'feet' => $this->getUserAssetLikesMethod('feet'),
-            'hands' => $this->getUserAssetLikesMethod('hands'),
-            'marking' => $this->getUserAssetLikesMethod('marking'),
-            'mapres' => $this->getUserAssetLikesMethod('mapres'),
-            'gameskins' => $this->getUserAssetLikesMethod('gameskins'),
-            'emoticons' => $this->getUserAssetLikesMethod('emoticons'),
-            'cursors' => $this->getUserAssetLikesMethod('cursors'),
-            'particles' => $this->getUserAssetLikesMethod('particles'),
-            'grids' => $this->getUserAssetLikesMethod('grids'),
-        ];
+        $userAssetLikes = null;
+
+        foreach ($this->assetTypes as $assetType) {
+            $userAssetLikes[$assetType] = $this->getUserAssetLikesMethod($assetType);
+        }
+
+        return $userAssetLikes;
     }
 
     private function getUserAssetLikesMethod($assetType) {
@@ -107,21 +99,12 @@ class GlobalController extends Controller
     }
 
     private function getTotalItemsCount() {
-        $skinsCount         = $this->getItemsCountByAssetType("skins");
-        $bodyCount          = $this->getItemsCountByAssetType("body");
-        $decorationCount    = $this->getItemsCountByAssetType("decoration");
-        $eyesCount          = $this->getItemsCountByAssetType("eyes");
-        $feetCount          = $this->getItemsCountByAssetType("feet");
-        $handsCount         = $this->getItemsCountByAssetType("hands");
-        $markingCount       = $this->getItemsCountByAssetType("marking");
-        $mapresCount        = $this->getItemsCountByAssetType("mapres");
-        $gameskins          = $this->getItemsCountByAssetType("gameskins");
-        $emoticonsCount     = $this->getItemsCountByAssetType("emoticons");
-        $cursorsCount       = $this->getItemsCountByAssetType("cursors");
-        $particlesCount     = $this->getItemsCountByAssetType("particles");
-        $gridsCount         = $this->getItemsCountByAssetType("grids");
+        $totalAssetsCount = 0;
 
-        $totalAssetsCount = $skinsCount + $bodyCount + $decorationCount + $eyesCount + $feetCount + $handsCount + $markingCount + $mapresCount + $gameskins + $emoticonsCount + $cursorsCount + $particlesCount + $gridsCount;
+        foreach ($this->assetTypes as $assetType) {
+            $totalAssetsCount += $this->getItemsCountByAssetType($assetType);
+        }
+
         return $totalAssetsCount;
     }
 
