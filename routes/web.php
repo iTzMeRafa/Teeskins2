@@ -170,41 +170,6 @@ Route::get('/adminpanel/uploads/grids/{sortType}', 'AdminpanelUploadGridsControl
 // -------------------------------------------------
 Route::get('/api', 'APIController@index')->name('api');
 
-Route::get('/api/skins', 'APISkinsController@index')->name('apiSkins');
-Route::get('/api/skins/{sortType}', 'APISkinsController@index')->name('apiSkinsSort');
+Route::get('/api/{assetType}/', 'ApiJsonController@index')->name('assetApi');
+Route::get('/api/{assetType}/{sortType}', 'ApiJsonController@index')->name('assetSortApi');
 
-Route::get('/api/body', 'APIBodyController@index')->name('apiBody');
-Route::get('/api/body/{sortType}', 'APIBodyController@index')->name('apiBodySort');
-
-Route::get('/api/decoration', 'APIDecorationController@index')->name('apiDecoration');
-Route::get('/api/decoration/{sortType}', 'APIDecorationController@index')->name('apiDecorationSort');
-
-Route::get('/api/eyes', 'APIEyesController@index')->name('apiEyes');
-Route::get('/api/eyes/{sortType}', 'APIEyesController@index')->name('apiEyesSort');
-
-Route::get('/api/feet', 'APIFeetController@index')->name('apiFeet');
-Route::get('/api/feet/{sortType}', 'APIFeetController@index')->name('apiFeetSort');
-
-Route::get('/api/hands', 'APIHandsController@index')->name('apiHands');
-Route::get('/api/hands/{sortType}', 'APIHandsController@index')->name('apiHandsSort');
-
-Route::get('/api/marking', 'APIMarkingController@index')->name('apiMarking');
-Route::get('/api/marking/{sortType}', 'APIMarkingController@index')->name('apiMarkingSort');
-
-Route::get('/api/mapres', 'APIMapresController@index')->name('apiMapres');
-Route::get('/api/mapres/{sortType}', 'APIMapresController@index')->name('apiMapresSort');
-
-Route::get('/api/gameskins', 'APIGameskinsController@index')->name('apiGameskins');
-Route::get('/api/gameskins/{sortType}', 'APIGameskinsController@index')->name('apiGameskinsSort');
-
-Route::get('/api/emoticons', 'APIEmoticonsController@index')->name('apiEmoticons');
-Route::get('/api/emoticons/{sortType}', 'APIEmoticonsController@index')->name('apiEmoticonsSort');
-
-Route::get('/api/cursors', 'APICursorsController@index')->name('apiCursors');
-Route::get('/api/cursors/{sortType}', 'APICursorsController@index')->name('apiCursorsSort');
-
-Route::get('/api/particles', 'APIParticlesController@index')->name('apiParticles');
-Route::get('/api/particles/{sortType}', 'APIParticlesController@index')->name('apiParticlesSort');
-
-Route::get('/api/grids', 'APIGridsController@index')->name('apiGrids');
-Route::get('/api/grids/{sortType}', 'APIGridsController@index')->name('apiGridsSort');

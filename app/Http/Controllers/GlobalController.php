@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Auth;
 class GlobalController extends Controller
 {
     protected $numberPerLoadage = 10;
+    protected $assetTypes = [
+        'skins',
+        'body',
+        'decoration',
+        'eyes',
+        'feet',
+        'hands',
+        'marking',
+        'mapres',
+        'gameskins',
+        'emoticons',
+        'cursors',
+        'particles',
+        'grids',
+    ];
 
     protected function getGlobalPageData()
     {
