@@ -89,9 +89,9 @@ export enum URLS {
     UserList = '/adminpanel/userlist',
     Reports = '/adminpanel/reports',
 
-    SkinUploads = '/adminpanel/uploads/skin',
-    SkinUploadsDownload = '/adminpanel/uploads/skin/downloads',
-    SkinUploadsLikes = '/adminpanel/uploads/skin/likes',
+    SkinUploads = '/adminpanel/uploads/skins',
+    SkinUploadsDownload = '/adminpanel/uploads/skins/downloads',
+    SkinUploadsLikes = '/adminpanel/uploads/skins/likes',
 
     BodyUploads = '/adminpanel/uploads/body',
     BodyUploadsDownload = '/adminpanel/uploads/body/downloads',
@@ -158,19 +158,20 @@ export enum URLS {
     FetchGrids = '/fetch/asset/grids',
 
     FetchUserUploads = '/fetch/userUploads',
-    FetchSkinUploads = '/fetch/skinUploads',
-    FetchBodyUploads = '/fetch/bodyUploads',
-    FetchDecorationUploads = '/fetch/decorationUploads',
-    FetchEyesUploads = '/fetch/eyesUploads',
-    FetchFeetUploads = '/fetch/feetUploads',
-    FetchHandsUploads = '/fetch/handsUploads',
-    FetchMarkingUploads = '/fetch/markingUploads',
-    FetchMapresUploads = '/fetch/mapresUploads',
-    FetchGameskinsUploads = '/fetch/gameskinsUploads',
-    FetchEmoticonsUploads = '/fetch/emoticonsUploads',
-    FetchCursorsUploads = '/fetch/cursorsUploads',
-    FetchParticlesUploads = '/fetch/particlesUploads',
-    FetchGridsUploads = '/fetch/gridsUploads',
+
+    FetchSkinUploads = '/fetch/asset/unverified/skins',
+    FetchBodyUploads = '/fetch/asset/unverified/body',
+    FetchDecorationUploads = '/fetch/asset/unverified/decoration',
+    FetchEyesUploads = '/fetch/asset/unverified/eyes',
+    FetchFeetUploads = '/fetch/asset/unverified/feet',
+    FetchHandsUploads = '/fetch/asset/unverified/hands',
+    FetchMarkingUploads = '/fetch/asset/unverified/marking',
+    FetchMapresUploads = '/fetch/asset/unverified/mapres',
+    FetchGameskinsUploads = '/fetch/asset/unverified/gameskins',
+    FetchEmoticonsUploads = '/fetch/asset/unverified/emoticons',
+    FetchCursorsUploads = '/fetch/asset/unverified/cursors',
+    FetchParticlesUploads = '/fetch/asset/unverified/particles',
+    FetchGridsUploads = '/fetch/asset/unverified/grids',
 }
 
 export class UrlService {

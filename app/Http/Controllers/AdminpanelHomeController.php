@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class AdminpanelController extends GlobalController
+class AdminpanelHomeController extends GlobalController
 {
     public function __construct()
     {

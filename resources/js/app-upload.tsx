@@ -52,7 +52,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
         file: null,
         inputName: null,
         inputAuthor: null,
-        assetType: 'skin',
+        assetType: 'skins',
         fileExtensionState: 'undefined',
         inputAuthorState: 'undefined',
         inputNameState: 'undefined',

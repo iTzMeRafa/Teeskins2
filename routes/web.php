@@ -11,7 +11,7 @@
 |
 */
 
-// TODO: for dynamic urls {xyz} check if variable is allowable (in_array) -> redirect
+// TODO: for all dynamic urls {xyz} check if variable is allowable (in_array) -> redirect
 
 Auth::routes();
 
@@ -63,65 +63,18 @@ Route::post('/report/{assetType}/{assetID}/{reportReasonVal}/{reportReasonText}'
 Route::post('/fetch/search', 'SearchController@fetchAssetsFromDatabase')->name('fetchSearchOffset');
 Route::post('/fetch/asset/{assetType}', 'AssetController@fetchAssetsFromDatabase')->name('assetFetch');
 
+// Fetches
+// -------------------------------------------------
 Route::post('/fetch/userUploads', 'DashboardController@getUserUploads')->name('fetchUserUploadsOffset');
-Route::post('/fetch/skinUploads', 'AdminpanelUploadSkinsController@getUnverifiedSkins')->name('fetchSkinUploadsOffset');
-Route::post('/fetch/bodyUploads', 'AdminpanelUploadBodyController@getUnverifiedBody')->name('fetchBodyUploadsOffset');
-Route::post('/fetch/decorationUploads', 'AdminpanelUploadDecorationController@getUnverifiedDecoration')->name('fetchDecorationUploadsOffset');
-Route::post('/fetch/eyesUploads', 'AdminpanelUploadEyesController@getUnverifiedEyes')->name('fetchEyesUploadsOffset');
-Route::post('/fetch/feetUploads', 'AdminpanelUploadFeetController@getUnverifiedFeet')->name('fetchFeetUploadsOffset');
-Route::post('/fetch/handsUploads', 'AdminpanelUploadHandsController@getUnverifiedHands')->name('fetchHandsUploadsOffset');
-Route::post('/fetch/markingUploads', 'AdminpanelUploadMarkingController@getUnverifiedMarking')->name('fetchMarkingUploadsOffset');
-Route::post('/fetch/mapresUploads', 'AdminpanelUploadMapresController@getUnverifiedMarking')->name('fetchMapresUploadsOffset');
-Route::post('/fetch/gameskinsUploads', 'AdminpanelUploadGameskinsController@getUnverifiedMarking')->name('fetchGameskinsUploadsOffset');
-Route::post('/fetch/emoticonsUploads', 'AdminpanelUploadEmoticonsController@getUnverifiedMarking')->name('fetchEmoticonsUploadsOffset');
-Route::post('/fetch/cursorsUploads', 'AdminpanelUploadCursorsController@getUnverifiedMarking')->name('fetchCursorsUploadsOffset');
-Route::post('/fetch/particlesUploads', 'AdminpanelUploadParticlesController@getUnverifiedMarking')->name('fetchParticlesUploadsOffset');
-Route::post('/fetch/gridsUploads', 'AdminpanelUploadGridsController@getUnverifiedMarking')->name('fetchGridsUploadsOffset');
+Route::post('/fetch/asset/unverified/{assetType}', 'AdminpanelAssetController@getUnverifiedAsset')->name('fetchUnverifiedAsset');
 
 // Admin
 // -------------------------------------------------
-Route::get('/adminpanel', 'AdminpanelController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
+Route::get('/adminpanel', 'AdminpanelHomeController@index')->name('adminpanel'); //Stats, Charts, Notes etc...
 Route::get('/adminpanel/userlist', 'AdminpanelUserlistController@index')->name('adminpanelUserlist');
 Route::get('/adminpanel/reports', 'ReportController@index')->name('reports');
-
-Route::get('/adminpanel/uploads/skin', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
-Route::get('/adminpanel/uploads/skin/{sortType}', 'AdminpanelUploadSkinsController@index')->name('adminpanelUploadSkins');
-
-Route::get('/adminpanel/uploads/body', 'AdminpanelUploadBodyController@index')->name('adminpanelUploadBody');
-Route::get('/adminpanel/uploads/body/{sortType}', 'AdminpanelUploadBodyController@index')->name('adminpanelUploadBody');
-
-Route::get('/adminpanel/uploads/decoration', 'AdminpanelUploadDecorationController@index')->name('adminpanelUploadDecoration');
-Route::get('/adminpanel/uploads/decoration/{sortType}', 'AdminpanelUploadDecorationController@index')->name('adminpanelUploadDecoration');
-
-Route::get('/adminpanel/uploads/eyes', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
-Route::get('/adminpanel/uploads/eyes/{sortType}', 'AdminpanelUploadEyesController@index')->name('adminpanelUploadEyes');
-
-Route::get('/adminpanel/uploads/feet', 'AdminpanelUploadFeetController@index')->name('adminpanelUploadFeet');
-Route::get('/adminpanel/uploads/feet/{sortType}', 'AdminpanelUploadFeetController@index')->name('adminpanelUploadFeet');
-
-Route::get('/adminpanel/uploads/hands', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
-Route::get('/adminpanel/uploads/hands/{sortType}', 'AdminpanelUploadHandsController@index')->name('adminpanelUploadHands');
-
-Route::get('/adminpanel/uploads/marking', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
-Route::get('/adminpanel/uploads/marking/{sortType}', 'AdminpanelUploadMarkingController@index')->name('adminpanelUploadMarking');
-
-Route::get('/adminpanel/uploads/mapres', 'AdminpanelUploadMapresController@index')->name('adminpanelUploadMapres');
-Route::get('/adminpanel/uploads/mapres/{sortType}', 'AdminpanelUploadMapresController@index')->name('adminpanelUploadMapres');
-
-Route::get('/adminpanel/uploads/gameskins', 'AdminpanelUploadGameskinsController@index')->name('adminpanelUploadGameskins');
-Route::get('/adminpanel/uploads/gameskins/{sortType}', 'AdminpanelUploadGameskinsController@index')->name('adminpanelUploadGameskins');
-
-Route::get('/adminpanel/uploads/emoticons', 'AdminpanelUploadEmoticonsController@index')->name('adminpanelUploadEmoticons');
-Route::get('/adminpanel/uploads/emoticons/{sortType}', 'AdminpanelUploadEmoticonsController@index')->name('adminpanelUploadEmoticons');
-
-Route::get('/adminpanel/uploads/cursors', 'AdminpanelUploadCursorsController@index')->name('adminpanelUploadCursors');
-Route::get('/adminpanel/uploads/cursors/{sortType}', 'AdminpanelUploadCursorsController@index')->name('adminpanelUploadCursors');
-
-Route::get('/adminpanel/uploads/particles', 'AdminpanelUploadParticlesController@index')->name('adminpanelUploadParticles');
-Route::get('/adminpanel/uploads/particles/{sortType}', 'AdminpanelUploadParticlesController@index')->name('adminpanelUploadParticles');
-
-Route::get('/adminpanel/uploads/grids', 'AdminpanelUploadGridsController@index')->name('adminpanelUploadGrids');
-Route::get('/adminpanel/uploads/grids/{sortType}', 'AdminpanelUploadGridsController@index')->name('adminpanelUploadGrids');
+Route::get('/adminpanel/uploads/{assetType}', 'AdminpanelAssetController@index')->name('adminpanelUploadAsset');
+Route::get('/adminpanel/uploads/{assetType}/{sortType}', 'AdminpanelAssetController@index')->name('adminpanelUploadAsset');
 
 // API's
 // -------------------------------------------------
