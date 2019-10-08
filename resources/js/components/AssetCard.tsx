@@ -317,7 +317,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                       <input
                           type="radio"
                           name={`reportReason-${this.props.id}-${this.props.locationType}`}
-                          //id={`reportReason1-${this.props.id}-${this.props.locationType}`}
                           value="author"
                           autoComplete="off"
                           checked
@@ -327,7 +326,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                       <input
                           type="radio"
                           name={`reportReason-${this.props.id}-${this.props.locationType}`}
-                          //id={`reportReason2-${this.props.id}-${this.props.locationType}`}
                           value="file"
                           autoComplete="off"
                       /> Corrupted File
@@ -336,7 +334,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                       <input
                           type="radio"
                           name={`reportReason-${this.props.id}-${this.props.locationType}`}
-                          //id={`reportReason3-${this.props.id}-${this.props.locationType}`}
                           value="other"
                           autoComplete="off"
                       /> Others

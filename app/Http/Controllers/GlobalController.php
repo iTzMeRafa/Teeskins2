@@ -67,7 +67,7 @@ class GlobalController extends Controller
 
     private function getUserAssetLikes() {
         return [
-            'skins' => $this->getUserAssetLikesMethod('skin'),
+            'skins' => $this->getUserAssetLikesMethod('skins'),
             'body' => $this->getUserAssetLikesMethod('body'),
             'decoration' => $this->getUserAssetLikesMethod('decoration'),
             'eyes' => $this->getUserAssetLikesMethod('eyes'),
