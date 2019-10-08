@@ -39,55 +39,10 @@ class UploadController extends GlobalController
             $fileExtension = $file->extension();
             $fileName = $name . '.' . $fileExtension;
 
-            switch ($assetType) {
-
-                case "skin":
-                    $this->handleStorageAndUpload("skins", $fileName, $file, $name, $author);
-                    break;
-                case "body":
-                    $this->handleStorageAndUpload("body", $fileName, $file, $name, $author);
-                    break;
-                case "decoration":
-                    $this->handleStorageAndUpload("decoration", $fileName, $file, $name, $author);
-                    break;
-                case "eyes":
-                    $this->handleStorageAndUpload("eyes", $fileName, $file, $name, $author);
-                    break;
-                case "feet":
-                    $this->handleStorageAndUpload("feet", $fileName, $file, $name, $author);
-                    break;
-                case "hands":
-                    $this->handleStorageAndUpload("hands", $fileName, $file, $name, $author);
-                    break;
-                case "marking":
-                    $this->handleStorageAndUpload("marking", $fileName, $file, $name, $author);
-                    break;
-                case "mapres":
-                    $this->handleStorageAndUpload("mapres", $fileName, $file, $name, $author);
-                    break;
-                case "gameskins":
-                    $this->handleStorageAndUpload("gameskins", $fileName, $file, $name, $author);
-                    break;
-                case "emoticons":
-                    $this->handleStorageAndUpload("emoticons", $fileName, $file, $name, $author);
-                    break;
-                case "cursors":
-                    $this->handleStorageAndUpload("cursors", $fileName, $file, $name, $author);
-                    break;
-                case "particles":
-                    $this->handleStorageAndUpload("particles", $fileName, $file, $name, $author);
-                    break;
-                case "grids":
-                    $this->handleStorageAndUpload("grids", $fileName, $file, $name, $author);
-                    break;
-                break;
-
-                default:
-                    return "Did not match with asset type";
-            }
+            $this->handleStorageAndUpload($assetType, $fileName, $file, $name, $author);
 
             return "success";
-        } 
+        }
         else {
             return "failed";
         }
