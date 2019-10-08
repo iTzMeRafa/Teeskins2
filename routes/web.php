@@ -11,6 +11,8 @@
 |
 */
 
+// TODO: for dynamic urls {xyz} check if variable is allowable (in_array) -> redirect
+
 Auth::routes();
 
 // Pages
@@ -25,44 +27,11 @@ Route::get('/bodyrenderer', 'BodyRendererController@index')->name('bodyrenderer'
 Route::get('/search/{query}', 'SearchController@index')->name('search');
 Route::get('/search/{query}/{sortType}', 'SearchController@index')->name('searchSort');
 
-Route::get('/skins', 'SkinsController@index')->name('skins');
-Route::get('/skins/{sortType}', 'SkinsController@index')->name('skinsSort');
+// Asset Pages
+// -------------------------------------------------
 
-Route::get('/body', 'BodyController@index')->name('body');
-Route::get('/body/{sortType}', 'BodyController@index')->name('bodySort');
-
-Route::get('/decoration', 'DecorationController@index')->name('decoration');
-Route::get('/decoration/{sortType}', 'DecorationController@index')->name('decorationSort');
-
-Route::get('/eyes', 'EyesController@index')->name('eyes');
-Route::get('/eyes/{sortType}', 'EyesController@index')->name('eyesSort');
-
-Route::get('/feet', 'FeetController@index')->name('feet');
-Route::get('/feet/{sortType}', 'FeetController@index')->name('feetSort');
-
-Route::get('/hands', 'HandsController@index')->name('hands');
-Route::get('/hands/{sortType}', 'HandsController@index')->name('handsSort');
-
-Route::get('/marking', 'MarkingController@index')->name('marking');
-Route::get('/marking/{sortType}', 'MarkingController@index')->name('markingSort');
-
-Route::get('/mapres', 'MapresController@index')->name('mapres');
-Route::get('/mapres/{sortType}', 'MapresController@index')->name('mapresSort');
-
-Route::get('/gameskins', 'GameskinsController@index')->name('gameskins');
-Route::get('/gameskins/{sortType}', 'GameskinsController@index')->name('gameskinsSort');
-
-Route::get('/emoticons', 'EmoticonsController@index')->name('emoticons');
-Route::get('/emoticons/{sortType}', 'EmoticonsController@index')->name('emoticonsSort');
-
-Route::get('/cursors', 'CursorsController@index')->name('cursors');
-Route::get('/cursors/{sortType}', 'CursorsController@index')->name('cursorsSort');
-
-Route::get('/particles', 'ParticlesController@index')->name('particles');
-Route::get('/particles/{sortType}', 'ParticlesController@index')->name('particlesSort');
-
-Route::get('/grids', 'GridsController@index')->name('grids');
-Route::get('/grids/{sortType}', 'GridsController@index')->name('gridsSort');
+Route::get('/asset/{assetType}', 'AssetController@index')->name('asset');
+Route::get('/asset/{assetType}/{sortType}', 'AssetController@index')->name('assetSort');
 
 // Userpanels
 // -------------------------------------------------
@@ -91,20 +60,8 @@ Route::post('/update/username/{username}', 'SettingsController@updateUsername')-
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
 Route::post('/report/{assetType}/{assetID}/{reportReasonVal}/{reportReasonText}', 'ReportController@insertReport')->name('insertReprot');
 
-Route::post('/fetch/skins', 'SkinsController@fetchSkinsFromDatabase')->name('fetchSkinsOffset');
-Route::post('/fetch/body', 'BodyController@fetchBodyFromDatabase')->name('fetchBodyOffset');
-Route::post('/fetch/decoration', 'DecorationController@fetchDecorationFromDatabase')->name('fetchDecorationOffset');
-Route::post('/fetch/eyes', 'EyesController@fetchEyesFromDatabase')->name('fetchEyesOffset');
-Route::post('/fetch/feet', 'FeetController@fetchFeetFromDatabase')->name('fetchFeetOffset');
-Route::post('/fetch/hands', 'HandsController@fetchHandsFromDatabase')->name('fetchHandsOffset');
-Route::post('/fetch/marking', 'MarkingController@fetchMarkingFromDatabase')->name('fetchMarkingOffset');
 Route::post('/fetch/search', 'SearchController@fetchAssetsFromDatabase')->name('fetchSearchOffset');
-Route::post('/fetch/mapres', 'MapresController@fetchMapresFromDatabase')->name('fetchMapresOffset');
-Route::post('/fetch/gameskins', 'GameskinsController@fetchGameskinsFromDatabase')->name('fetchGameskinsOffset');
-Route::post('/fetch/emoticons', 'EmoticonsController@fetchEmoticonsFromDatabase')->name('fetchEmoticonsOffset');
-Route::post('/fetch/cursors', 'CursorsController@fetchCursorsFromDatabase')->name('fetchCursorsOffset');
-Route::post('/fetch/particles', 'ParticlesController@fetchParticlesFromDatabase')->name('fetchParticlesOffset');
-Route::post('/fetch/grids', 'GridsController@fetchGridsFromDatabase')->name('fetchGridsOffset');
+Route::post('/fetch/asset/{assetType}', 'AssetController@fetchAssetsFromDatabase')->name('assetFetch');
 
 Route::post('/fetch/userUploads', 'DashboardController@getUserUploads')->name('fetchUserUploadsOffset');
 Route::post('/fetch/skinUploads', 'AdminpanelUploadSkinsController@getUnverifiedSkins')->name('fetchSkinUploadsOffset');

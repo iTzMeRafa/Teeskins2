@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 export enum TYPES {
-    Skin = 'skin',
+    Skins = 'skins',
     Body = 'body',
     Decoration = 'decoration',
     Eyes = 'eyes',

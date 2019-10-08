@@ -19,7 +19,7 @@ class APIController extends GlobalController
                 'exampleJSONResponse' => $this->getExampleJSONResponse($assetType),
                 'apiHTTPStatusCode' => $this->getHTTPStatusCodeFromUrl(URL::route('assetApi', ['assetType' => $assetType])),
                 'apiURL' => URL::route('assetApi', ['assetType' => $assetType]),
-                'headline' => ucfirst($assetType) . 'API',
+                'headline' => ucfirst($assetType) . ' API',
                 'fetchType' => 'GET / CURL',
             ];
 

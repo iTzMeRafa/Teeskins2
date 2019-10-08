@@ -64,7 +64,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       this.state = {
 
         liked:
-            this.props.assetType === TYPES.Skin
+            this.props.assetType === TYPES.Skins
             ? this.props.userInfo.assetLikes.skins.includes(this.props.id)
 
             : this.props.assetType === TYPES.Body
@@ -135,7 +135,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
     private renderAsset() {
 
       /* Render Skin */
-      if (this.props.assetType === TYPES.Skin) {
+      if (this.props.assetType === TYPES.Skins) {
         return (
           <SkinRenderer
               imagePath={this.props.imagePath}

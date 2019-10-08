@@ -396,13 +396,13 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
 
       const selectedAssetType = this.state.assetType;
 
-      if (selectedAssetType === TYPES.Skin && !this.state.isSkinTypeSelected) {
+      if (selectedAssetType === TYPES.Skins && !this.state.isSkinTypeSelected) {
           this.setState({ isSkinTypeSelected: true }, () => {
             this.validateSubmissionState();
           });
       }
 
-      if (selectedAssetType !== TYPES.Skin && this.state.isSkinTypeSelected) {
+      if (selectedAssetType !== TYPES.Skins && this.state.isSkinTypeSelected) {
         this.setState({ isSkinTypeSelected: false }, () => {
           this.validateSubmissionState();
         });
