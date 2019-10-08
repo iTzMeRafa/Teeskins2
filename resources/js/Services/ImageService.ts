@@ -5,6 +5,7 @@ export enum PARTNERS {
   ISPONE = '/img/partner-logos/ispone.png',
   TEEWORLDSFRIENDS = '/img/partner-logos/teeworlds-friends.png',
   TEECLOUD = '/img/partner-logos/teecloud.png',
+  CLOUDFLARE = '/img/partner-logos/cloudflare.png',
 }
 
 export enum ICONS {
