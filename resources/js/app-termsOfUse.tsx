@@ -28,22 +28,11 @@ export default class TermsOfUse extends React.Component {
       <div>
         <h1>Impressum</h1>
         <p>Angaben gemäß § 5 Telemediengesetz</p>
+        <p>Teeskins.de - Teeworlds Assets Database</p>
         <h2>Allgemeine Informationen</h2>
         <dl>
-
-          <dt>Name und Anschrift</dt>
-          <dd>
-            Rafael Carneiro <br />
-            Elsa-Brandström-Str. 11, Bergkamen <br />
-            Teeskins.de - Teeworlds Assets Database
-          </dd>
-
           <dt>E-Mail-Adresse</dt>
           <dd>craetical@gmail.com</dd>
-
-          <dt>Telefon</dt>
-          <dd>01724280326</dd>
-
         </dl>
         <br />
 
