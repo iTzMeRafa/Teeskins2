@@ -19,6 +19,9 @@ class AdminpanelHomeController extends GlobalController
 
     private function getViewData() {
         $viewData = [
+            'viewData' => [
+                'assetUploadsCount' => $this->getAssetUploadsCount(),
+            ],
             'globalData' => $this->getGlobalPageData(),
         ];
 

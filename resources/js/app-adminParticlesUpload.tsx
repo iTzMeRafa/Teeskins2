@@ -32,7 +32,7 @@ export default class AdminParticlesUpload extends React.Component {
         <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
           <div className="row">
             <div className="col-md-3">
-              <AdminPanelSideBar />
+              <AdminPanelSideBar assetUploadsCount={data.viewData.assetUploadsCount} />
             </div>
             <div className="col-md-9">
               <GridCore

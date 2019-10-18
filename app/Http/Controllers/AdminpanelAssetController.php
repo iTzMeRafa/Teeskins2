@@ -49,6 +49,7 @@ class AdminpanelAssetController extends GlobalController
                 $assetType => $this->getUnverifiedAsset($assetType, $defaultBodyRequest),
                 'sortType' => $sortType,
                 'page' => 'admin'.$assetType,
+                'assetUploadsCount' => $this->getAssetUploadsCount(),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

@@ -46,6 +46,7 @@ class ReportController extends GlobalController
         $viewData = [
             'viewData' => [
                 'reports' => $this->getReports(),
+                'assetUploadsCount' => $this->getAssetUploadsCount(),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

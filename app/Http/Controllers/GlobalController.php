@@ -54,6 +54,15 @@ class GlobalController extends Controller
             ->first();
     }
 
+    protected function getAssetUploadsCount() {
+        $assetsCount = [];
+        foreach ($this->assetTypes as $assetType) {
+            $assetsCount[$assetType] = DB::table($assetType)->where('isPublic', '=', 0)->count();
+        }
+
+        return $assetsCount;
+    }
+
     private function getUserInfo() {
         return [
             'isLoggedIn' => Auth::check(),

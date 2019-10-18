@@ -1,14 +1,22 @@
 import * as React from 'react';
 
+// Interfaces
+/* eslint-disable-next-line no-unused-vars */
+import { IAssetUploadCountInterface } from '../interfaces/IAssetUploadCountInterface';
+
 // Services
 import { TYPES } from '../Services/AssetService';
 import { URLS, UrlService } from '../Services/UrlService';
 
-export default class AdminPanelSideBar extends React.Component {
+interface IAdminPanelSideBarInterface {
+  assetUploadsCount: IAssetUploadCountInterface;
+}
+
+export default class AdminPanelSideBar extends React.Component<IAdminPanelSideBarInterface> {
     private readonly blockName = 'AdminPanelSideBar';
     private readonly urlService;
 
-    public constructor (props: {}) {
+    public constructor (props: IAdminPanelSideBarInterface) {
       super(props);
       this.urlService = new UrlService();
     }
@@ -48,14 +56,15 @@ export default class AdminPanelSideBar extends React.Component {
       const uploadsList = [];
 
       Object.keys(TYPES).map(key => {
-        const href = this.urlService.mergeBaseWithPathURL('/adminpanel/uploads/' + TYPES[key]);
+        const enumValue = TYPES[key];
+        const href = this.urlService.mergeBaseWithPathURL('/adminpanel/uploads/' + enumValue);
         uploadsList.push(
-          <li key={key} className={`nav-item ${this.urlService.navIsActive('/adminpanel/uploads/' + TYPES[key])}`}>
+          <li key={key} className={`nav-item ${this.urlService.navIsActive('/adminpanel/uploads/' + enumValue)}`}>
             <a
               className="nav-link"
               href={href}
             >
-              {key}
+              {key} <span className="badge badge-secondary float-right">{this.props.assetUploadsCount[enumValue]}</span>
             </a>
           </li>
         );

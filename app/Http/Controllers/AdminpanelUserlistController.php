@@ -26,6 +26,7 @@ class AdminpanelUserlistController extends GlobalController
         $viewData = [
             'viewData' => [
                 'userList' => $this->getUserlist(),
+                'assetUploadsCount' => $this->getAssetUploadsCount(),
             ],
             'globalData' => $this->getGlobalPageData(),
         ];

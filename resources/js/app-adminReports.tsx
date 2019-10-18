@@ -21,7 +21,7 @@ export default class AdminReports extends React.Component {
         <Wireframe totalItemsCount={data.globalData.totalItemsCount}>
           <div className="row">
             <div className="col-md-3">
-              <AdminPanelSideBar />
+              <AdminPanelSideBar assetUploadsCount={data.viewData.assetUploadsCount} />
             </div>
             <div className="col-md-9">
               <table className="table table-hover">
