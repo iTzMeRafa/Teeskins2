@@ -1,0 +1,3 @@
+[submodule "public/database"]
+	path = public/database
+	url = https://github.com/Teeskins/database
