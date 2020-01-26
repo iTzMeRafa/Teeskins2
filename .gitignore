@@ -16,3 +16,4 @@ package-lock.json
 .vscode
 /public/mix-manifest.json
 composer.lock
+tags
