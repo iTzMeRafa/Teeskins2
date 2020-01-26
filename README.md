@@ -42,6 +42,13 @@ If you are still getting errors, try following:
 * Add user group ```www-data ``` to ```/public/img ``` folder:   
 ```sudo chown -R www-data:www-data /public/img ```
 
+## Module & Submodule
+Teeskins is seperated into the code and the database module.  
+Clone both with: ```git clone --recursive https://github.com/Teeskins/Teeskins.git```  
+Clone the database (submodule) into the code repo with: ```git submodule update --init --recursive```
+
+
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
