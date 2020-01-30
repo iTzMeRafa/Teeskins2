@@ -202,8 +202,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       const tooltipContent = (
         <span>
           Assettype: <strong>{this.props.assetType}</strong> <br />
-          Downloads: <strong>{this.props.downloads + this.state.downloads}</strong> <br />
-          Likes: <strong>{this.props.likes + this.state.likes}</strong> <br />
           Upload Date: <strong>{this.props.uploadDate}</strong> <br />
           Uploaded By: <strong>{this.props.username}</strong>
         </span>
@@ -232,22 +230,22 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         : 'btn-outline-secondary';
 
       return (
-        <div className="btn-group" role="group" aria-label="controller">
+        <div className={`btn-group ${this.blockName}__bottomControls`} role="group" aria-label="controller">
           <a
             target="_blank"
             rel="noopener noreferrer"
             href={this.props.imagePath}
-            className="btn btn-outline-primary"
+            className={`btn btn-outline-primary ${this.blockName}__bottomControls--button`}
             download
             onClick={() => this.handleDownloadClick()}
           >
-            <FontAwesomeIcon icon={faDownload} />
+            <FontAwesomeIcon icon={faDownload} /> {this.props.downloads + this.state.downloads}
           </a>
           <button
-            className={`btn ${likeButtonClasses}`}
+            className={`btn ${likeButtonClasses} ${this.blockName}__bottomControls--button`}
             onClick={() => this.handleLikeClick()}
           >
-            <FontAwesomeIcon icon={faThumbsUp} />
+            <FontAwesomeIcon icon={faThumbsUp} /> {this.props.likes + this.state.likes}
           </button>
         </div>
       );

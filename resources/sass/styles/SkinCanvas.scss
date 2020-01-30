@@ -110,4 +110,11 @@ $assetWidth: 100px;
   &__dropdown-item {
     cursor: pointer;
   }
+
+  &__bottomControls {
+
+    &--button {
+      max-width: 50%;
+    }
+  }
 }
