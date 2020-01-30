@@ -12,7 +12,7 @@ class AssetController extends GlobalController
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($assetType, $sortType = 'id')
+    public function index($assetType, $sortType = 'uploadDate')
     {
         if (!in_array($assetType, $this->assetTypes)) {
             return redirect()->route('error404');
@@ -21,20 +21,51 @@ class AssetController extends GlobalController
         return view('pages/' . $assetType)->with("data", $this->getViewData($assetType, $sortType));
     }
 
+    public function fetchFirstAssets($assetType, $sortType) {
+        if (!in_array($assetType, $this->assetTypes)) {
+            return redirect()->route('error404');
+        }
+
+        $assets = DB::table($assetType)
+            ->join('users', 'users.id', '=', $assetType . '.userID')
+            ->selectRaw($assetType . '.*, users.name as username')
+            ->where($assetType.'.isPublic', '=', 1)
+            ->orderByDesc($assetType.'.'.$sortType)
+            ->orderByDesc($assetType.'.id')
+            ->limit($this->numberPerLoadage)
+            ->get();
+
+        foreach ($assets as $asset) {
+            $asset->assetType = $assetType;
+        }
+
+        return $assets;
+    }
+
     public function fetchAssetsFromDatabase($assetType, Request $request) {
         if (!in_array($assetType, $this->assetTypes)) {
             return redirect()->route('error404');
         }
 
-        $tableType = $assetType . '.' .$request->type;
-        $excludesToArray = explode(',', $request->excludes);
+        // definitions for the query
+        $tableType              = $assetType.'.'.$request->type;        // e.g skins.downloads
+        $assetTypeAll           = $assetType.'.*';                      // e.g skins.*
+        $assetTypeIsPublic      = $assetType.'.isPublic';               // e.g skins.isPublic
+        $assetTypeID            = $assetType.'.id';                     // e.g skins.id
+        $assetTypeUserID        = $assetType.'.userID';                 // e.g skins.userID
 
+        /**
+         * TODO: Rewrite the whereRaw condition. Try to prevent Raw Statements and use bindings!
+         * Uses the sql seek method for fast performance.
+         * @see https://dzone.com/articles/faster-sql-paging-jooq-using
+         */
         $assets = DB::table($assetType)
-            ->join('users', 'users.id', '=', $assetType . '.userID')
-            ->where($assetType . ".isPublic", "=", 1)
-            ->whereNotIn($assetType . '.id', $excludesToArray)
+            ->join('users', 'users.id', '=', $assetTypeUserID)
+            ->where($assetTypeIsPublic, '=', 1)
+            ->whereRaw('('.$tableType.', '.$assetTypeID.') < ("'.$request->lastAssetTypeValue.'", '.$request->lastAssetID.')')
+            ->selectRaw($assetTypeAll . ', users.name as username')
             ->orderByDesc($tableType)
-            ->selectRaw($assetType . '.*, users.name as username')
+            ->orderByDesc($assetTypeID)
             ->limit($this->numberPerLoadage)
             ->get();
 
@@ -47,15 +78,9 @@ class AssetController extends GlobalController
 
     private function getViewData($assetType, $sortType) {
 
-        // Create default Request for fetching Skins
-        $defaultSkinRequest = new Request();
-        $defaultSkinRequest->setMethod('POST');
-        $defaultSkinRequest->request->add(['excludes' => '' ]);
-        $defaultSkinRequest->request->add(['type' => $sortType]);
-
         $viewData = [
             'viewData' =>  [
-                $assetType => $this->fetchAssetsFromDatabase($assetType, $defaultSkinRequest),
+                $assetType => $this->fetchFirstAssets($assetType, $sortType),
                 'sortType' => $sortType,
                 'page' => $assetType,
             ],

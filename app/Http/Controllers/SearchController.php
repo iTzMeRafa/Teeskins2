@@ -33,7 +33,16 @@ class SearchController extends GlobalController
         return $allAssets;
     }
 
-    // TODO: Most hacky shit ever, but works for now | Does fetch the skins and count them to prevent duplicate code
+    /**
+     * Most hacky shit ever, but works for now | Does fetch the skins and count them to prevent duplicate code
+     * TODO: Needs a big rewrite. Needs to also use the sql seek method
+     * @see Controllers/AssetController/fetchAssetsFromDatabase()
+     * @param Request $request
+     * @param string $assetType
+     * @param bool $withLimit
+     * @param string $typeOfReturn
+     * @return mixed
+     */
     private function fetchAssetsByType($request, $assetType, $withLimit = true, $typeOfReturn = 'get') {
         $tableType = $assetType . '.'.$request->type;
         $excludesToArray = explode(',', $request->excludes);

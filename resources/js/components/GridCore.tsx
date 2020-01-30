@@ -193,6 +193,8 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
       const postData = new FormData();
       postData.append('excludes', this.state.excludeIDs);
       postData.append('type', this.props.sortType);
+      postData.append('lastAssetID', this.state.assets[this.state.assets.length -1].id);
+      postData.append('lastAssetTypeValue', this.state.assets[this.state.assets.length -1][this.props.sortType]);
       postData.append('queryString', this.props.queryString);
 
       axios.post(this.props.fetchURL, postData)
