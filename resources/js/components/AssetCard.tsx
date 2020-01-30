@@ -319,7 +319,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                           name={`reportReason-${this.props.id}-${this.props.locationType}`}
                           value="author"
                           autoComplete="off"
-                          checked
+                          defaultChecked={true}
                       /> Wrong Author
                     </label>
                     <label className="btn btn-outline-secondary">
