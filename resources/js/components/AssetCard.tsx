@@ -3,21 +3,30 @@ import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
 import BodySkinRenderer from './BodySkinRenderer';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faDownload, faInfoCircle, faEllipsisV, faCheck, faLock, faTrash, faSearchPlus, faFlag } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+  faCheck,
+  faDownload,
+  faEllipsisV,
+  faFlag,
+  faInfoCircle,
+  faLock,
+  faSearchPlus,
+  faThumbsUp,
+  faTrash
+} from '@fortawesome/free-solid-svg-icons';
 import Lightbox from 'react-image-lightbox';
-
 // CSS
 import 'rc-tooltip/assets/bootstrap_white.css';
 import 'react-image-lightbox/style.css';
 
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
-import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
+import {IUserInfoInterface} from '../interfaces/IUserInfoInterface';
 
 // Services
-import { UrlService, URLS } from '../Services/UrlService';
-import { TYPES } from '../Services/AssetService';
+import {URLS, UrlService} from '../Services/UrlService';
+import {TYPES} from '../Services/AssetService';
 
 interface IAssetCardProps {
     id: number;

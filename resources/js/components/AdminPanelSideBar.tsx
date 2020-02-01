@@ -13,7 +13,7 @@ interface IAdminPanelSideBarInterface {
 }
 
 export default class AdminPanelSideBar extends React.Component<IAdminPanelSideBarInterface> {
-    private readonly blockName = 'AdminPanelSideBar';
+    private readonly blockName = 'adminPanelSideBar';
     private readonly urlService;
 
     public constructor (props: IAdminPanelSideBarInterface) {

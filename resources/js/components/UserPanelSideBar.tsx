@@ -4,7 +4,7 @@ import * as React from 'react';
 import { URLS, UrlService } from '../Services/UrlService';
 
 export default class UserPanelSideBar extends React.Component {
-    private readonly blockName = 'AdminPanelSideBar';
+    private readonly blockName = 'adminPanelSideBar';
     private readonly urlService;
 
     public constructor (props: {}) {
