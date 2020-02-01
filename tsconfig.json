@@ -6,7 +6,8 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "sourceMap": false,
-    "jsx": "react"
+    "jsx": "react",
+    "experimentalDecorators": true
   },
   "include": [
     "./resources/js/**/*"

@@ -21,7 +21,9 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "transform-decorators-legacy",
+        "transform-class-properties"
     ],
     "rules": {
         "react/require-extension": "off",
