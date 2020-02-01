@@ -12,6 +12,8 @@ export enum PARTNERS {
 export enum ICONS {
   THINK_FORWARD = '/img/icons/think-forward.png',
   THINK_LEFT = '/img/icons/think-left.png',
+  MAIN_TEE = '/img/icons/mainTee.png',
+  MAIN_TEE_FLIPPED = '/img/icons/mainTeeFlipped.png',
 }
 
 export class ImageService {

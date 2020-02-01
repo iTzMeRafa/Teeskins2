@@ -9,6 +9,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Styles
+@import 'styles/toastAlert';
 @import 'styles/Advantages';
 @import 'styles/CssOverrides';
 @import 'styles/Preloader';
@@ -31,5 +32,6 @@
 @import 'styles/header';
 @import 'styles/grid';
 @import 'styles/footer';
+@import 'styles/wireframe';
 @import 'styles/content';
 @import 'styles/root';
