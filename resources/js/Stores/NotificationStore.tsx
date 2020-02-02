@@ -41,7 +41,7 @@ class NotificationStore {
     this.toasts.push(
         {
           'id': id,
-          'headline': 'Liked',
+          'headline': 'Disliked',
           'text': 'You disliked ' + assetName,
           'icon': ICONS.MAIN_TEE_FLIPPED,
           'isVisible': true,
@@ -56,7 +56,7 @@ class NotificationStore {
     this.toasts.push(
         {
           'id': id,
-          'headline': 'Liked',
+          'headline': 'Download',
           'text': 'Your download for ' + assetName + ' is starting',
           'icon': ICONS.MAIN_TEE_FLIPPED,
           'isVisible': true,
