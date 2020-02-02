@@ -29,7 +29,6 @@ export default class Wireframe extends React.Component<IWireframeProps> {
           <div className={`${this.blockName}`}>
 
               <Toast />
-
               <div className="container">
                 <ItemCounterBadge style="warning" toRight={true} itemsCount={this.props.totalItemsCount} />
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { observer, inject } from 'mobx-react';
 import axios from 'axios';
 import Tooltip from 'rc-tooltip';
 import SkinRenderer from './SkinRenderer';
@@ -16,6 +17,7 @@ import {
   faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import Lightbox from 'react-image-lightbox';
+
 // CSS
 import 'rc-tooltip/assets/bootstrap_white.css';
 import 'react-image-lightbox/style.css';
@@ -23,12 +25,14 @@ import 'react-image-lightbox/style.css';
 // Interfaces
 /* eslint-disable-next-line no-unused-vars */
 import {IUserInfoInterface} from '../interfaces/IUserInfoInterface';
+import {IStoreInterface} from "../interfaces/IStoreInterface";
 
 // Services
 import {URLS, UrlService} from '../Services/UrlService';
 import {TYPES} from '../Services/AssetService';
 
 interface IAssetCardProps {
+    stores?: IStoreInterface;
     id: number;
     name: string;
     author: string;
@@ -62,6 +66,8 @@ interface IAssetCardState {
     successfulReported: boolean;
 }
 
+@inject('stores')
+@observer
 export default class AssetCard extends React.Component<IAssetCardProps, IAssetCardState> {
     private readonly blockName = 'assetCanvas';
     private urlService: UrlService;
@@ -395,6 +401,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         url: `${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
+          this.props.stores.notificationStore.addDownloadToast(this.props.assetType+'Download'+this.props.id, this.props.name);
           this.setState({
             downloaded: true,
             downloads: this.state.downloads + 1
@@ -472,6 +479,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         url: `${this.urlService.getBaseURL()}/like/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
+          this.props.stores.notificationStore.addLikedToast(this.props.assetType+'Like'+this.props.id, this.props.name);
           this.setState({
             liked: true,
             likes: this.state.likes + 1
@@ -487,6 +495,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         url: `${this.urlService.getBaseURL()}/unlike/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
+          this.props.stores.notificationStore.addUnlikeToast(this.props.assetType+'Dislike'+this.props.id, this.props.name);
           this.setState({
             liked: false,
             likes: this.state.likes - 1

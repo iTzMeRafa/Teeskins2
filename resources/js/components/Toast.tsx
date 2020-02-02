@@ -25,22 +25,25 @@ export default class Toast extends React.Component<IToastProps> {
   }
 
   public render () {
-    return (
-        <div className={`${this.blockName} ${this.blockName}__position--${this.props.stores.notificationStore!.toastPosition}`}>
 
-          <div className={`toast ${this.blockName}__show`} role="alert" aria-live="assertive" aria-atomic="true">
-            <div className="toast-header">
-              <img src={this.urlService.mergeBaseWithPathURL(this.props.stores.notificationStore!.toastIcon)} className={`rounded mr-2 ${this.blockName}__headerImage`} alt="toast icon" />
-              <strong className="mr-auto">{this.props.stores.notificationStore!.toastHeadline}</strong>
-              <small>Just now</small>
-              <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    return (
+        <div className={`${this.blockName} ${this.blockName}__position ${this.blockName}__position--${this.props.stores.notificationStore.toastsPosition}`}>
+
+          {this.props.stores.notificationStore.toasts.map((toast) =>
+            <div className={toast.isVisible ? `${this.blockName}__show toast` : `${this.blockName}__hide toast`} role="alert" aria-live="assertive" aria-atomic="true" key={toast.id}>
+              <div className="toast-header">
+                <img src={this.urlService.mergeBaseWithPathURL(toast.icon)} className={`${this.blockName}__headerImage rounded mr-2`} alt={toast.icon} />
+                <strong className="mr-auto">{toast.headline}</strong>
+                <small className="text-muted">just now</small>
+                <button type="button" className="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="toast-body">
+                {toast.text}
+              </div>
             </div>
-            <div className="toast-body">
-              {this.props.stores.notificationStore!.toastText}
-            </div>
-          </div>
+          )}
 
         </div>
     );
