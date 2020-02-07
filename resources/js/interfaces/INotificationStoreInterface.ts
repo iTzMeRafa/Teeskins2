@@ -6,7 +6,6 @@ export interface IToastInterface {
   headline: string | JSX.Element;
   text: string | JSX.Element;
   icon: ICONS;
-
   isVisible: boolean;
 }
 

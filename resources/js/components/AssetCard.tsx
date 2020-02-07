@@ -380,7 +380,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           url: `${this.urlService.getBaseURL()}/report/${this.props.assetType}/${this.props.id}/${reportReasonVal}/${reportReasonText}`
         })
           .then(response => {
-            console.log(response.data);
            if (response.data === 'valid') {
              closeReportModalButton.click();
              this.setState({ successfulReported: true })

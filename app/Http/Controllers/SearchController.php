@@ -4,94 +4,58 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\AssetController;
 
 class SearchController extends GlobalController
 {
     private $query;
     private $sortType;
-    private $excludes;
+    private $assetController;
+
+    public function __construct()
+    {
+        $this->assetController = new AssetController();
+    }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index($query, $sortType = 'id')
+    public function index($query, $sortType = 'uploadDate')
     {
         $this->query = $query;
         $this->sortType = $sortType;
         return view('pages/search')->with('data', $this->getViewData());
     }
 
-    public function fetchAssetsFromDatabase(Request $request) {
+    public function collectFirstAssets() {
         $allAssets = collect();
 
         foreach ($this->assetTypes as $assetType) {
-            $asset = $this->fetchAssetsByType($request, $assetType);
+            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, $this->query);
             $allAssets = $allAssets->merge($asset);
         }
 
         return $allAssets;
     }
 
-    /**
-     * Most hacky shit ever, but works for now | Does fetch the skins and count them to prevent duplicate code
-     * TODO: Needs a big rewrite. Needs to also use the sql seek method
-     * @see Controllers/AssetController/fetchAssetsFromDatabase()
-     * @param Request $request
-     * @param string $assetType
-     * @param bool $withLimit
-     * @param string $typeOfReturn
-     * @return mixed
-     */
-    private function fetchAssetsByType($request, $assetType, $withLimit = true, $typeOfReturn = 'get') {
-        $tableType = $assetType . '.'.$request->type;
-        $excludesToArray = explode(',', $request->excludes);
-
-        $asset = DB::table($assetType)
-            ->join('users', 'users.id', '=', $assetType . '.userID')
-            ->where([
-                [$assetType . '.name', 'like', '%' . $request->queryString . '%'],
-                [$assetType . '.isPublic', '=', 1]
-            ])
-            ->whereNotIn($assetType . '.id', $excludesToArray)
-            ->orderByDesc($tableType)
-            ->selectRaw($assetType . '.*, users.name as username')
-            ->limit($withLimit ? $this->numberPerLoadage : 9999999999999999)
-            ->$typeOfReturn();
-
-        if ($typeOfReturn == 'get') {
-            foreach ($asset as $_asset) {
-                $_asset->assetType = $assetType;
-            }
-        }
-
-        return $asset;
-    }
-
-    private function countTotalAssets($request) {
-
-        $assetsTotalCount = 0;
+    public function collectAssets(Request $request) {
+        $allAssets = collect();
 
         foreach ($this->assetTypes as $assetType) {
-            $assetsTotalCount += $this->fetchAssetsByType($request, $assetType, false, 'count');
+            $asset = $this->assetController->fetchAssetsFromDatabase($assetType, $request);
+            $allAssets = $allAssets->merge($asset);
         }
 
-        return $assetsTotalCount;
+        return $allAssets;
     }
 
     private function getViewData() {
 
-        // Create default Request for fetching Assets
-        $defaultAssetRequest = new Request();
-        $defaultAssetRequest->setMethod('POST');
-        $defaultAssetRequest->request->add(['excludes' => '']);
-        $defaultAssetRequest->request->add(['type' => $this->sortType]);
-        $defaultAssetRequest->request->add(['queryString' => $this->query]);
-
         $viewData = [
             'viewData' =>  [
-                'assets' => $this->fetchAssetsFromDatabase($defaultAssetRequest),
-                'countAssets' => $this->countTotalAssets($defaultAssetRequest),
+                'assets' => $this->collectFirstAssets(),
                 'query' => $this->query,
                 'sortType' => $this->sortType,
                 'page' => 'search',

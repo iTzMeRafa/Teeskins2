@@ -21,17 +21,27 @@ class AssetController extends GlobalController
         return view('pages/' . $assetType)->with("data", $this->getViewData($assetType, $sortType));
     }
 
-    public function fetchFirstAssets($assetType, $sortType) {
+    public function fetchFirstAssets($assetType, $sortType, $query = '') {
         if (!in_array($assetType, $this->assetTypes)) {
             return redirect()->route('error404');
         }
 
+        // definitions for the query
+        $tableType              = $assetType.'.'.$sortType;             // e.g skins.downloads
+        $assetTypeIsPublic      = $assetType.'.isPublic';               // e.g skins.isPublic
+        $assetTypeID            = $assetType.'.id';                     // e.g skins.id
+        $assetTypeUserID        = $assetType.'.userID';                 // e.g skins.userID
+        $assetTypeName          = $assetType.'.name';                   // e.g skins.name
+
         $assets = DB::table($assetType)
-            ->join('users', 'users.id', '=', $assetType . '.userID')
+            ->join('users', 'users.id', '=', $assetTypeUserID)
             ->selectRaw($assetType . '.*, users.name as username')
-            ->where($assetType.'.isPublic', '=', 1)
-            ->orderByDesc($assetType.'.'.$sortType)
-            ->orderByDesc($assetType.'.id')
+            ->where([
+                [$assetTypeIsPublic, '=', 1],
+                [$assetTypeName, 'like', '%'.$query.'%']
+            ])
+            ->orderByDesc($tableType)
+            ->orderByDesc($assetTypeID)
             ->limit($this->numberPerLoadage)
             ->get();
 
@@ -48,11 +58,17 @@ class AssetController extends GlobalController
         }
 
         // definitions for the query
+        $seekDatas = json_decode($request->seekData, true);
+        $lastAssetTypeValue     = $seekDatas[$assetType]['value'] ?? 0; // e.g 2019-09-29 00:56:42
+        $lastAssetID            = $seekDatas[$assetType]['id'] ?? 0;    // e.g 51
+
         $tableType              = $assetType.'.'.$request->type;        // e.g skins.downloads
         $assetTypeAll           = $assetType.'.*';                      // e.g skins.*
         $assetTypeIsPublic      = $assetType.'.isPublic';               // e.g skins.isPublic
         $assetTypeID            = $assetType.'.id';                     // e.g skins.id
         $assetTypeUserID        = $assetType.'.userID';                 // e.g skins.userID
+        $assetTypeName          = $assetType.'.name';                   // e.g skins.name
+
 
         /**
          * TODO: Rewrite the whereRaw condition. Try to prevent Raw Statements and use bindings!
@@ -61,8 +77,11 @@ class AssetController extends GlobalController
          */
         $assets = DB::table($assetType)
             ->join('users', 'users.id', '=', $assetTypeUserID)
-            ->where($assetTypeIsPublic, '=', 1)
-            ->whereRaw('('.$tableType.', '.$assetTypeID.') < ("'.$request->lastAssetTypeValue.'", '.$request->lastAssetID.')')
+            ->where([
+                [$assetTypeIsPublic, '=', 1],
+                [$assetTypeName, 'like', '%'.$request->queryString.'%']
+            ])
+            ->whereRaw('('.$tableType.', '.$assetTypeID.') < ("'.$lastAssetTypeValue.'", '.$lastAssetID.')')
             ->selectRaw($assetTypeAll . ', users.name as username')
             ->orderByDesc($tableType)
             ->orderByDesc($assetTypeID)

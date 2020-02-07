@@ -9,6 +9,8 @@ import { IUserInfoInterface } from '../interfaces/IUserInfoInterface';
 
 // Services
 import { UrlService } from '../Services/UrlService';
+import { TYPES } from '../Services/AssetService';
+import { HelperService } from '../Services/HelperService';
 
 interface IGridCoreProps {
     assets: any;
@@ -28,8 +30,8 @@ interface IGridCoreProps {
 
 interface IGridCoreState {
     hideForAssetIDs: number[];
-    excludeIDs: any;
     assets: any;
+    seekData: any;
     showLoadButton: boolean;
     showLoadingSpinner: boolean;
     isMoreLoadable: boolean;
@@ -37,6 +39,7 @@ interface IGridCoreState {
 
 export default class GridCore extends React.Component<IGridCoreProps, IGridCoreState> {
     private readonly urlService: UrlService;
+    private readonly helperService: HelperService;
 
     public render () {
       return (
@@ -67,15 +70,17 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
     public constructor (props: IGridCoreProps) {
       super(props);
+      this.urlService = new UrlService();
+      this.helperService = new HelperService();
+
       this.state = {
         hideForAssetIDs: [0],
         assets: this.props.assets,
-        excludeIDs: this.props.assets.map(function (asset) { return asset.id; }),
+        seekData: this.getSeekData(this.props.assets),
         showLoadButton: this.props.showLoadButton,
         showLoadingSpinner: false,
         isMoreLoadable: true,
       };
-      this.urlService = new UrlService();
     }
 
     public componentDidMount(): void {
@@ -191,20 +196,23 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
       // Fetch Next Assets
       const postData = new FormData();
-      postData.append('excludes', this.state.excludeIDs);
       postData.append('type', this.props.sortType);
-      postData.append('lastAssetID', this.state.assets[this.state.assets.length -1].id);
-      postData.append('lastAssetTypeValue', this.state.assets[this.state.assets.length -1][this.props.sortType]);
-      postData.append('queryString', this.props.queryString);
+      postData.append('seekData', JSON.stringify(this.state.seekData));
+      postData.append('queryString', this.props.queryString || '');
 
       axios.post(this.props.fetchURL, postData)
         .then(response => {
+
+          // Set new values for seek data
+          this.setState({seekData: this.getSeekData(response.data)});
+
+          // Add new assets
           response.data.map(asset => {
             this.setState({ assets: [...this.state.assets, asset] });
           });
 
+          // Update configs
           this.setState({
-            excludeIDs: this.state.assets.map(asset => { return asset.id; }),
             showLoadButton: response.data.length !== 0 && this.props.showLoadButton,
             showLoadingSpinner: false,
             isMoreLoadable: response.data.length !== 0,
@@ -251,4 +259,21 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
 
       return className;
     }
+
+  private getSeekData(assets) {
+      const seekData = {};
+
+      Object.keys(TYPES).map(key => {
+        const assetGrouped = this.helperService.groupArrayOfObjectsByKey(assets, asset => asset.assetType);
+        const assetsFiltered = assetGrouped.get(TYPES[key]);
+        if (assetsFiltered) {
+          const lastAssetID = assetsFiltered[assetsFiltered.length -1].id;
+          const lastAssetTypeValue = assetsFiltered[assetsFiltered.length -1][this.props.sortType];
+
+          seekData[TYPES[key]] = ({id: lastAssetID, value: lastAssetTypeValue});
+        }
+      });
+
+      return seekData;
+  }
 }

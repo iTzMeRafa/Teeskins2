@@ -60,7 +60,7 @@ Route::post('/update/username/{username}', 'SettingsController@updateUsername')-
 Route::post('/update/email/{email}', 'SettingsController@updateEmail')->name('updateEmail');
 Route::post('/report/{assetType}/{assetID}/{reportReasonVal}/{reportReasonText}', 'ReportController@insertReport')->name('insertReprot');
 
-Route::post('/fetch/search', 'SearchController@fetchAssetsFromDatabase')->name('fetchSearchOffset');
+Route::post('/fetch/search', 'SearchController@collectAssets')->name('fetchSearchOffset');
 Route::post('/fetch/asset/{assetType}', 'AssetController@fetchAssetsFromDatabase')->name('assetFetch');
 
 // Fetches
