@@ -5,53 +5,44 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AssetController;
 
 class DashboardController extends GlobalController
 {
+    private $assetController;
+    private $sortType;
+
     public function __construct()
     {
         $this->middleware('auth');
+        $this->assetController = new AssetController();
     }
     
-    public function index($sortType = 'id') {
-        return view('pages/dashboard')->with('data', $this->getViewData($sortType));
+    public function index($sortType = 'uploadDate') {
+        $this->sortType = $sortType;
+        return view('pages/dashboard')->with('data', $this->getViewData());
     }
 
-    public function getUserUploads(Request $request) {
-
+    public function getFirstUserUploads() {
         $allAssets = collect();
-        $assets = [];
 
         foreach ($this->assetTypes as $assetType) {
-            $asset = $this->fetchAssetsByType($request, $assetType);
+            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, '', true, true);
             $allAssets = $allAssets->merge($asset);
         }
 
-        foreach ($allAssets as $_asset) {
-            array_push($assets, $_asset);
-        }
-
-        return $assets;
+        return $allAssets;
     }
 
-    private function fetchAssetsByType($request, $assetType) {
-        $tableType = $assetType . '.'.$request->type;
-        $excludesToArray = explode(',', $request->excludes);
+    public function getUserUploads(Request $request) {
+        $allAssets = collect();
 
-        $asset = DB::table($assetType)
-            ->join('users', 'users.id', '=', $assetType . '.userID')
-            ->where("userID", "=", Auth::user()->id)
-            ->whereNotIn($assetType . '.id', $excludesToArray)
-            ->orderByDesc($tableType)
-            ->selectRaw($assetType . '.*, users.name as username')
-            ->limit(round($this->numberPerLoadage / count($this->assetTypes))) // Fetches for each assettype and adds all, but we want a total of 10 only
-            ->get();
-
-        foreach ($asset as $_asset) {
-            $_asset->assetType = $assetType;
+        foreach ($this->assetTypes as $assetType) {
+            $asset = $this->assetController->fetchAssetsFromDatabase($assetType, $request, true);
+            $allAssets = $allAssets->merge($asset);
         }
 
-        return $asset;
+        return $allAssets;
     }
 
     private function getUserStatistics() {
@@ -73,19 +64,13 @@ class DashboardController extends GlobalController
         ];
     }
 
-    private function getViewData($sortType) {
-
-        // Create default Request for fetching Asset
-        $defaultAssetRequest = new Request();
-        $defaultAssetRequest->setMethod('POST');
-        $defaultAssetRequest->request->add(['excludes' => '' ]);
-        $defaultAssetRequest->request->add(['type' => $sortType]);
+    private function getViewData() {
 
         $viewData = [
             'viewData' => [
-                'assets' => $this->getUserUploads($defaultAssetRequest),
+                'assets' => $this->getFirstUserUploads(),
                 'statistics' => $this->getUserStatistics(),
-                'sortType' => $sortType,
+                'sortType' => $this->sortType,
                 'page' => 'dashboard',
             ],
             'globalData' => $this->getGlobalPageData(),

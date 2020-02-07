@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AssetController extends GlobalController
 {
@@ -21,7 +22,7 @@ class AssetController extends GlobalController
         return view('pages/' . $assetType)->with("data", $this->getViewData($assetType, $sortType));
     }
 
-    public function fetchFirstAssets($assetType, $sortType, $query = '') {
+    public function fetchFirstAssets($assetType, $sortType, $query = '', $fetchAllTypes = false, $byUser = false) {
         if (!in_array($assetType, $this->assetTypes)) {
             return redirect()->route('error404');
         }
@@ -38,12 +39,13 @@ class AssetController extends GlobalController
             ->selectRaw($assetType . '.*, users.name as username')
             ->where([
                 [$assetTypeIsPublic, '=', 1],
-                [$assetTypeName, 'like', '%'.$query.'%']
+                [$assetTypeName, 'like', '%'.$query.'%'],
+                !$byUser ?: ["userID", "=", Auth::user()->id]
             ])
             ->orderByDesc($tableType)
             ->orderByDesc($assetTypeID)
             ->limit(
-                empty($query)
+                !$fetchAllTypes
                     ? $this->numberPerLoadage
                     : ceil($this->numberPerLoadage / count($this->assetTypes))
             )
@@ -56,7 +58,7 @@ class AssetController extends GlobalController
         return $assets;
     }
 
-    public function fetchAssetsFromDatabase($assetType, Request $request) {
+    public function fetchAssetsFromDatabase($assetType, Request $request, $byUser = false) {
         if (!in_array($assetType, $this->assetTypes)) {
             return redirect()->route('error404');
         }
@@ -83,7 +85,8 @@ class AssetController extends GlobalController
             ->join('users', 'users.id', '=', $assetTypeUserID)
             ->where([
                 [$assetTypeIsPublic, '=', 1],
-                [$assetTypeName, 'like', '%'.$request->queryString.'%']
+                [$assetTypeName, 'like', '%'.$request->queryString.'%'],
+                !$byUser ?: ["userID", "=", Auth::user()->id]
             ])
             ->whereRaw('('.$tableType.', '.$assetTypeID.') < ("'.$lastAssetTypeValue.'", '.$lastAssetID.')')
             ->selectRaw($assetTypeAll . ', users.name as username')
