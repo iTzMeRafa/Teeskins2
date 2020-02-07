@@ -27,7 +27,7 @@ class DashboardController extends GlobalController
         $allAssets = collect();
 
         foreach ($this->assetTypes as $assetType) {
-            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, '', true, true);
+            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, '', 1, true,true);
             $allAssets = $allAssets->merge($asset);
         }
 
@@ -38,7 +38,7 @@ class DashboardController extends GlobalController
         $allAssets = collect();
 
         foreach ($this->assetTypes as $assetType) {
-            $asset = $this->assetController->fetchAssetsFromDatabase($assetType, $request, true);
+            $asset = $this->assetController->fetchAssetsFromDatabase($assetType, $request, 1, true);
             $allAssets = $allAssets->merge($asset);
         }
 

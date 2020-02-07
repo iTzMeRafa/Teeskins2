@@ -33,7 +33,7 @@ class SearchController extends GlobalController
         $allAssets = collect();
 
         foreach ($this->assetTypes as $assetType) {
-            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, $this->query, true);
+            $asset = $this->assetController->fetchFirstAssets($assetType, $this->sortType, $this->query, 1, true);
             $allAssets = $allAssets->merge($asset);
         }
 
