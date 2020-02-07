@@ -42,7 +42,11 @@ class AssetController extends GlobalController
             ])
             ->orderByDesc($tableType)
             ->orderByDesc($assetTypeID)
-            ->limit($this->numberPerLoadage)
+            ->limit(
+                empty($query)
+                    ? $this->numberPerLoadage
+                    : ceil($this->numberPerLoadage / count($this->assetTypes))
+            )
             ->get();
 
         foreach ($assets as $asset) {
@@ -85,7 +89,7 @@ class AssetController extends GlobalController
             ->selectRaw($assetTypeAll . ', users.name as username')
             ->orderByDesc($tableType)
             ->orderByDesc($assetTypeID)
-            ->limit($this->numberPerLoadage)
+            ->limit(ceil($this->numberPerLoadage / count($seekDatas)))
             ->get();
 
         foreach ($assets as $asset) {
