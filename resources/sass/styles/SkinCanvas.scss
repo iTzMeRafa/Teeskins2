@@ -38,9 +38,11 @@ $assetWidth: 100px;
   }
 
   &__outerPreview {
-    margin: 0 auto;
     overflow: hidden;
     position: relative;
+    width: 100%;
+    background: rgba($lighter-grey, 0.2);
+    padding: 20px;
   }
 
 
@@ -101,6 +103,8 @@ $assetWidth: 100px;
   &__preview {
     width: auto;
     max-width: 100%;
+    display: block;
+    margin: 0 auto;
 
     &--eyes, &--decoration, &--marking, &--feet, &--hands, &--mapres, &--gameskins, &--emoticons, &--cursors, &--particles, &--grids {
       height: 85px;
