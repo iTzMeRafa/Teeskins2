@@ -35,7 +35,7 @@ class NotificationStore {
     this.removeToast(id);
   }
 
-  public addUnlikeToast(id, assetName) {
+  public addUnlikedToast(id, assetName) {
     if (this.toasts.find(toast => toast.id === id)) return;
 
     this.toasts.push(
@@ -58,6 +58,21 @@ class NotificationStore {
           'id': id,
           'headline': 'Download',
           'text': 'Your download for ' + assetName + ' is starting',
+          'icon': ICONS.MAIN_TEE_FLIPPED,
+          'isVisible': true,
+        }
+    );
+    this.removeToast(id);
+  }
+
+  public addReportedToast(id, assetName) {
+    if (this.toasts.find(toast => toast.id === id)) return;
+
+    this.toasts.push(
+        {
+          'id': id,
+          'headline': 'Reported',
+          'text': 'Thanks for reporting ' + assetName,
           'icon': ICONS.MAIN_TEE_FLIPPED,
           'isVisible': true,
         }

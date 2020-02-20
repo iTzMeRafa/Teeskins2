@@ -131,7 +131,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
     public render () {
       return (
           <>
-            {this.renderReportAlert()}
             <div className="card">
               {this.renderHeadControl()}
 
@@ -197,22 +196,6 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
             </div>
         );
       }
-    }
-
-    //TODO: Use Toast Notifications
-    private renderReportAlert() {
-      return (
-          <div
-              className={`${this.blockName}__reportAlert alert alert-warning alert-dismissible fade show`}
-              role="alert"
-              style={this.state.successfulReported ? { display: 'block' } : { display: 'none' }}
-          >
-            <strong>Reported</strong> thank you!
-            <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-      );
     }
 
     private renderHeadControl () {
@@ -395,6 +378,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           .then(response => {
            if (response.data === 'valid') {
              closeReportModalButton.click();
+             this.props.stores.notificationStore.addReportedToast(this.props.assetType+'Report'+this.props.id, this.props.name);
              this.setState({ successfulReported: true })
            }
           }, error => {
@@ -507,7 +491,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
         url: `${this.urlService.getBaseURL()}/unlike/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
-          this.props.stores.notificationStore.addUnlikeToast(this.props.assetType+'Dislike'+this.props.id, this.props.name);
+          this.props.stores.notificationStore.addUnlikedToast(this.props.assetType+'Dislike'+this.props.id, this.props.name);
           this.setState({
             liked: false,
             likes: this.state.likes - 1
