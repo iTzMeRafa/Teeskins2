@@ -14,7 +14,8 @@ import {
   faLock,
   faSearchPlus,
   faThumbsUp,
-  faTrash
+  faTrash,
+  faTint
 } from '@fortawesome/free-solid-svg-icons';
 import Lightbox from 'react-image-lightbox';
 
@@ -198,6 +199,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       }
     }
 
+    //TODO: Use Toast Notifications
     private renderReportAlert() {
       return (
           <div
@@ -249,7 +251,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={this.props.imagePath}
+            href={`${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}/false`}
             className={`btn btn-outline-primary ${this.blockName}__bottomControls--button`}
             download
             onClick={() => this.handleDownloadClick()}
@@ -302,6 +304,17 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
                   <FontAwesomeIcon icon={faFlag} /> Report
                 </a>
               )}
+
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}/true`}
+                className={`${this.blockName}__dropdown-item dropdown-item`}
+                download
+                onClick={() => this.handleDownloadClick()}
+            >
+              <FontAwesomeIcon icon={faTint} /> Greyscale download
+            </a>
 
           </div>
         </div>
@@ -397,7 +410,7 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
 
       axios({
         method: 'post',
-        url: `${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}`
+        url: `${this.urlService.getBaseURL()}/download/increment/${this.props.assetType}/${this.props.id}`
       })
         .then(() => {
           this.props.stores.notificationStore.addDownloadToast(this.props.assetType+'Download'+this.props.id, this.props.name);

@@ -27,9 +27,10 @@ Route::get('/bodyrenderer', 'BodyRendererController@index')->name('bodyrenderer'
 Route::get('/search/{query}', 'SearchController@index')->name('search');
 Route::get('/search/{query}/{sortType}', 'SearchController@index')->name('searchSort');
 
+Route::get('/download/{assetType}/{assetID}/{greyscale}', 'DownloadsController@download')->name('download');
+
 // Asset Pages
 // -------------------------------------------------
-
 Route::get('/asset/{assetType}', 'AssetController@index')->name('asset');
 Route::get('/asset/{assetType}/{sortType}', 'AssetController@index')->name('assetSort');
 
@@ -47,7 +48,7 @@ Route::get('/error/500', 'ErrorController@error500')->name('error500');
 // Actions
 // -------------------------------------------------
 Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
-Route::post('/download/{assetType}/{assetID}', 'DownloadsController@index')->name('download');
+Route::post('/download/increment/{assetType}/{assetID}', 'DownloadsController@increment')->name('downloadIncrement');
 Route::post('/like/{assetType}/{assetID}', 'LikeController@index')->name('like');
 Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('unlike');
 Route::post('/accept/{assetType}/{assetID}', 'VisibilityAssetController@setAssetVisible')->name('setAssetVisible');
