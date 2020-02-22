@@ -114,7 +114,7 @@ export default class Upload extends React.Component<{}, IAppUploadStates> {
       return (
         <div className="alert alert-info mb-5" role="alert">
                 Here you can contribute and upload assets to Teeskins yourself. <br />
-                Once uploaded, the asset wont be visible right away. We first have to review and accept it to prevent scam and unreasonable uploads. <br />
+                Once uploaded, the asset wont be visible right away. We first have to review and accept it to prevent spam and unreasonable uploads. <br />
                 Keep in mind that only <strong>.{allowedExtensions.join(', .')}</strong> files are permissible with a max. file-size of <strong>{maxFilesizeInMB} MB</strong>.
         </div>
       );
