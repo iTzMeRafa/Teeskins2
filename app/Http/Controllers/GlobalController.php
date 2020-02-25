@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class GlobalController extends Controller
 {
     protected $numberPerLoadage = 10;
+    protected $downloadableAwaitTimeInMinutes = 1;
     protected $assetTypes = [
         'skins',
         'body',
@@ -63,6 +64,10 @@ class GlobalController extends Controller
         return $assetsCount;
     }
 
+    protected function getUserIpAddress() {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+
     private function getUserInfo() {
         return [
             'isLoggedIn' => Auth::check(),
@@ -71,6 +76,7 @@ class GlobalController extends Controller
             'username' => Auth::check() ? Auth::user()->name : null,
             'role' => Auth::check() ? Auth::user()->role : null,
             'assetLikes' => $this->getUserAssetLikes(),
+            'ip' => $this->getUserIpAddress(),
         ];
     }
 

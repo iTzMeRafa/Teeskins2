@@ -397,6 +397,12 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       })
         .then((response) => {
 
+          // IP download timer not exceeded
+          if (response.status === 299) {
+            this.props.stores.notificationStore.addDownloadLimit(this.props.assetType+'Download'+this.props.id, this.props.name);
+            return;
+          }
+
           // Set Toasts and States
           this.props.stores.notificationStore.addDownloadToast(this.props.assetType+'Download'+this.props.id, this.props.name);
           this.setState({

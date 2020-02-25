@@ -80,6 +80,21 @@ class NotificationStore {
     this.removeToast(id);
   }
 
+  public addDownloadLimit(id, assetName) {
+    if (this.toasts.find(toast => toast.id === id)) return;
+
+    this.toasts.push(
+        {
+          'id': id,
+          'headline': 'Download Limit',
+          'text': `Your download limit for ${assetName} has been reached, please wait 1 minute.`,
+          'icon': ICONS.MAIN_TEE_FLIPPED,
+          'isVisible': true,
+        }
+    );
+    this.removeToast(id);
+  }
+
   private removeToast(id) {
     setTimeout(() => {
       // Set Toast invisible for fade out animation
