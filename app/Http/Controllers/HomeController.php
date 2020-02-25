@@ -41,6 +41,7 @@ class HomeController extends GlobalController
         foreach ($this->assetTypes as $assetType) {
             $asset = $this->getTrendingAsset($assetType, 'uploadDate');
             $asset->assetType = $assetType;
+            $asset->extension = pathinfo($asset->imagePath, PATHINFO_EXTENSION);
             array_push($newestAssets, $asset);
         }
 
@@ -54,6 +55,7 @@ class HomeController extends GlobalController
         foreach ($this->assetTypes as $assetType) {
             $asset = $this->getTrendingAsset($assetType, 'downloads');
             $asset->assetType = $assetType;
+            $asset->extension = pathinfo($asset->imagePath, PATHINFO_EXTENSION);
             array_push($mostDownloadedAsset, $asset);
         }
 
@@ -67,6 +69,7 @@ class HomeController extends GlobalController
         foreach ($this->assetTypes as $assetType) {
             $asset = $this->getTrendingAsset($assetType, 'likes');
             $asset->assetType = $assetType;
+            $asset->extension = pathinfo($asset->imagePath, PATHINFO_EXTENSION);
             array_push($mostLikedAssets, $asset);
         }
 

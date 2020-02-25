@@ -404,9 +404,8 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
             downloads: this.state.downloads + 1
           });
 
-          console.log(response.data);
           //Download the response asset
-          const url = window.URL.createObjectURL(new Blob([response.data], {type: response.data.type}));
+          const url = window.URL.createObjectURL(new Blob([response.data]));
           const link = document.createElement('a');
           let downloadFileName;
 

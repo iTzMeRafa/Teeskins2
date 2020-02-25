@@ -11,10 +11,13 @@ class DownloadsController extends GlobalController
     public function download($assetType, $assetID, $greyscale) {
 
         $this->increment($assetType, $assetID);
+        return $this->downloadAsset($assetType, $assetID, $greyscale);
+    }
+
+    private function downloadAsset($assetType, $assetID, $greyscale) {
 
         $imageResult = DB::table($assetType)->where('id', '=', $assetID)->first();
         $imagePath = $imageResult->imagePath;
-        $imageName = $imageResult->name;
 
         if (filter_var($greyscale, FILTER_VALIDATE_BOOLEAN)) {
             $img = Image::make(url($imagePath))->greyscale();
