@@ -4,6 +4,7 @@ export interface Asset {
   author: string;
   id: number;
   imagePath?: string;
+  extension: string;
   name: string;
   username: string;
   uploadDate: string;

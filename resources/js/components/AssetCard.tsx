@@ -38,6 +38,7 @@ interface IAssetCardProps {
     name: string;
     author: string;
     imagePath: string;
+    extension: string;
     username: string;
     uploadDate: string;
     downloads: number;
@@ -234,10 +235,8 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={`${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}/false`}
             className={`btn btn-outline-primary ${this.blockName}__bottomControls--button`}
-            download
-            onClick={() => this.handleDownloadClick()}
+            onClick={() => this.handleDownloadClick(false)}
           >
             <FontAwesomeIcon icon={faDownload} /> {this.props.downloads + this.state.downloads}
           </a>
@@ -291,10 +290,9 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={`${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}/true`}
                 className={`${this.blockName}__dropdown-item dropdown-item`}
                 download
-                onClick={() => this.handleDownloadClick()}
+                onClick={() => this.handleDownloadClick(true)}
             >
               <FontAwesomeIcon icon={faTint} /> Greyscale download
             </a>
@@ -387,21 +385,42 @@ export default class AssetCard extends React.Component<IAssetCardProps, IAssetCa
       }
     }
 
-    private handleDownloadClick (): void {
+    private handleDownloadClick (greyscale: boolean): void {
       if (!this.props.updateDownloads) {
         return;
       }
 
       axios({
-        method: 'post',
-        url: `${this.urlService.getBaseURL()}/download/increment/${this.props.assetType}/${this.props.id}`
+        responseType: 'blob',
+        method: 'get',
+        url: `${this.urlService.getBaseURL()}/download/${this.props.assetType}/${this.props.id}/${greyscale.toString()}`
       })
-        .then(() => {
+        .then((response) => {
+
+          // Set Toasts and States
           this.props.stores.notificationStore.addDownloadToast(this.props.assetType+'Download'+this.props.id, this.props.name);
           this.setState({
             downloaded: true,
             downloads: this.state.downloads + 1
           });
+
+          console.log(response.data);
+          //Download the response asset
+          const url = window.URL.createObjectURL(new Blob([response.data], {type: response.data.type}));
+          const link = document.createElement('a');
+          let downloadFileName;
+
+          if (greyscale) {
+            downloadFileName = this.props.name + '__greyscale.' + this.props.extension;
+          } else {
+            downloadFileName = this.props.name + '.' + this.props.extension;
+          }
+
+          link.href = url;
+          link.setAttribute('download', downloadFileName);
+          document.body.appendChild(link);
+          link.click();
+
         }, (error) => {
           console.log(error);
         });

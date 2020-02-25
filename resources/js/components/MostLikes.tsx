@@ -25,6 +25,7 @@ export default class Newest extends React.Component<IMostLikesProps> {
                   name={this.props.mostLikedAsset.name}
                   author={this.props.mostLikedAsset.author}
                   imagePath={this.props.mostLikedAsset.imagePath}
+                  extension={this.props.mostLikedAsset.extension}
                   username={this.props.mostLikedAsset.username}
                   uploadDate={this.props.mostLikedAsset.uploadDate}
                   userInfo={this.props.userInfo}

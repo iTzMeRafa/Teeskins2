@@ -25,6 +25,7 @@ export default class Newest extends React.Component<IMostDownloadsProps> {
                   name={this.props.mostDownloadedAsset.name}
                   author={this.props.mostDownloadedAsset.author}
                   imagePath={this.props.mostDownloadedAsset.imagePath}
+                  extension={this.props.mostDownloadedAsset.extension}
                   username={this.props.mostDownloadedAsset.username}
                   uploadDate={this.props.mostDownloadedAsset.uploadDate}
                   userInfo={this.props.userInfo}

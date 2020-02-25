@@ -158,6 +158,7 @@ export default class GridCore extends React.Component<IGridCoreProps, IGridCoreS
               name={asset.name}
               author={asset.author}
               imagePath={asset.imagePath}
+              extension={asset.extension}
               username={asset.username}
               uploadDate={asset.uploadDate}
               userInfo={this.props.userInfo}

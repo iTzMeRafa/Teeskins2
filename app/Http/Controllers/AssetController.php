@@ -53,6 +53,7 @@ class AssetController extends GlobalController
 
         foreach ($assets as $asset) {
             $asset->assetType = $assetType;
+            $asset->extension = pathinfo($asset->imagePath, PATHINFO_EXTENSION);
         }
 
         return $assets;
@@ -101,6 +102,7 @@ class AssetController extends GlobalController
 
         foreach ($assets as $asset) {
             $asset->assetType = $assetType;
+            $asset->extension = pathinfo($asset->imagePath, PATHINFO_EXTENSION);
         }
 
         return $assets;

@@ -48,7 +48,6 @@ Route::get('/error/500', 'ErrorController@error500')->name('error500');
 // Actions
 // -------------------------------------------------
 Route::post('/upload', 'UploadController@uploadAsset')->name('uploadAsset');
-Route::post('/download/increment/{assetType}/{assetID}', 'DownloadsController@increment')->name('downloadIncrement');
 Route::post('/like/{assetType}/{assetID}', 'LikeController@index')->name('like');
 Route::post('/unlike/{assetType}/{assetID}', 'UnlikeController@index')->name('unlike');
 Route::post('/accept/{assetType}/{assetID}', 'VisibilityAssetController@setAssetVisible')->name('setAssetVisible');
